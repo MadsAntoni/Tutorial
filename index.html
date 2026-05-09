@@ -53,9 +53,29 @@
       margin: 32px auto 0;
       padding: 0 20px;
       display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .controls-top {
+      display: flex;
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
+    }
+    .region-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+    }
+    .region-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      white-space: nowrap;
+      margin-right: 2px;
     }
 
     #search {
@@ -91,6 +111,10 @@
       border-color: var(--wine);
       background: var(--wine);
       color: #fff;
+    }
+    .region-btn {
+      padding: 6px 13px;
+      font-size: .82rem;
     }
 
     /* ── Grid ───────────────────────────────────────────────────────────── */
@@ -336,11 +360,26 @@
 </header>
 
 <div class="controls">
-  <input id="search" type="text" placeholder="Search grapes…" aria-label="Search grapes" />
-  <div class="filters" role="group" aria-label="Filter by type">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="red">Red</button>
-    <button class="filter-btn" data-filter="white">White</button>
+  <div class="controls-top">
+    <input id="search" type="text" placeholder="Search grapes, flavours, regions…" aria-label="Search grapes" />
+    <div class="filters" role="group" aria-label="Filter by type">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="red">Red</button>
+      <button class="filter-btn" data-filter="white">White</button>
+    </div>
+  </div>
+  <div class="region-row">
+    <span class="region-label">Region</span>
+    <div class="filters" role="group" aria-label="Filter by region">
+      <button class="filter-btn region-btn active" data-region="all">All regions</button>
+      <button class="filter-btn region-btn" data-region="france">🇫🇷 France</button>
+      <button class="filter-btn region-btn" data-region="italy">🇮🇹 Italy</button>
+      <button class="filter-btn region-btn" data-region="spain-portugal">🇪🇸 Spain & Portugal</button>
+      <button class="filter-btn region-btn" data-region="germany-austria">🇩🇪 Germany & Austria</button>
+      <button class="filter-btn region-btn" data-region="rest-of-europe">🌍 Rest of Europe</button>
+      <button class="filter-btn region-btn" data-region="americas">🌎 Americas</button>
+      <button class="filter-btn region-btn" data-region="asia-pacific">🌏 Asia-Pacific</button>
+    </div>
   </div>
 </div>
 
@@ -5127,7 +5166,24 @@ document.addEventListener('keydown', e => {
 
 // ── Filtering & search ────────────────────────────────────────────────────────
 let activeFilter = 'all';
+let activeRegion = 'all';
 let searchTerm   = '';
+
+const REGION_KEYWORDS = {
+  'france':           ['France', 'French', 'Champagne', 'Bordeaux', 'Burgundy', 'Loire', 'Rhône', 'Alsace', 'Languedoc', 'Provence', 'Gascony', 'Armagnac', 'Cognac', 'Jura', 'Roussillon', 'Chablis', 'Beaujolais'],
+  'italy':            ['Italy', 'Italian', 'Tuscany', 'Tuscan', 'Piedmont', 'Sicily', 'Sicilian', 'Veneto', 'Friuli', 'Campania', 'Puglia', 'Umbria', 'Lombardy', 'Lazio', 'Marche', 'Abruzzo', 'Alto Adige', 'Südtirol', 'Ischia', 'Etna', 'Sardinia', 'Liguria', 'Trentino', 'Soave', 'Barolo', 'Brunello', 'Asti'],
+  'spain-portugal':   ['Spain', 'Spanish', 'Portugal', 'Portuguese', 'Rioja', 'Catalonia', 'Catalan', 'Basque', 'Galicia', 'Alentejo', 'Douro', 'Minho', 'Penedès', 'Priorat', 'Jerez', 'Ribera del Duero', 'Txakoli', 'Cava', 'Sherry', 'Vinho Verde', 'Bairrada'],
+  'germany-austria':  ['Germany', 'German', 'Austria', 'Austrian', 'Mosel', 'Rhine', 'Pfalz', 'Württemberg', 'Baden', 'Burgenland', 'Wachau', 'Styria', 'Franken', 'Rheinhessen', 'Rheingau', 'Palatinate', 'Nahe', 'Ahr', 'Mittelrhein', 'Kamptal', 'Kremstal'],
+  'rest-of-europe':   ['Romania', 'Hungary', 'Greece', 'Greek', 'Bulgaria', 'Slovenia', 'Slovenian', 'Czech', 'Ukraine', 'Moldova', 'Luxembourg', 'Switzerland', 'Swiss', 'Georgia', 'England', 'English', 'Wales', 'Sweden', 'Swedish', 'Norway', 'Scandinavia', 'Brda', 'Tokaj', 'Egri', 'Eger', 'Balaton', 'Villány', 'Dealu', 'Cotnari', 'Murfatlar'],
+  'americas':         ['USA', 'California', 'Oregon', 'Washington', 'Napa', 'Sonoma', 'Canada', 'Ontario', 'Argentina', 'Chile', 'Brazil', 'New York', 'Virginia', 'Missouri', 'Finger Lakes', 'Ohio', 'British Columbia', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'Willamette', 'Paso Robles', 'New England', 'Vermont', 'Mendoza', 'Colchagua', 'Hudson Valley'],
+  'asia-pacific':     ['Japan', 'Australia', 'New Zealand', 'China', 'Korea', 'South Korea', 'Yamanashi', 'Hokkaido', 'Nagano', 'Niigata', 'Kyushu', 'McLaren Vale', 'Barossa', 'South Australia', 'Victoria', 'King Valley', 'Hawke\'s Bay', 'Marlborough', 'Otago', 'Xinjiang', 'Shandong', 'Jeju', 'Okanagan', 'Ishikawa'],
+};
+
+function matchesRegion(g) {
+  if (activeRegion === 'all') return true;
+  const kws = REGION_KEYWORDS[activeRegion] || [];
+  return g.regions.some(r => kws.some(kw => r.name.includes(kw)));
+}
 
 function getFiltered() {
   return GRAPES.filter(g => {
@@ -5137,7 +5193,7 @@ function getFiltered() {
       g.alias.toLowerCase().includes(searchTerm) ||
       g.flavors.some(f => f.label.toLowerCase().includes(searchTerm)) ||
       g.regions.some(r => r.name.toLowerCase().includes(searchTerm));
-    return matchesType && matchesSearch;
+    return matchesType && matchesRegion(g) && matchesSearch;
   });
 }
 
@@ -5146,11 +5202,20 @@ document.getElementById('search').addEventListener('input', e => {
   renderCards(getFiltered());
 });
 
-document.querySelectorAll('.filter-btn').forEach(btn => {
+document.querySelectorAll('.filter-btn:not(.region-btn)').forEach(btn => {
   btn.addEventListener('click', () => {
-    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.filter-btn:not(.region-btn)').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     activeFilter = btn.dataset.filter;
+    renderCards(getFiltered());
+  });
+});
+
+document.querySelectorAll('.region-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeRegion = btn.dataset.region;
     renderCards(getFiltered());
   });
 });
