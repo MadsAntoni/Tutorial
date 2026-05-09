@@ -796,6 +796,578 @@ const GRAPES = [
       },
     ]
   },
+  {
+    id: "nebbiolo",
+    name: "Nebbiolo",
+    alias: "The Tar & Roses Grape",
+    type: "red",
+    icon: "🏔️",
+    color: "#6a1a2a",
+    bgLight: "#f5e4e8",
+    summary: "Piedmont's noble grape produces some of Italy's longest-lived reds. Ferociously tannic and acidic in youth, it reveals extraordinary complexity — roses, tar, and truffles — with decades of ageing.",
+    flavors: [
+      { icon: "🌹", label: "Dried Rose" },
+      { icon: "⚫", label: "Tar" },
+      { icon: "🍒", label: "Sour Cherry" },
+      { icon: "🍄", label: "Truffle" },
+      { icon: "🪵", label: "Tobacco" },
+      { icon: "🧱", label: "Iron & Rust" },
+    ],
+    regions: [
+      {
+        flag: "🇮🇹",
+        name: "Barolo, Piedmont, Italy",
+        effect: "The 'King of Italian Wines'. Grown on Langhe hills, Barolo Nebbiolo is massively structured — 3+ years minimum ageing required by law. Serralunga and La Morra communes produce different styles: the former austere and powerful, the latter more elegant and aromatic.",
+        notes: ["Dried Rose", "Tar", "Leather", "Austere Tannins"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Barbaresco, Piedmont, Italy",
+        effect: "Often called Barolo's more approachable sibling. Still powerful, but slightly earlier drinking due to shorter mandatory ageing. The warmer Barbaresco zone gives a touch more fruit richness and aromatic lift.",
+        notes: ["Cherry", "Violets", "Herbs", "Silkier Texture"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Valtellina, Lombardy, Italy",
+        effect: "Nebbiolo (called Chiavennasca here) grown on vertiginous alpine terraces. High altitude makes lighter, more perfumed wines with vibrant acidity and less tannin grip than Barolo — more elegant and approachable.",
+        notes: ["Red Cherry", "Alpine Herbs", "Floral Lift", "Mineral Freshness"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Santa Barbara, California",
+        effect: "A handful of California producers craft New World Nebbiolo. Warmer climate softens the savage tannins and adds riper plum fruit, making the variety accessible much earlier — but sacrificing some complexity.",
+        notes: ["Plum", "Rose Petal", "Softer Tannins", "Warm Spice"]
+      },
+    ]
+  },
+  {
+    id: "malbec",
+    name: "Malbec",
+    alias: "Argentina's Crown Jewel",
+    type: "red",
+    icon: "🗻",
+    color: "#4a1a3a",
+    bgLight: "#ede0f0",
+    summary: "Once a minor Bordeaux blending grape, Malbec found its true home in the high-altitude vineyards of Argentina's Mendoza, where it produces some of the world's most hedonistic, plush reds.",
+    flavors: [
+      { icon: "🫐", label: "Blueberry" },
+      { icon: "🍇", label: "Black Plum" },
+      { icon: "🍫", label: "Dark Chocolate" },
+      { icon: "🌹", label: "Violet" },
+      { icon: "☕", label: "Mocha" },
+      { icon: "🌶️", label: "Sweet Spice" },
+    ],
+    regions: [
+      {
+        flag: "🇦🇷",
+        name: "Mendoza (Luján de Cuyo), Argentina",
+        effect: "The heartland. At 900m altitude, intense UV light thickens grape skins, producing deep colour and powerful tannins. The style is plush, full-bodied, with velvety texture and vibrant violet and blueberry character. New French oak adds chocolate and mocha notes.",
+        notes: ["Blueberry", "Violet", "Mocha", "Velvety Tannins"]
+      },
+      {
+        flag: "🇦🇷",
+        name: "Mendoza (Uco Valley), Argentina",
+        effect: "Higher altitude (1,000–1,500m) means cooler temperatures and greater diurnal swings. Uco Valley Malbec is more restrained, structured, and mineral than Luján — better acidity, more savoury complexity, and exceptional longevity.",
+        notes: ["Dark Cherry", "Graphite", "Herbs", "Tighter Structure"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Cahors, South-West France",
+        effect: "The original home, where Malbec is called Côt or Auxerrois. Cahors ('Black Wine') is the Old World counterpoint — more austere, tannic, and earthy than Argentine Malbec, with dried plum, tobacco, and iron notes. Needs more time to open.",
+        notes: ["Dried Plum", "Tobacco", "Earthy Iron", "Firm Tannins"]
+      },
+      {
+        flag: "🇿🇦",
+        name: "Stellenbosch, South Africa",
+        effect: "A newcomer producing impressive Malbec. Warm days with cool Atlantic breezes give a style that splits the difference between Mendoza and Cahors — ripe dark fruit with good freshness and a savoury edge.",
+        notes: ["Blackberry", "Dark Spice", "Leather", "Fresh Finish"]
+      },
+    ]
+  },
+  {
+    id: "zinfandel",
+    name: "Zinfandel / Primitivo",
+    alias: "California's Own Red",
+    type: "red",
+    icon: "🔥",
+    color: "#8a2010",
+    bgLight: "#f8e4e0",
+    summary: "DNA-identical to Italy's Primitivo and Croatia's Tribidrag, Zinfandel became California's signature red. Known for jammy, high-alcohol wines bursting with brambly fruit and spice.",
+    flavors: [
+      { icon: "🫐", label: "Blackberry Jam" },
+      { icon: "🍓", label: "Raspberry" },
+      { icon: "🌶️", label: "Black Pepper" },
+      { icon: "🍫", label: "Dark Chocolate" },
+      { icon: "🫙", label: "Anise" },
+      { icon: "🥃", label: "Bourbon Oak" },
+    ],
+    regions: [
+      {
+        flag: "🇺🇸",
+        name: "Dry Creek Valley, Sonoma, California",
+        effect: "The benchmark for Old Vine California Zinfandel. Warm days and cool nights from Pacific fog create wines of concentration and balance. Brambly blackberry, pepper, and vanilla are signature; old vines add complexity and restraint.",
+        notes: ["Blackberry", "Pepper", "Vanilla", "Earthy Depth"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Lodi, California",
+        effect: "Sacramento Delta breezes cool the valley floor. Lodi is the spiritual home of some of California's oldest Zinfandel vines (100+ years). The style is generous and fruit-forward — jammy, bold, and accessible — at excellent value.",
+        notes: ["Plum Jam", "Spice", "Mocha", "Lushy Body"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Puglia (Primitivo di Manduria), Italy",
+        effect: "As Primitivo, the same grape flourishes in southern Italy's blazing heat. The Italian style tends to be darker, more brooding, with dried fruit, fig, and tobacco notes. Lower yields and bush-vine growing add intensity.",
+        notes: ["Dried Fig", "Dark Plum", "Tobacco", "Rustically Rich"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Amador County, Sierra Foothills, California",
+        effect: "High-altitude Foothill Zinfandel shows more structure and earthiness than coastal examples. The wild, mountainous terrain gives a rustic, mineral edge alongside the characteristic jammy fruit.",
+        notes: ["Brambly Berry", "Wild Herbs", "Iron Earth", "High Alcohol Warmth"]
+      },
+    ]
+  },
+  {
+    id: "cabernet-franc",
+    name: "Cabernet Franc",
+    alias: "The Parent Grape",
+    type: "red",
+    icon: "🌱",
+    color: "#5a2030",
+    bgLight: "#f0e4e8",
+    summary: "One of the parents of Cabernet Sauvignon and Merlot, Cab Franc shines as a standalone in the Loire Valley. It offers a cooler, more aromatic, and more food-friendly style than its famous offspring.",
+    flavors: [
+      { icon: "🫑", label: "Green Bell Pepper" },
+      { icon: "🌿", label: "Fresh Herbs" },
+      { icon: "🍓", label: "Raspberry" },
+      { icon: "🌹", label: "Violet" },
+      { icon: "🪨", label: "Graphite" },
+      { icon: "🧱", label: "Pencil Shavings" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Chinon & Bourgueil, Loire, France",
+        effect: "The spiritual home. Loire's cool climate keeps Cab Franc aromatic and fresh, rarely exceeding 13% alcohol. Chinon's tuffeau limestone gives a chalky mineral backbone; Bourgueil's gravel and sand a lighter, more perfumed expression. Hallmark: green herbs and red fruit.",
+        notes: ["Raspberry", "Graphite", "Violet", "Herbal Freshness"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Bordeaux (Right Bank), France",
+        effect: "As a blending partner to Merlot in Saint-Émilion and Pomerol, Cab Franc adds perfume, freshness, and structure. In cooler vintages it adds herbaceous complexity; in warm years, it contributes violet florals and plum depth. Cheval Blanc is famously Cab Franc-dominant.",
+        notes: ["Plum", "Cedar", "Floral Lift", "Structural Support"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Friuli-Venezia Giulia, Italy",
+        effect: "Northeast Italy produces Cab Franc that blends Italian earthiness with Loire-like freshness. Often a single variety, it shows red cherry, herbs, and a savoury, iron-mineral finish — less tannic than Bordeaux-style examples.",
+        notes: ["Sour Cherry", "Smoked Herbs", "Earth", "Medium Body"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Long Island & Virginia, USA",
+        effect: "East Coast USA has found Cab Franc particularly suited to its cooler, humid climate. Virginia and Long Island produce some of the USA's most interesting examples: elegant, herbaceous, and Bordeaux-like without the weight of California Cabernet.",
+        notes: ["Red Fruit", "Tobacco", "Herbs", "Structured & Refined"]
+      },
+    ]
+  },
+  {
+    id: "mourvedre",
+    name: "Mourvèdre / Monastrell",
+    alias: "The Dark & Brooding One",
+    type: "red",
+    icon: "🌑",
+    color: "#3a1230",
+    bgLight: "#ede0ec",
+    summary: "One of the most heat-hungry varieties, Mourvèdre needs long, hot summers to ripen fully. It delivers dark, meaty, gamey wines that age magnificently and bring backbone to famous blends.",
+    flavors: [
+      { icon: "🫐", label: "Blackberry" },
+      { icon: "🥩", label: "Game & Meat" },
+      { icon: "🫙", label: "Black Olive" },
+      { icon: "🌿", label: "Provençal Herbs" },
+      { icon: "🪵", label: "Leather" },
+      { icon: "🦪", label: "Earthy Funk" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Bandol, Provence, France",
+        effect: "Bandol is Mourvèdre's greatest expression. Minimum 50% Mourvèdre required by law; the best producers use 80–100%. The result is powerful, structured, and very age-worthy — gamey, dark-fruited, and deeply complex. Needs 5–10+ years to show its best.",
+        notes: ["Blackberry", "Game", "Herbs de Provence", "Iron Tannins"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Châteauneuf-du-Pape, Rhône, France",
+        effect: "As the 'M' in the GSM blend (Grenache-Syrah-Mourvèdre), Mourvèdre adds structure, dark fruit, and aged complexity. It anchors blends that might otherwise be too soft, contributing a meaty, earthy spine.",
+        notes: ["Dark Plum", "Leather", "Earthy", "Structural Depth"]
+      },
+      {
+        flag: "🇪🇸",
+        name: "Alicante & Jumilla, Spain",
+        effect: "As Monastrell, Spain's version of this grape dominates the hot southeast. Spanish styles tend to be darker, more powerful, and more fruit-forward than French Mourvèdre — dense, inky, with cocoa and dark berry notes at astonishing value.",
+        notes: ["Inky Dark Fruit", "Cocoa", "Violet", "Dense & Rich"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "McLaren Vale & Barossa, Australia",
+        effect: "Mataro (the Australian name) thrives in South Australia's heat. Old bush vines produce extraordinarily concentrated wines with dark plum, chocolate, and exotic spice. Often blended in the Rhône style but also bottled as a single variety.",
+        notes: ["Dark Plum", "Chocolate", "Exotic Spice", "Old Vine Richness"]
+      },
+    ]
+  },
+  {
+    id: "viognier",
+    name: "Viognier",
+    alias: "The Perfume Grape",
+    type: "white",
+    icon: "🌸",
+    color: "#8a6020",
+    bgLight: "#fef0d8",
+    summary: "Viognier is the most dramatically aromatic white grape — heady with apricot, peach blossom, and violet. Once nearly extinct, it has staged a global comeback, thriving from the northern Rhône to California and Australia.",
+    flavors: [
+      { icon: "🍑", label: "Apricot" },
+      { icon: "🌺", label: "Peach Blossom" },
+      { icon: "💐", label: "Violet" },
+      { icon: "🥭", label: "Mango" },
+      { icon: "🫚", label: "Honeysuckle" },
+      { icon: "🧈", label: "Rich Texture" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Condrieu, Northern Rhône, France",
+        effect: "The original and most revered. Grown on steep granite terraces above the Rhône river, Condrieu Viognier is the benchmark: intensely perfumed, full-bodied, dry but with a seductive richness. It is also the only permitted white in red Côte-Rôtie blends.",
+        notes: ["Fresh Apricot", "Violet", "Peach Skin", "Stony Granite"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Languedoc-Roussillon, France",
+        effect: "The vast Languedoc grows Viognier in warmer, flatter conditions. The style is richer and more exotic — tropical fruit and floral notes dominate, often with a slightly oily texture. Good quality at accessible prices.",
+        notes: ["Tropical Fruit", "Jasmine", "Oily Texture", "Warm Spice"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Central Coast, California",
+        effect: "California's Viognier leans into opulence: full-bodied, high alcohol, heady floral aromas, and a creamy, almost glycerol richness. Oak ageing is common, adding a buttery, toasty dimension that distinguishes it from the Rhône original.",
+        notes: ["Ripe Peach", "Honeysuckle", "Vanilla Oak", "Lush & Full"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Eden Valley & Yarra Valley, Australia",
+        effect: "Australian Viognier ranges from intensely tropical (warm regions) to more restrained and floral (cooler Eden/Yarra). It is also widely used as a co-ferment with Shiraz, where it adds perfume and stabilises the red wine's colour.",
+        notes: ["Peach", "Ginger Flower", "Apricot Jam", "Soft Acidity"]
+      },
+    ]
+  },
+  {
+    id: "chenin-blanc",
+    name: "Chenin Blanc",
+    alias: "The Versatile Master",
+    type: "white",
+    icon: "🍯",
+    color: "#7a7010",
+    bgLight: "#fafadc",
+    summary: "No grape spans as wide a stylistic range as Chenin Blanc — from bone-dry to lusciously botrytised sweet, still or sparkling. Its defining feature is electric acidity that gives wines astonishing longevity.",
+    flavors: [
+      { icon: "🍎", label: "Green Apple" },
+      { icon: "🍯", label: "Honey" },
+      { icon: "🫐", label: "Quince" },
+      { icon: "🧀", label: "Lanolin & Wax" },
+      { icon: "🌼", label: "Chamomile" },
+      { icon: "🍋", label: "Lemon Curd" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Vouvray & Savennières, Loire, France",
+        effect: "The spiritual home. Cool Loire temperatures and tuffeau limestone soils create wines of razor acidity and extraordinary complexity. Savennières is always dry and austere; Vouvray ranges from dry (sec) to nobly sweet (moelleux). Both age for decades.",
+        notes: ["Green Apple", "Chalk", "Quince", "Electric Acidity"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Coteaux du Layon, Loire, France",
+        effect: "The Loire's botrytis zone. Noble rot concentrates Chenin into luscious sweet wines that rival Sauternes. Honey, apricot, saffron, and dried pineapple — yet the ripping acidity keeps them from cloying. They can last 50+ years.",
+        notes: ["Honey", "Apricot", "Saffron", "Balancing Acidity"]
+      },
+      {
+        flag: "🇿🇦",
+        name: "Stellenbosch & Swartland, South Africa",
+        effect: "South Africa is now the world's most important Chenin Blanc producer by volume — and quality. Old-vine bush vines yield wines of extraordinary complexity, from fruit-driven and fresh to rich, waxy, and oxidative. Swartland's dry-farmed chenin is particularly exciting.",
+        notes: ["Ripe Pear", "Beeswax", "Guava", "Creamy Texture"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Clarksburg, California",
+        effect: "The Sacramento Delta's cool breezes preserve Chenin's natural freshness. California Chenin is typically made in a dry, fruit-forward, early-drinking style — light, crisp, and aromatic, without the Loire's mineral austerity.",
+        notes: ["White Peach", "Melon", "Floral", "Off-Dry Freshness"]
+      },
+    ]
+  },
+  {
+    id: "albarino",
+    name: "Albariño / Alvarinho",
+    alias: "The Atlantic White",
+    type: "white",
+    icon: "🌊",
+    color: "#2a7a60",
+    bgLight: "#daf5ec",
+    summary: "Grown on the rain-lashed Atlantic coasts of northwest Spain and northern Portugal, Albariño is one of Europe's most exciting whites — intensely aromatic, saline, and refreshing with natural high acidity.",
+    flavors: [
+      { icon: "🍋", label: "Lemon & Lime" },
+      { icon: "🍑", label: "White Peach" },
+      { icon: "🌺", label: "Orange Blossom" },
+      { icon: "🫙", label: "Saline Minerality" },
+      { icon: "🍈", label: "Grapefruit" },
+      { icon: "🌿", label: "Fresh Herbs" },
+    ],
+    regions: [
+      {
+        flag: "🇪🇸",
+        name: "Rías Baixas, Galicia, Spain",
+        effect: "The Atlantic heartland. Ocean influence and heavy rainfall produce wines of remarkable aromatic intensity and bracing acidity. Granite soils lend a stony minerality and saline quality that pairs perfectly with the region's seafood. The standard for the variety.",
+        notes: ["Citrus Zest", "Stone Fruit", "Saline Minerality", "Vibrant Acidity"]
+      },
+      {
+        flag: "🇵🇹",
+        name: "Vinho Verde, Portugal",
+        effect: "As Alvarinho (or blended with Loureiro and Trajadura), it forms the backbone of Vinho Verde. The Portuguese style is lighter, spritzier, and lower in alcohol — perfect summer drinking. Single-variety Alvarinho from Monção & Melgaço is more serious and concentrated.",
+        notes: ["Lime", "Melon", "Light Spritz", "Delicate Floral"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Margaret River & Eden Valley, Australia",
+        effect: "Australia's Albariño plantings are young but promising. The variety's natural acidity suits cooler Australian regions. Early examples show tropical fruit alongside characteristic citrus and a briny, coastal edge — especially near the sea.",
+        notes: ["Tropical Citrus", "Peach", "Fresh Herbs", "Zesty Finish"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Santa Barbara & Oregon, USA",
+        effect: "West Coast American Albariño tends to be riper and more fruit-forward than the Spanish original, with a more pronounced peach and apricot character alongside citrus. Still maintains the trademark freshness that defines the variety.",
+        notes: ["Peach", "Tangerine", "Light Herbs", "Lively Acidity"]
+      },
+    ]
+  },
+  {
+    id: "pinot-gris",
+    name: "Pinot Gris / Pinot Grigio",
+    alias: "The Shape-Shifter",
+    type: "white",
+    icon: "🌙",
+    color: "#6a6a80",
+    bgLight: "#eeeef8",
+    summary: "A colour mutation of Pinot Noir, this grape produces wildly contrasting styles: from the crisp, neutral, mass-market Italian Pinot Grigio to the rich, spicy, amber-tinged Alsace Pinot Gris. Same grape, opposite ends of the wine spectrum.",
+    flavors: [
+      { icon: "🍐", label: "Pear" },
+      { icon: "🍑", label: "White Peach" },
+      { icon: "🫚", label: "Honey" },
+      { icon: "🌰", label: "Hazelnut" },
+      { icon: "🌶️", label: "Spice" },
+      { icon: "🧁", label: "Brioche" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Alsace, France",
+        effect: "Alsatian Pinot Gris is the most complex and age-worthy expression. Rich, full-bodied, and often off-dry to sweet (Vendange Tardive), it shows honeyed peach, ginger spice, and a smoky, waxy richness. Grapes are harvested late for maximum concentration.",
+        notes: ["Honeyed Peach", "Ginger", "Beeswax", "Spiced Richness"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Friuli & Alto Adige, Italy",
+        effect: "Northern Italy produces the most serious Italian Pinot Grigio — a world apart from the thin commercial versions. Friulan examples have body, texture, and complexity: pear, almond, and a distinctive coppery hue from brief skin contact.",
+        notes: ["Pear", "Almond", "Copper Notes", "Textured Body"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Veneto & Delle Venezie (Pinot Grigio DOC), Italy",
+        effect: "The commercial benchmark: light, dry, neutral, and high-volume. Picked early for crisp acidity and minimal colour. Fresh lemon, melon, and a clean finish — designed for early drinking and universal appeal. Not complex, but reliably refreshing.",
+        notes: ["Lemon", "Melon", "Light & Neutral", "Clean Finish"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Willamette Valley, Oregon",
+        effect: "Oregon's cool climate produces Pinot Gris with a European sensibility — more texture and spice than Italy, less sweetness than Alsace. The style is dry and food-friendly, with stone fruit, subtle spice, and a lingering mineral finish.",
+        notes: ["Nectarine", "Citrus", "Subtle Spice", "Clean Minerality"]
+      },
+    ]
+  },
+  {
+    id: "gruner-veltliner",
+    name: "Grüner Veltliner",
+    alias: "Austria's Pride",
+    type: "white",
+    icon: "🏔️",
+    color: "#4a7a40",
+    bgLight: "#e0f0e0",
+    summary: "Austria's signature white grape is one of the world's most distinctive — bone-dry, with a defining white pepper spice, high acidity, and remarkable versatility from light and crisp to grand cru-level complexity.",
+    flavors: [
+      { icon: "🌶️", label: "White Pepper" },
+      { icon: "🥦", label: "White Vegetables" },
+      { icon: "🍋", label: "Citrus Zest" },
+      { icon: "🌿", label: "Herbs" },
+      { icon: "🪨", label: "Mineral Spine" },
+      { icon: "🍐", label: "Pear" },
+    ],
+    regions: [
+      {
+        flag: "🇦🇹",
+        name: "Wachau & Kremstal, Austria",
+        effect: "The pinnacle of Grüner Veltliner. Steep terraced vineyards on löss and primary rock soils above the Danube produce the Smaragd category — rich, powerful, and age-worthy. White pepper, mineral tension, and a silky texture; rivals the world's great whites.",
+        notes: ["White Pepper", "Minerals", "Stone Fruit", "Persistent Finish"]
+      },
+      {
+        flag: "🇦🇹",
+        name: "Kamptal & Weinviertel, Austria",
+        effect: "Kamptal's löss and crystalline rock soils produce more elegant Grüner Veltliner. Weinviertel, Austria's largest wine region, is the source of lighter, fresh, everyday Grüner: herbaceous, peppery, and perfect with food. DAC appellation protects the style.",
+        notes: ["Lemon Herb", "White Pepper", "Light Body", "Crisp Acidity"]
+      },
+      {
+        flag: "🇨🇿",
+        name: "Moravia, Czech Republic",
+        effect: "Across the border, Czech Grüner (Veltlínské zelené) is lighter and more approachable, with fresh citrus and gentle pepper notes. Less complexity than Austrian grands crus, but excellent everyday drinking and strong national identity.",
+        notes: ["Lemon", "Pepper", "Light Herbs", "Easy-Drinking"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "New York State & California, USA",
+        effect: "A small but growing American footprint. New York's Finger Lakes region suits the variety's cool-climate preferences, producing fresh, peppery Grüner with good acidity. California examples tend to be riper and more tropical, losing some of the signature pepper bite.",
+        notes: ["Citrus", "Mild Pepper", "Stone Fruit", "Fresh & Clean"]
+      },
+    ]
+  },
+  {
+    id: "furmint",
+    name: "Furmint",
+    alias: "Tokaj's Liquid Gold",
+    type: "white",
+    icon: "👑",
+    color: "#9a7a10",
+    bgLight: "#fef8d8",
+    summary: "Hungary's most important white grape and the primary driver of the legendary Tokaji Aszú sweet wines. Naturally high in acidity and susceptible to noble rot, Furmint also produces remarkable dry wines of laser precision and mineral complexity.",
+    flavors: [
+      { icon: "🍋", label: "Lemon & Lime" },
+      { icon: "🍑", label: "Apricot" },
+      { icon: "🍯", label: "Honey" },
+      { icon: "🫚", label: "Beeswax" },
+      { icon: "🪨", label: "Volcanic Mineral" },
+      { icon: "🌸", label: "Dried Apricot (sweet)" },
+    ],
+    regions: [
+      {
+        flag: "🇭🇺",
+        name: "Tokaj-Hegyalja, Hungary",
+        effect: "The world-famous volcanic hillsides (rhyolite tuff and andesite) at the confluence of the Bodrog and Tisza rivers create Hungary's greatest wine region. Autumn mists encourage Botrytis cinerea (noble rot), which shrivels berries into 'aszú' — intensely sweet, botrytised raisins. These are handpicked berry by berry and added to dry wine base, measured in 'puttonyos' (3–6, or the ultra-rare Eszencia). The result is one of the world's most complex sweet wines: honey, apricot, saffron, and volcanic minerality with extraordinary acidity that will age 50–100 years.",
+        notes: ["Honey", "Apricot Jam", "Saffron", "Volcanic Mineral", "Electric Acidity"]
+      },
+      {
+        flag: "🇭🇺",
+        name: "Tokaj (Dry Furmint), Hungary",
+        effect: "The dry revolution: modern Hungarian producers now bottle Furmint without any residual sugar, revealing a grape of extraordinary precision. Bone-dry Furmint from single vineyards shows intense lemon-lime citrus, white pepper, and a thrillingly mineral, volcanic-stone character. These rival fine white Burgundy in complexity.",
+        notes: ["Citrus Zest", "White Pepper", "Flint", "Saline Mineral"]
+      },
+      {
+        flag: "🇦🇹",
+        name: "Rust, Burgenland, Austria",
+        effect: "Austrian Furmint thrives around Lake Neusiedlersee, where mists from the lake also encourage botrytis. The Ruster Ausbruch style is Austria's answer to Tokaji — similarly complex and sweet but with a slightly different limestone-influenced mineral character.",
+        notes: ["Orange Zest", "Candied Apricot", "Mineral Tang", "Luscious Body"]
+      },
+      {
+        flag: "🇸🇰",
+        name: "Tokajská, Slovakia",
+        effect: "Slovakia's Tokaj region shares the same volcanic geology and traditions as Hungary — it was once a single historic wine zone before borders were redrawn. Slovak Tokaj wines are made in the same aszú tradition and offer very similar profiles, often at lower prices.",
+        notes: ["Honey", "Dried Stone Fruit", "Volcanic Earth", "Rich Sweetness"]
+      },
+    ]
+  },
+  {
+    id: "kadarka",
+    name: "Kadarka",
+    alias: "Hungary's Ancient Red",
+    type: "red",
+    icon: "🏰",
+    color: "#7a2818",
+    bgLight: "#f8e4dc",
+    summary: "Hungary's most important indigenous red grape was once planted across the entire Carpathian Basin. Thin-skinned, aromatic, and spicy, Kadarka fell out of fashion but is now being revived by dedicated producers as a uniquely Hungarian treasure.",
+    flavors: [
+      { icon: "🍒", label: "Sour Cherry" },
+      { icon: "🌶️", label: "Paprika Spice" },
+      { icon: "🌹", label: "Rose Hip" },
+      { icon: "🫙", label: "Dried Herbs" },
+      { icon: "🧱", label: "Earthy Funk" },
+      { icon: "🍓", label: "Raspberry" },
+    ],
+    regions: [
+      {
+        flag: "🇭🇺",
+        name: "Szekszárd, Hungary",
+        effect: "The loess-covered hills of Szekszárd are considered Kadarka's finest home. Here it produces elegant, medium-bodied reds with a distinctive paprika-like spice, sour cherry, and an earthy, rustic charm. It is also the key ingredient in the traditional 'Bikavér' (Bull's Blood) blend.",
+        notes: ["Sour Cherry", "Paprika", "Earthy Spice", "Light Tannins"]
+      },
+      {
+        flag: "🇭🇺",
+        name: "Eger (Egri Bikavér), Hungary",
+        effect: "Eger's famous 'Egri Bikavér' (Bull's Blood of Eger) is Hungary's most iconic red blend, with Kadarka as a traditional component alongside Kékfrankos and other varieties. The volcanic soils of the Bükk foothills add a distinctive mineral, almost smoky character to the blend.",
+        notes: ["Dark Cherry", "Pepper", "Volcanic Earth", "Medium Body"]
+      },
+      {
+        flag: "🇷🇸",
+        name: "Vojvodina, Serbia",
+        effect: "Serbia (and wider ex-Yugoslavia) was historically a major Kadarka region. Serbian Kadarka tends to be darker and more tannic than Hungarian styles, reflecting slightly different clonal selections and winemaking traditions. It retains the characteristic spice and earthy red fruit.",
+        notes: ["Dark Berry", "Warm Spice", "Rustic Earth", "Firm Structure"]
+      },
+      {
+        flag: "🇧🇬",
+        name: "Thrace & Danubian Plain, Bulgaria",
+        effect: "As Gamza, Kadarka is one of Bulgaria's traditional red grapes. Bulgarian versions are typically light-coloured, high in acidity, and cherry-fresh — often vinified simply for early drinking and local consumption rather than serious ageing.",
+        notes: ["Cherry", "Red Berry", "Light Body", "Refreshing Acidity"]
+      },
+    ]
+  },
+  {
+    id: "kekfrankos",
+    name: "Kékfrankos / Blaufränkisch",
+    alias: "The Blue Frank",
+    type: "red",
+    icon: "🔵",
+    color: "#2a2a7a",
+    bgLight: "#e0e0f8",
+    summary: "Known as Blaufränkisch in Austria and Germany, Kékfrankos in Hungary, and Lemberger in Washington State — this versatile central European red delivers dark fruit, peppery spice, and firm acidity, with an ability to reflect terroir as expressively as Pinot Noir.",
+    flavors: [
+      { icon: "🫐", label: "Dark Cherry" },
+      { icon: "🌶️", label: "Black Pepper" },
+      { icon: "🫐", label: "Blueberry" },
+      { icon: "🍫", label: "Dark Chocolate" },
+      { icon: "🪨", label: "Iron Mineral" },
+      { icon: "🌿", label: "Forest Herbs" },
+    ],
+    regions: [
+      {
+        flag: "🇭🇺",
+        name: "Eger & Mátra, Hungary",
+        effect: "Kékfrankos is the backbone of Egri Bikavér (Bull's Blood of Eger). On Eger's volcanic tuff soils, it delivers dark cherry, robust pepper, and a distinctive iron-mineral quality. A top-level single-vineyard Eger Kékfrankos can rival serious Burgundy in its terroir transparency.",
+        notes: ["Dark Cherry", "Iron", "Cracked Pepper", "Volcanic Mineral"]
+      },
+      {
+        flag: "🇦🇹",
+        name: "Burgenland (Mittelburgenland), Austria",
+        effect: "Mittelburgenland is Austria's 'Blaufränkischland' — the grape's spiritual home as Blaufränkisch. Deep, iron-rich soils produce wines of extraordinary depth: dark-fruited, peppery, and structured, with the best rivalling the great reds of the world. Top names like Moric have achieved global recognition.",
+        notes: ["Blackberry", "Pepper Spice", "Graphite", "Age-Worthy Structure"]
+      },
+      {
+        flag: "🇩🇪",
+        name: "Württemberg, Germany",
+        effect: "As Lemberger (or Blaufränkisch), Germany's Württemberg produces a slightly lighter, more elegant style. Red cherry, fresh herbs, and moderate tannins make it approachable young but still food-friendly and complex — typical German restraint applied to a powerful variety.",
+        notes: ["Red Cherry", "Herbs", "Mild Pepper", "Medium Structure"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Washington State, USA",
+        effect: "Washington's Lemberger (as it's called there) is one of the state's hidden gems. Columbia Valley heat creates a fuller, darker style than European counterparts, with ripe dark fruit and a signature black pepper kick. Small production keeps it off most radars, but quality is high.",
+        notes: ["Dark Plum", "Black Pepper", "Mocha", "Full-Bodied Warmth"]
+      },
+    ]
+  },
 ];
 
 // ── Render cards ─────────────────────────────────────────────────────────────
