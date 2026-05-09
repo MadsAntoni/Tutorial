@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vine & Terroir — Wine Grape Education</title>
+  <style>
+    /* ── Reset & base ───────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --wine:    #7b2d42;
+      --wine-dk: #541e2d;
+      --gold:    #c9a84c;
+      --cream:   #fdf6ec;
+      --text:    #2c1a22;
+      --muted:   #7a6570;
+      --card-bg: #fff;
+      --shadow:  0 2px 12px rgba(0,0,0,.10);
+      --radius:  12px;
+    }
+
+    body {
+      font-family: 'Georgia', serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── Header ─────────────────────────────────────────────────────────── */
+    header {
+      background: linear-gradient(135deg, var(--wine-dk) 0%, var(--wine) 60%, #a34060 100%);
+      color: #fff;
+      padding: 48px 24px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='28' fill='none' stroke='rgba(255,255,255,.05)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    header h1 { font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: .03em; }
+    header h1 span { color: var(--gold); }
+    header p  { margin-top: 10px; font-size: 1.05rem; opacity: .85; font-style: italic; }
+
+    /* ── Controls ───────────────────────────────────────────────────────── */
+    .controls {
+      max-width: 1100px;
+      margin: 32px auto 0;
+      padding: 0 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+    }
+
+    #search {
+      flex: 1 1 220px;
+      padding: 10px 16px;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      font-size: .95rem;
+      font-family: inherit;
+      background: #fff;
+      outline: none;
+      transition: border-color .2s;
+    }
+    #search:focus { border-color: var(--wine); }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+    .filter-btn {
+      padding: 8px 18px;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      background: #fff;
+      font-family: inherit;
+      font-size: .88rem;
+      cursor: pointer;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      border-color: var(--wine);
+      background: var(--wine);
+      color: #fff;
+    }
+
+    /* ── Grid ───────────────────────────────────────────────────────────── */
+    .grid {
+      max-width: 1100px;
+      margin: 28px auto 60px;
+      padding: 0 20px;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+
+    /* ── Grape Card ─────────────────────────────────────────────────────── */
+    .card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 28px rgba(0,0,0,.14);
+    }
+
+    .card-header {
+      padding: 22px 22px 16px;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .grape-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      flex-shrink: 0;
+    }
+    .card-title h2 { font-size: 1.15rem; }
+    .card-title .alias { font-size: .82rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .type-badge {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: .74rem;
+      font-family: sans-serif;
+      font-weight: 600;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .red   { background: #f5e0e5; color: #8b2040; }
+    .white { background: #fdf5d6; color: #7a6010; }
+    .rose  { background: #fce8ef; color: #c05070; }
+
+    .card-notes {
+      padding: 0 22px 16px;
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.5;
+      flex: 1;
+    }
+
+    .taste-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      padding: 0 22px 18px;
+    }
+    .pill {
+      padding: 3px 11px;
+      border-radius: 20px;
+      font-size: .78rem;
+      font-family: sans-serif;
+      background: #f0eae8;
+      color: var(--text);
+    }
+
+    .card-footer {
+      border-top: 1px solid #f0e8e8;
+      padding: 12px 22px;
+      font-size: .8rem;
+      color: var(--muted);
+      font-family: sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-footer svg { flex-shrink: 0; }
+
+    /* ── Modal ──────────────────────────────────────────────────────────── */
+    .overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(30,10,15,.55);
+      z-index: 100;
+      backdrop-filter: blur(3px);
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    .overlay.open { display: flex; }
+
+    .modal {
+      background: var(--card-bg);
+      border-radius: 16px;
+      max-width: 760px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      position: relative;
+      animation: slideUp .25s ease;
+    }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .modal-close {
+      position: sticky;
+      top: 0;
+      float: right;
+      margin: 16px 16px 0 0;
+      width: 32px; height: 32px;
+      border: none;
+      background: #f0e8e8;
+      border-radius: 50%;
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      transition: background .2s;
+    }
+    .modal-close:hover { background: #e0d0d4; }
+
+    .modal-hero {
+      padding: 32px 32px 0;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+    }
+    .modal-icon {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+    .modal-title h2 { font-size: 1.65rem; }
+    .modal-title .alias { color: var(--muted); font-style: italic; margin-top: 4px; }
+    .modal-title .type-badge { margin-top: 8px; }
+
+    .modal-body { padding: 24px 32px 32px; }
+
+    .modal-section { margin-bottom: 28px; }
+    .modal-section h3 {
+      font-size: .8rem;
+      font-family: sans-serif;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--wine);
+      margin-bottom: 12px;
+      padding-bottom: 6px;
+      border-bottom: 2px solid #f0e0e5;
+    }
+    .modal-section p { line-height: 1.7; font-size: .95rem; color: #3a2530; }
+
+    /* Tasting wheel */
+    .flavor-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+      gap: 10px;
+    }
+    .flavor-item {
+      background: #fdf3f5;
+      border-radius: 10px;
+      padding: 10px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .87rem;
+    }
+    .flavor-item .icon { font-size: 1.2rem; }
+
+    /* Regions */
+    .region-list { display: flex; flex-direction: column; gap: 14px; }
+    .region-card {
+      border: 1px solid #eedde2;
+      border-radius: 10px;
+      padding: 14px 16px;
+    }
+    .region-card .region-name {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: bold;
+      font-size: .95rem;
+      margin-bottom: 6px;
+    }
+    .region-card .region-name .flag { font-size: 1.2rem; }
+    .region-card .region-effect {
+      font-size: .88rem;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+    .region-card .region-notes {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+    }
+    .region-card .pill { background: #f5ece0; }
+
+    /* No results */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--muted);
+      font-style: italic;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Vine <span>&</span> Terroir</h1>
+  <p>Discover wine grapes, their tasting notes, and how the world shapes their flavour</p>
+</header>
+
+<div class="controls">
+  <input id="search" type="text" placeholder="Search grapes…" aria-label="Search grapes" />
+  <div class="filters" role="group" aria-label="Filter by type">
+    <button class="filter-btn active" data-filter="all">All</button>
+    <button class="filter-btn" data-filter="red">Red</button>
+    <button class="filter-btn" data-filter="white">White</button>
+  </div>
+</div>
+
+<main class="grid" id="grape-grid" aria-label="Grape varieties"></main>
+
+<!-- Modal -->
+<div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
+  <div class="modal" id="modal">
+    <button class="modal-close" id="modal-close" aria-label="Close">✕</button>
+    <div id="modal-content"></div>
+  </div>
+</div>
+
+<script>
+const GRAPES = [
+  {
+    id: "cabernet-sauvignon",
+    name: "Cabernet Sauvignon",
+    alias: "King of Reds",
+    type: "red",
+    icon: "🍇",
+    color: "#8b1a2a",
+    bgLight: "#f5e0e5",
+    summary: "The world's most planted and recognised red grape, beloved for its firm tannins, deep colour, and age-worthiness.",
+    flavors: [
+      { icon: "🫐", label: "Blackcurrant" },
+      { icon: "🍒", label: "Black Cherry" },
+      { icon: "🌿", label: "Cedar & Tobacco" },
+      { icon: "🫑", label: "Green Pepper" },
+      { icon: "☕", label: "Dark Chocolate" },
+      { icon: "🪨", label: "Graphite" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Bordeaux, France",
+        effect: "Cool maritime climate lengthens ripening, preserving firm acidity and producing a herbaceous, savoury style. Classic Médoc blends Cab Sauv with Merlot to soften tannins.",
+        notes: ["Blackcurrant", "Cedar", "Tobacco", "Earthy Minerality"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Napa Valley, California",
+        effect: "Warm days and cool evenings produce fuller-bodied, riper fruit. More sunshine means softer tannins and plush, opulent texture — a crowd-pleasing, bold style.",
+        notes: ["Black Cherry", "Vanilla", "Cassis", "Toasty Oak"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Coonawarra, Australia",
+        effect: "The famous 'terra rossa' red clay over limestone gives a distinctive eucalyptus and minty edge. Coonawarra Cab is austere and elegant with firm structure.",
+        notes: ["Eucalyptus", "Blackberry", "Mint", "Dark Plum"]
+      },
+      {
+        flag: "🇨🇱",
+        name: "Maipo Valley, Chile",
+        effect: "Andean breezes and altitude moderate the heat. Chilean examples sit between Bordeaux and Napa — fresh acidity with ripe dark fruit and subtle green notes.",
+        notes: ["Cassis", "Bell Pepper", "Dark Olive", "Fresh Herbs"]
+      },
+    ]
+  },
+  {
+    id: "pinot-noir",
+    name: "Pinot Noir",
+    alias: "The Heartbreak Grape",
+    type: "red",
+    icon: "🍓",
+    color: "#9b2335",
+    bgLight: "#fde8ec",
+    summary: "Notoriously difficult to grow, Pinot Noir rewards patience with silky tannins, haunting complexity, and extraordinary sensitivity to terroir.",
+    flavors: [
+      { icon: "🍓", label: "Strawberry" },
+      { icon: "🍒", label: "Cherry" },
+      { icon: "🌹", label: "Rose Petal" },
+      { icon: "🍄", label: "Mushroom" },
+      { icon: "🎄", label: "Forest Floor" },
+      { icon: "🫐", label: "Dried Violet" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Burgundy (Côte d'Or), France",
+        effect: "The birthplace and gold standard. Cool continental climate and limestone-chalk soils create wines of ethereal elegance: perfumed, silky, and complex with age, ranging from light and floral in Chambolle to firm and structured in Gevrey.",
+        notes: ["Red Cherry", "Violet", "Autumn Leaves", "Earthy Minerality"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Willamette Valley, Oregon",
+        effect: "A cooler climate than California, closely mirroring Burgundy. Oregon Pinots show bright acidity, restrained fruit, and real earthy complexity — structured yet approachable.",
+        notes: ["Raspberry", "Forest Floor", "Dried Herbs", "Cranberry"]
+      },
+      {
+        flag: "🇳🇿",
+        name: "Central Otago, New Zealand",
+        effect: "The world's southernmost wine region. High altitude and extreme diurnal temperature swings concentrate flavour while retaining freshness. Bold, deeply coloured, and fruit-driven.",
+        notes: ["Dark Cherry", "Thyme", "Spice", "Plum"]
+      },
+      {
+        flag: "🇩🇪",
+        name: "Spätburgunder, Germany",
+        effect: "Germany's Pinot (Spätburgunder) has evolved dramatically. Modern producers make pale, delicate, high-acid wines with red fruit purity and floral lift, increasingly rivalling Burgundy.",
+        notes: ["Strawberry", "Rose", "Light Spice", "Silky Tannin"]
+      },
+    ]
+  },
+  {
+    id: "chardonnay",
+    name: "Chardonnay",
+    alias: "The White Chameleon",
+    type: "white",
+    icon: "🍋",
+    color: "#8a7020",
+    bgLight: "#fdf5d6",
+    summary: "The world's most popular white grape has almost no intrinsic aroma — it's a blank canvas that reflects soil, climate, and winemaker's hand like no other variety.",
+    flavors: [
+      { icon: "🍋", label: "Lemon & Lime" },
+      { icon: "🍑", label: "Peach" },
+      { icon: "🍏", label: "Green Apple" },
+      { icon: "🧈", label: "Butter" },
+      { icon: "🍵", label: "Hazelnut" },
+      { icon: "🍍", label: "Tropical Fruit" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Chablis, Burgundy, France",
+        effect: "No oak, Kimmeridgian limestone soils, cool climate. Chablis is the purest expression of Chardonnay — bone-dry, steely, with a signature oyster-shell minerality and high acidity.",
+        notes: ["Green Apple", "Lemon Zest", "Chalk", "Oyster Shell"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Côte de Beaune, Burgundy, France",
+        effect: "The heartland of great white Burgundy. Oak fermentation and malolactic conversion add texture and complexity. Meursault is nutty and rich; Puligny-Montrachet is mineral and precise.",
+        notes: ["Hazelnut", "Butter", "White Peach", "Flint"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Napa / Sonoma, California",
+        effect: "Warm climate plus heavy new oak and full malolactic conversion creates the iconic 'Butter Bomb' style: full-bodied, low acidity, rich vanilla and tropical notes. Opposite end of the spectrum from Chablis.",
+        notes: ["Vanilla", "Tropical Fruit", "Butterscotch", "Toasted Oak"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Margaret River, Australia",
+        effect: "Maritime influence provides freshness in a warm climate. Elegant, food-friendly style with ripe stone fruit, well-integrated oak, and a long mineral finish.",
+        notes: ["Nectarine", "Cashew", "Citrus Zest", "Creamy Texture"]
+      },
+    ]
+  },
+  {
+    id: "sauvignon-blanc",
+    name: "Sauvignon Blanc",
+    alias: "The Aromatic Rebel",
+    type: "white",
+    icon: "🌿",
+    color: "#4a7a30",
+    bgLight: "#e8f5e0",
+    summary: "Instantly recognisable and fiercely aromatic, Sauvignon Blanc is a love-it-or-hate-it grape that ranges from grassy and herbaceous to tropical and passionfruit-driven.",
+    flavors: [
+      { icon: "🍈", label: "Gooseberry" },
+      { icon: "🌿", label: "Cut Grass" },
+      { icon: "🍋", label: "Grapefruit" },
+      { icon: "🫐", label: "Elderflower" },
+      { icon: "🌺", label: "Passionfruit" },
+      { icon: "🫑", label: "Jalapeño" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Sancerre & Pouilly-Fumé, Loire, France",
+        effect: "Flint and chalk soils give a famous smoky, gunflint character ('fumé'). These are restrained, precise, dry wines with citrus purity, high acidity, and subtle herbaceous notes — the intellectual benchmark.",
+        notes: ["Lemon", "Flint", "White Currant", "Nettle"]
+      },
+      {
+        flag: "🇳🇿",
+        name: "Marlborough, New Zealand",
+        effect: "Long sunshine hours with cool nights create the bombastic Marlborough style that conquered the world: explosively aromatic, tropical, with a zingy passion fruit and cat pee signature.",
+        notes: ["Passionfruit", "Lime", "Capsicum", "Freshly Mown Grass"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Bordeaux Blanc, France",
+        effect: "Blended with Sémillon, the Bordeaux style is rounder and richer, with some seeing oak ageing. Drier and less pungently aromatic than Loire versions, with more body and a waxy texture.",
+        notes: ["Melon", "Peach Skin", "Lanolin", "Subtle Herb"]
+      },
+      {
+        flag: "🇿🇦",
+        name: "Stellenbosch & Elim, South Africa",
+        effect: "South Africa's 'Sauvignon Blanc trail' spans cool coastal and mountain sites. The style bridges Old and New World: tropical fruit with crisp acidity and a distinctive fynbos (scrubland herb) aromatic character.",
+        notes: ["Fig", "Nettle", "Tropical Herb", "Briny Freshness"]
+      },
+    ]
+  },
+  {
+    id: "riesling",
+    name: "Riesling",
+    alias: "The Noble Grape",
+    type: "white",
+    icon: "🍯",
+    color: "#a07830",
+    bgLight: "#fef8e0",
+    summary: "Riesling is arguably the world's greatest white grape — capable of producing everything from bone-dry to lusciously sweet, always retaining laser-sharp acidity and extraordinary longevity.",
+    flavors: [
+      { icon: "🍋", label: "Lime" },
+      { icon: "🍑", label: "Apricot" },
+      { icon: "⛽", label: "Petrol (aged)" },
+      { icon: "🌹", label: "Rose Water" },
+      { icon: "🍯", label: "Honey" },
+      { icon: "🪨", label: "Slate & Flint" },
+    ],
+    regions: [
+      {
+        flag: "🇩🇪",
+        name: "Mosel, Germany",
+        effect: "Steep slate slopes amplify warmth and reflect light. Germany's Mosel produces the most delicate Rieslings on earth: feather-light, intensely aromatic, with razor acidity balancing off-dry sweetness. The petrol note develops with age.",
+        notes: ["Lime Blossom", "Slate", "Off-dry Sweetness", "Low Alcohol"]
+      },
+      {
+        flag: "🇫🇷",
+        name: "Alsace, France",
+        effect: "The Vosges Mountains create one of France's driest climates. Alsatian Rieslings are fully dry, fuller-bodied, and more textural than their German counterparts, with a powerful, spicy richness.",
+        notes: ["Dried Citrus Peel", "Ginger Spice", "Quince", "Petrol"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Clare & Eden Valley, Australia",
+        effect: "Altitude provides cool nights in a warm country. Australian Riesling is completely dry with exhilarating lime-juice intensity, bracing acidity, and a mineral spine that develops beautifully into toast and petrol over a decade.",
+        notes: ["Fresh Lime Juice", "Beeswax", "Toast (aged)", "Citrus Blossom"]
+      },
+      {
+        flag: "🇦🇹",
+        name: "Wachau, Austria",
+        effect: "The Danube's terraced vineyards on gneiss and granite produce grand Rieslings ('Smaragd' style) that combine the body and dryness of Alsace with the mineral tension of Mosel. Very age-worthy.",
+        notes: ["White Peach", "Herbs", "Grapefruit Pith", "Stony Mineral"]
+      },
+    ]
+  },
+  {
+    id: "syrah",
+    name: "Syrah / Shiraz",
+    alias: "Two Names, One Grape",
+    type: "red",
+    icon: "🌶️",
+    color: "#5a1a3a",
+    bgLight: "#f0e0ea",
+    summary: "Called Syrah in the northern Rhône and most of Europe, Shiraz in Australia — the same grape produces startlingly different wines depending on where it grows.",
+    flavors: [
+      { icon: "🫐", label: "Blackberry" },
+      { icon: "🌶️", label: "Black Pepper" },
+      { icon: "🥩", label: "Cured Meat" },
+      { icon: "🫒", label: "Dark Olive" },
+      { icon: "🍫", label: "Dark Chocolate" },
+      { icon: "💐", label: "Violets" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Northern Rhône, France",
+        effect: "On the steep granite slopes of Hermitage and Côte-Rôtie, Syrah is restrained, peppery, and deeply savoury. Olives, smoked meat, and cracked black pepper dominate alongside concentrated dark fruit. Highly age-worthy.",
+        notes: ["Smoked Meat", "Violets", "Black Pepper", "Olive Tapenade"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Barossa Valley, Australia",
+        effect: "Old vines (some over 150 years old) in a hot, arid climate produce the world's most powerful Shiraz: densely fruited, high alcohol, velvety tannins, and massive concentration — chocolate, dark plum, and coconut from American oak.",
+        notes: ["Dark Plum", "Chocolate", "Coconut Oak", "Mocha"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Cool-Climate (Heathcote / Grampians), Australia",
+        effect: "A cooler take on Australian Shiraz. More pepper and floral lift, with tighter tannins and a savoury, earthy quality that bridges the gap between the Barossa and Rhône styles.",
+        notes: ["Blueberry", "Cracked Pepper", "Floral", "Iron & Earth"]
+      },
+      {
+        flag: "🇿🇦",
+        name: "Swartland, South Africa",
+        effect: "Old bush vines on granite and shale in the hot Swartland produce a distinctive style: full-bodied and meaty, but with a freshness and earthy complexity that sets it apart from Barossa. Think Rhône with African terroir.",
+        notes: ["Blueberry", "Dried Herbs", "Graphite", "White Pepper"]
+      },
+    ]
+  },
+  {
+    id: "tempranillo",
+    name: "Tempranillo",
+    alias: "Spain's Flagship",
+    type: "red",
+    icon: "🌞",
+    color: "#7a2010",
+    bgLight: "#f8e0d8",
+    summary: "Spain's most important native grape thrives on high plateaus, producing wines that range from easy-drinking to some of the most complex and age-worthy reds in the world.",
+    flavors: [
+      { icon: "🍒", label: "Cherry" },
+      { icon: "🍓", label: "Strawberry Jam" },
+      { icon: "🍃", label: "Dried Fig" },
+      { icon: "🪵", label: "Vanilla & Oak" },
+      { icon: "🌿", label: "Tobacco Leaf" },
+      { icon: "🫙", label: "Leather" },
+    ],
+    regions: [
+      {
+        flag: "🇪🇸",
+        name: "Rioja, Spain",
+        effect: "The classic home of Tempranillo. Rioja's classification (Crianza, Reserva, Gran Reserva) reflects oak ageing time. Traditional producers use American oak for a distinct vanilla/coconut character; modern producers use French oak for elegance.",
+        notes: ["Strawberry", "Vanilla", "Leather", "Earthy Oak"]
+      },
+      {
+        flag: "🇪🇸",
+        name: "Ribera del Duero, Spain",
+        effect: "Higher altitude (900m+) and cooler temperatures than Rioja produce a more concentrated, darker, structured style. More tannin, more colour intensity, more age-worthiness. Often compared to great Bordeaux.",
+        notes: ["Blackcurrant", "Tobacco", "Dark Spice", "Firm Tannins"]
+      },
+      {
+        flag: "🇵🇹",
+        name: "Douro Valley, Portugal",
+        effect: "As Aragonez/Tinta Roriz, Tempranillo is a key grape in both Douro table wines and Port. The blazing heat concentrates it dramatically, producing muscular, bold wines with dried fruit richness.",
+        notes: ["Dried Cherry", "Dark Chocolate", "Spice", "Robust Structure"]
+      },
+      {
+        flag: "🇦🇷",
+        name: "Mendoza, Argentina",
+        effect: "Grown at high altitude in Mendoza, Argentine Tempranillo is riper and more fruit-forward than its Spanish counterparts, with softer tannins and a plummy, approachable character.",
+        notes: ["Plum", "Red Berry", "Soft Tannin", "Warm Spice"]
+      },
+    ]
+  },
+  {
+    id: "sangiovese",
+    name: "Sangiovese",
+    alias: "Blood of Jupiter",
+    type: "red",
+    icon: "🏛️",
+    color: "#8a1a2a",
+    bgLight: "#fde4e8",
+    summary: "Italy's most widely planted grape is the backbone of Chianti, Brunello, and dozens of other wines. High acid, firm tannins, and earthy cherry character are its hallmarks.",
+    flavors: [
+      { icon: "🍒", label: "Sour Cherry" },
+      { icon: "🍅", label: "Tomato Leaf" },
+      { icon: "🫒", label: "Olive" },
+      { icon: "🌿", label: "Dried Herbs" },
+      { icon: "🧱", label: "Iron & Earth" },
+      { icon: "🌹", label: "Dried Rose" },
+    ],
+    regions: [
+      {
+        flag: "🇮🇹",
+        name: "Chianti Classico, Tuscany",
+        effect: "The Gallo Nero heartland. Galestro and alberese soils contribute to Sangiovese's signature tart cherry, dried herb, and iron-minerality. Acidity and tannin are both high — a natural food wine that pairs exquisitely with tomato-based dishes.",
+        notes: ["Tart Cherry", "Oregano", "Leather", "Rustic Minerality"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Brunello di Montalcino, Tuscany",
+        effect: "The Brunello clone (Sangiovese Grosso) grown in Montalcino's warmer, drier hills produces Tuscany's most powerful wine. More structured, more concentrated, longer ageing — can last 30+ years.",
+        notes: ["Dark Cherry", "Cigar Box", "Dried Violet", "Powerful Tannins"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Morellino di Scansano, Tuscany",
+        effect: "Near the Maremma coast, warmer temperatures soften Sangiovese's edges. More approachable in youth, with riper plum and a Mediterranean warmth replacing the austerity of classic Chianti.",
+        notes: ["Plum", "Cacao", "Aromatic Herbs", "Suppler Tannins"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "California (Super-Tuscan style)",
+        effect: "California's warmer climate produces richer, more fruit-forward Sangiovese, often blended with Cabernet Sauvignon in a 'Super-Tuscan' style. Less acid and tannin bite, more plush and accessible.",
+        notes: ["Ripe Cherry", "Vanilla", "Dark Plum", "Softer Structure"]
+      },
+    ]
+  },
+  {
+    id: "grenache",
+    name: "Grenache / Garnacha",
+    alias: "The Sun Lover",
+    type: "red",
+    icon: "☀️",
+    color: "#a03020",
+    bgLight: "#fde8e0",
+    summary: "One of the world's most widely planted red grapes, Grenache thrives in heat and drought, producing wines of warmth, high alcohol, and generous red-fruit character.",
+    flavors: [
+      { icon: "🍓", label: "Raspberry" },
+      { icon: "🫐", label: "Wild Strawberry" },
+      { icon: "🌶️", label: "White Pepper" },
+      { icon: "🫚", label: "Garrigue Herbs" },
+      { icon: "🍊", label: "Orange Zest" },
+      { icon: "🧁", label: "Sweet Spice" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Châteauneuf-du-Pape, Southern Rhône",
+        effect: "The classic southern Rhône blend (with Syrah and Mourvèdre) amplifies Grenache's warmth. Large galets (rounded stones) retain daytime heat. Rich, generous, herbal — garrigue aromas of lavender and thyme are signature.",
+        notes: ["Raspberry Jam", "Lavender", "Leather", "Garrigue"]
+      },
+      {
+        flag: "🇪🇸",
+        name: "Priorat, Catalonia, Spain",
+        effect: "Old bush vines on razor-sharp llicorella (black slate) soils create some of Spain's most intense, mineral wines. Garnacha here is dense, concentrated, and structured — a world apart from lighter GSM blends.",
+        notes: ["Dark Fruit", "Graphite Mineral", "Dried Herbs", "Tobacco"]
+      },
+      {
+        flag: "🇪🇸",
+        name: "Navarra & Campo de Borja, Spain",
+        effect: "Younger vines at lower altitudes in Spain's north produce lighter, fruit-forward Garnacha — excellent value, soft tannins, and vibrant strawberry freshness. Also the source of great rosé.",
+        notes: ["Strawberry", "Juicy Red Fruit", "Soft Tannin", "Floral"]
+      },
+      {
+        flag: "🇦🇺",
+        name: "Barossa / McLaren Vale, Australia",
+        effect: "Old Grenache vines (some from the 19th century) produce wines of extraordinary concentration and richness. Australian Grenache is fuller and more alcoholic than its European counterparts, with dark fruit and a silky, heady warmth.",
+        notes: ["Raspberry Jam", "Dark Chocolate", "Anise", "Lush Fruit"]
+      },
+    ]
+  },
+  {
+    id: "merlot",
+    name: "Merlot",
+    alias: "The Velvet Glove",
+    type: "red",
+    icon: "🍷",
+    color: "#6b1a30",
+    bgLight: "#f5e0e8",
+    summary: "Softer and more approachable than Cabernet Sauvignon, Merlot is the world's second most planted grape — capable of silky everyday wines and, in Pomerol, some of the planet's most expensive bottles.",
+    flavors: [
+      { icon: "🍑", label: "Plum" },
+      { icon: "🍫", label: "Chocolate" },
+      { icon: "🍒", label: "Black Cherry" },
+      { icon: "🧱", label: "Wet Clay" },
+      { icon: "🪵", label: "Vanilla" },
+      { icon: "🍂", label: "Dried Leaves" },
+    ],
+    regions: [
+      {
+        flag: "🇫🇷",
+        name: "Pomerol & Saint-Émilion, Bordeaux",
+        effect: "On Pomerol's blue clay soils, Merlot reaches its zenith. Pétrus and Le Pin are predominantly Merlot — dense, velvety, with truffle, plum, and iron complexity. Saint-Émilion's limestone gives a slightly lighter, more structured style.",
+        notes: ["Plum", "Truffle", "Iron Minerality", "Velvety Tannins"]
+      },
+      {
+        flag: "🇺🇸",
+        name: "Napa Valley & Sonoma, California",
+        effect: "California's warmth produces riper, more fruit-forward Merlot with higher alcohol. Soft tannins, generous cherry and chocolate notes, and accessible structure make it a crowd favourite.",
+        notes: ["Black Cherry", "Mocha", "Vanilla", "Smooth Texture"]
+      },
+      {
+        flag: "🇨🇱",
+        name: "Colchagua Valley, Chile",
+        effect: "Chile's Merlot benefits from the Andes influence: ripe fruit with fresh acidity. Some Chilean 'Merlot' is actually the related Carménère grape — look carefully at the label! True Chilean Merlot is supple and fruit-driven at great value.",
+        notes: ["Plum", "Dark Berry", "Pepper Spice", "Fresh Acidity"]
+      },
+      {
+        flag: "🇮🇹",
+        name: "Friuli & Trevenezie, Italy",
+        effect: "Northern Italian Merlot is cooler, more restrained, and more savoury than its New World counterparts. Dried herbs, earth, and red fruit dominate over chocolate. It's a more food-centric expression.",
+        notes: ["Red Plum", "Dried Herbs", "Earthy", "Medium Body"]
+      },
+    ]
+  },
+];
+
+// ── Render cards ─────────────────────────────────────────────────────────────
+function renderCards(grapes) {
+  const grid = document.getElementById('grape-grid');
+  grid.innerHTML = '';
+
+  if (!grapes.length) {
+    grid.innerHTML = '<p class="no-results">No grapes found. Try a different search or filter.</p>';
+    return;
+  }
+
+  grapes.forEach(grape => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.setAttribute('tabindex', '0');
+    card.setAttribute('role', 'button');
+    card.setAttribute('aria-label', `Learn about ${grape.name}`);
+
+    const topRegions = grape.regions.slice(0, 3).map(r => `${r.flag} ${r.name.split(',')[0]}`).join(' · ');
+
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="grape-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+        <div class="card-title">
+          <h2>${grape.name}</h2>
+          <div class="alias">${grape.alias}</div>
+          <span class="type-badge ${grape.type}">${grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé'}</span>
+        </div>
+      </div>
+      <p class="card-notes">${grape.summary}</p>
+      <div class="taste-pills">
+        ${grape.flavors.map(f => `<span class="pill">${f.icon} ${f.label}</span>`).join('')}
+      </div>
+      <div class="card-footer">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+        ${topRegions}
+      </div>
+    `;
+
+    card.addEventListener('click', () => openModal(grape));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(grape); });
+    grid.appendChild(card);
+  });
+}
+
+// ── Modal ─────────────────────────────────────────────────────────────────────
+function openModal(grape) {
+  const content = document.getElementById('modal-content');
+  content.innerHTML = `
+    <div class="modal-hero">
+      <div class="modal-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+      <div class="modal-title">
+        <h2 id="modal-grape-name">${grape.name}</h2>
+        <div class="alias">${grape.alias}</div>
+        <span class="type-badge ${grape.type}">${grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé'}</span>
+      </div>
+    </div>
+    <div class="modal-body">
+
+      <div class="modal-section">
+        <h3>About This Grape</h3>
+        <p>${grape.summary}</p>
+      </div>
+
+      <div class="modal-section">
+        <h3>Core Tasting Notes</h3>
+        <div class="flavor-grid">
+          ${grape.flavors.map(f => `
+            <div class="flavor-item">
+              <span class="icon">${f.icon}</span>
+              <span>${f.label}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <div class="modal-section">
+        <h3>How Terroir Shapes the Taste</h3>
+        <div class="region-list">
+          ${grape.regions.map(r => `
+            <div class="region-card">
+              <div class="region-name">
+                <span class="flag">${r.flag}</span>
+                <span>${r.name}</span>
+              </div>
+              <p class="region-effect">${r.effect}</p>
+              <div class="region-notes">
+                ${r.notes.map(n => `<span class="pill">${n}</span>`).join('')}
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+    </div>
+  `;
+
+  document.getElementById('overlay').classList.add('open');
+  document.getElementById('modal').scrollTop = 0;
+  document.getElementById('modal-close').focus();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modal-close').addEventListener('click', closeModal);
+document.getElementById('overlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeModal();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeModal();
+});
+
+// ── Filtering & search ────────────────────────────────────────────────────────
+let activeFilter = 'all';
+let searchTerm   = '';
+
+function getFiltered() {
+  return GRAPES.filter(g => {
+    const matchesType   = activeFilter === 'all' || g.type === activeFilter;
+    const matchesSearch = !searchTerm ||
+      g.name.toLowerCase().includes(searchTerm) ||
+      g.alias.toLowerCase().includes(searchTerm) ||
+      g.flavors.some(f => f.label.toLowerCase().includes(searchTerm)) ||
+      g.regions.some(r => r.name.toLowerCase().includes(searchTerm));
+    return matchesType && matchesSearch;
+  });
+}
+
+document.getElementById('search').addEventListener('input', e => {
+  searchTerm = e.target.value.toLowerCase().trim();
+  renderCards(getFiltered());
+});
+
+document.querySelectorAll('.filter-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    activeFilter = btn.dataset.filter;
+    renderCards(getFiltered());
+  });
+});
+
+// Initial render
+renderCards(GRAPES);
+</script>
+</body>
+</html>
