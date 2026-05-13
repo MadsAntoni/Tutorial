@@ -5191,8 +5191,13 @@ function getFiltered() {
     const matchesSearch = !searchTerm ||
       g.name.toLowerCase().includes(searchTerm) ||
       g.alias.toLowerCase().includes(searchTerm) ||
+      g.summary.toLowerCase().includes(searchTerm) ||
       g.flavors.some(f => f.label.toLowerCase().includes(searchTerm)) ||
-      g.regions.some(r => r.name.toLowerCase().includes(searchTerm));
+      g.regions.some(r =>
+        r.name.toLowerCase().includes(searchTerm) ||
+        r.effect.toLowerCase().includes(searchTerm) ||
+        r.notes.some(n => n.toLowerCase().includes(searchTerm))
+      );
     return matchesType && matchesRegion(g) && matchesSearch;
   });
 }
