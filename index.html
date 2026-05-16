@@ -64,9 +64,18 @@
     }
     .region-row {
       display: flex;
-      flex-wrap: wrap;
       gap: 8px;
       align-items: center;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 2px;
+    }
+    .region-row::-webkit-scrollbar { display: none; }
+    .region-row .filters {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
     }
     .region-label {
       font-size: .78rem;
@@ -115,6 +124,21 @@
     .region-btn {
       padding: 6px 13px;
       font-size: .82rem;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    /* ── Results count ──────────────────────────────────────────────────── */
+    .results-count {
+      max-width: 1100px;
+      margin: 14px auto 0;
+      padding: 0 20px;
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .results-count span {
+      font-weight: 600;
+      color: var(--wine);
     }
 
     /* ── Grid ───────────────────────────────────────────────────────────── */
@@ -382,6 +406,8 @@
     </div>
   </div>
 </div>
+
+<p class="results-count" id="results-count" aria-live="polite"></p>
 
 <main class="grid" id="grape-grid" aria-label="Grape varieties"></main>
 
@@ -5051,8 +5077,16 @@ const GRAPES = [
 
 // ── Render cards ─────────────────────────────────────────────────────────────
 function renderCards(grapes) {
-  const grid = document.getElementById('grape-grid');
+  const grid  = document.getElementById('grape-grid');
+  const count = document.getElementById('results-count');
   grid.innerHTML = '';
+
+  const total = GRAPES.length;
+  if (grapes.length === total) {
+    count.innerHTML = `Showing all <span>${total}</span> grape varieties`;
+  } else {
+    count.innerHTML = `Showing <span>${grapes.length}</span> of ${total} grape varieties`;
+  }
 
   if (!grapes.length) {
     grid.innerHTML = '<p class="no-results">No grapes found. Try a different search or filter.</p>';
