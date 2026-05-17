@@ -128,6 +128,127 @@
       flex-shrink: 0;
     }
 
+    /* ── Tabs ────────────────────────────────────────────────────────────── */
+    .tab-nav {
+      max-width: 1100px;
+      margin: 28px auto 0;
+      padding: 0 20px;
+      display: flex;
+      border-bottom: 2px solid #ecdde8;
+    }
+    .tab-btn {
+      padding: 11px 24px;
+      border: none;
+      border-bottom: 3px solid transparent;
+      background: none;
+      font-family: inherit;
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--muted);
+      cursor: pointer;
+      margin-bottom: -2px;
+      transition: color .2s, border-color .2s;
+    }
+    .tab-btn.active { color: var(--wine); border-bottom-color: var(--wine); }
+    .tab-btn:hover:not(.active) { color: var(--dark); }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── Food Pairing ────────────────────────────────────────────────────── */
+    .pairing-container {
+      max-width: 1100px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .pairing-intro { margin-bottom: 28px; }
+    .pairing-intro h2 { font-size: 1.4rem; }
+    .pairing-intro p { color: var(--muted); margin-top: 6px; font-style: italic; }
+
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
+      gap: 14px;
+    }
+    .category-card {
+      background: var(--card-bg);
+      border: 2px solid #ecdde8;
+      border-radius: var(--radius);
+      padding: 22px 14px 18px;
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .category-card:hover { border-color: var(--wine); background: #fdf5f7; transform: translateY(-2px); }
+    .category-card.active { border-color: var(--wine); background: var(--wine); color: #fff; }
+    .cat-icon { font-size: 2.2rem; display: block; }
+    .cat-name { margin-top: 10px; font-size: .92rem; font-weight: 600; display: block; }
+
+    .dish-section { margin-top: 32px; }
+    .dish-section-label {
+      font-size: .78rem;
+      font-weight: 700;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 12px;
+      display: block;
+    }
+    .dish-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .dish-chip {
+      padding: 8px 18px;
+      border: 2px solid #ddd;
+      border-radius: 30px;
+      background: #fff;
+      font-family: inherit;
+      font-size: .88rem;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .dish-chip:hover { border-color: var(--wine); }
+    .dish-chip.active { border-color: var(--wine); background: var(--wine); color: #fff; }
+
+    .pairing-results { margin-top: 32px; }
+    .pairing-results-header {
+      margin-bottom: 20px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid #ecdde8;
+      font-size: 1rem;
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .pairing-results-header strong { color: var(--dark); font-weight: 700; }
+
+    .pairing-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+    .pairing-card {
+      background: var(--card-bg);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 18px 20px;
+      cursor: pointer;
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .pairing-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.13); }
+    .pairing-icon {
+      width: 44px; height: 44px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem; flex-shrink: 0;
+    }
+    .pairing-body h4 { font-size: .98rem; margin-bottom: 5px; }
+    .pairing-why { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+    .pairing-badge {
+      display: inline-block; margin-top: 8px;
+      padding: 2px 8px; border-radius: 20px;
+      font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .04em;
+    }
+
     /* ── Results count ──────────────────────────────────────────────────── */
     .results-count {
       max-width: 1100px;
@@ -383,6 +504,12 @@
   <p>Discover wine grapes, their tasting notes, and how the world shapes their flavour</p>
 </header>
 
+<nav class="tab-nav" role="tablist">
+  <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">🍇 Grape Explorer</button>
+  <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">🍽️ Food Pairing</button>
+</nav>
+
+<section id="tab-explorer" class="tab-panel active" role="tabpanel">
 <div class="controls">
   <div class="controls-top">
     <input id="search" type="text" placeholder="Search grapes, flavours, regions…" aria-label="Search grapes" />
@@ -410,6 +537,19 @@
 <p class="results-count" id="results-count" aria-live="polite"></p>
 
 <main class="grid" id="grape-grid" aria-label="Grape varieties"></main>
+</section>
+
+<section id="tab-pairing" class="tab-panel" role="tabpanel">
+  <div class="pairing-container">
+    <div class="pairing-intro">
+      <h2>Find your perfect match</h2>
+      <p>Choose a dish or ingredient and we'll recommend wines from our collection that will elevate the meal.</p>
+    </div>
+    <div class="category-grid" id="category-grid"></div>
+    <div id="dish-section" class="dish-section" hidden></div>
+    <div id="pairing-results" class="pairing-results" hidden></div>
+  </div>
+</section>
 
 <!-- Modal -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
@@ -5261,6 +5401,149 @@ document.querySelectorAll('.region-btn').forEach(btn => {
 
 // Initial render
 renderCards(GRAPES);
+
+// ── Tab switching ─────────────────────────────────────────────────────────
+document.querySelectorAll('.tab-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    btn.setAttribute('aria-selected','true');
+    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+  });
+});
+
+// ── Food Pairing data ─────────────────────────────────────────────────────
+const CATEGORIES = [
+  { id: 'meat',       icon: '🥩', name: 'Red Meat',        desc: 'Beef, lamb, game & pork' },
+  { id: 'seafood',    icon: '🐟', name: 'Fish & Seafood',  desc: 'Oysters, salmon & shellfish' },
+  { id: 'cheese',     icon: '🧀', name: 'Cheese',          desc: 'Soft, hard, blue & aged' },
+  { id: 'vegetarian', icon: '🥬', name: 'Vegetarian',      desc: 'Vegetables, mushrooms & spice' },
+  { id: 'pasta',      icon: '🍝', name: 'Pasta & Grains',  desc: 'From bolognese to risotto' },
+  { id: 'dessert',    icon: '🍫', name: 'Desserts',        desc: 'Chocolate, fruit & cream' },
+];
+
+const DISHES = {
+  meat:       [ {id:'beef-steak',name:'Beef Steak'}, {id:'lamb',name:'Lamb'}, {id:'game-venison',name:'Venison & Game'}, {id:'duck',name:'Duck'}, {id:'pork',name:'Pork'}, {id:'bbq',name:'BBQ & Smoked Meats'} ],
+  seafood:    [ {id:'oysters',name:'Oysters'}, {id:'salmon',name:'Salmon'}, {id:'white-fish',name:'White Fish'}, {id:'lobster',name:'Lobster & Crab'}, {id:'sushi',name:'Sushi & Sashimi'}, {id:'mussels',name:'Mussels & Clams'} ],
+  cheese:     [ {id:'soft-cheese',name:'Soft Cheese (Brie, Camembert)'}, {id:'hard-cheese',name:'Hard Cheese (Parmesan, Cheddar)'}, {id:'blue-cheese',name:'Blue Cheese (Roquefort, Stilton)'}, {id:'goat-cheese',name:'Goat Cheese'}, {id:'washed-rind',name:'Washed Rind (Époisses, Munster)'} ],
+  vegetarian: [ {id:'mushrooms',name:'Mushrooms'}, {id:'tomato-dishes',name:'Tomato-Based Dishes'}, {id:'spicy',name:'Spicy Dishes'}, {id:'roasted-veg',name:'Roasted Vegetables'}, {id:'salads',name:'Fresh Salads'} ],
+  pasta:      [ {id:'tomato-pasta',name:'Tomato Pasta & Bolognese'}, {id:'cream-pasta',name:'Cream Pasta & Carbonara'}, {id:'risotto',name:'Risotto'}, {id:'pizza',name:'Pizza'}, {id:'seafood-pasta',name:'Seafood Pasta'}, {id:'truffle-pasta',name:'Truffle & Mushroom Pasta'} ],
+  dessert:    [ {id:'chocolate',name:'Dark Chocolate'}, {id:'fruit-tart',name:'Fruit Tart & Pastry'}, {id:'creme-brulee',name:'Crème Brûlée & Custard'}, {id:'berries',name:'Berries & Summer Fruit'}, {id:'tiramisu',name:'Tiramisu & Coffee Desserts'} ],
+};
+
+const PAIRINGS = {
+  'beef-steak':   [ {id:'cabernet-sauvignon',why:"The king of beef pairings — firm tannins soften against steak's protein and fat while cassis and cedar mirror the char."}, {id:'syrah',why:"Black pepper and smoked meat character amplifies grilled beef; robust tannins hold up to the richest cuts."}, {id:'nebbiolo',why:"Barolo's grippy tannins relax against a well-marbled steak, rewarding patience with tar, roses, and char."}, {id:'malbec',why:"Argentina's love affair with beef is no accident — Malbec's plum richness and velvety tannins are tailor-made for the asado."}, {id:'zinfandel',why:"Jammy, peppery, high-alcohol Zin matches the intensity of a rib-eye without being overwhelmed."}, {id:'mourvedre',why:"Mourvèdre's meaty, iron-rich character acts almost like an extension of the steak itself."} ],
+  'lamb':         [ {id:'cabernet-franc',why:"The classic Bordeaux pairing — graphite, red pepper, and earthy notes are the textbook match for roasted lamb."}, {id:'tempranillo',why:"Spain pairs Rioja with roast lamb instinctively — leather, plum, and vanilla oak mirrors the gaminess perfectly."}, {id:'grenache',why:"In the southern Rhône, Grenache and lamb are inseparable — soft tannins and red fruit don't fight the meat's delicacy."}, {id:'syrah',why:"Grilled lamb chops with Syrah is a classic pairing — smoky, peppery character amplifies char-crusted fat."}, {id:'sangiovese',why:"Italian slow-roasted abbacchio and Chianti is a Roman institution — high acidity cuts through fat beautifully."}, {id:'mourvedre',why:"Mourvèdre's gamey, earthy character resonates with lamb's meatiness, especially with Provençal herb crusts."} ],
+  'game-venison': [ {id:'pinot-noir',why:"Earthy, forest-floor Pinot Noir mirrors the wild character of game; Burgundy is the classic match for partridge and hare."}, {id:'syrah',why:"Northern Rhône Syrah — dark, smoky, and meaty — has the structure to stand up to venison's intensity."}, {id:'nebbiolo',why:"Barolo's tar and roses with a haunch of venison is extraordinary — tannins, acidity, and earthiness all align."}, {id:'mourvedre',why:"Mourvèdre's gamey, iron-rich character is a natural extension of venison's wild flavour — like for like."}, {id:'sagrantino',why:"Italy's most tannic grape needs something as intense as wild boar or venison; the match of extremes is extraordinary."}, {id:'tannat',why:"Madiran's Tannat — dark, fierce, and structured — was made for the game dishes of Gascon cuisine."} ],
+  'duck':         [ {id:'pinot-noir',why:"Duck and Pinot Noir is one of the great pairings — red fruit, silky texture, and earthiness complement duck fat without overpowering."}, {id:'grenache',why:"Duck confit with Châteauneuf-du-Pape is a southern French classic — Grenache's warmth enhances slow-cooked richness."}, {id:'merlot',why:"Merlot's plummy softness and moderate tannin are a satisfying match for roasted duck, especially with fruit sauces."}, {id:'gamay',why:"Beaujolais Crus pair beautifully with duck — light tannins and cherry fruit don't fight the meat's fat."}, {id:'barbera',why:"Duck ragù with Barbera d'Asti is a Piedmontese institution — bright acidity cuts through richness magnificently."}, {id:'sangiovese',why:"Duck with Brunello is a Tuscan classic — Sangiovese's earthy acidity and tannin manage duck fat beautifully."} ],
+  'pork':         [ {id:'sangiovese',why:"Porchetta with Chianti is a Roman classic — acidity slices through pork fat and cherry fruit enhances the herbs."}, {id:'barbera',why:"Pork sausages and Barbera d'Alba is a Piedmontese staple — vibrant acidity and dark fruit are perfect for rich pork."}, {id:'grenache',why:"Iberian pork with Grenache is a natural pairing — red fruit and warmth complement charcuterie and pork belly."}, {id:'dolcetto',why:"Dolcetto's bitter-cherry character and soft tannins are excellent with pork, particularly Italian salumi."}, {id:'pinot-noir',why:"For delicate pork — loin, tenderloin, or pork with cream sauce — Pinot Noir's silky texture is ideal."}, {id:'gamay',why:"Chilled Beaujolais with charcuterie is a French picnic institution — fresh fruitiness loves all forms of cured pork."} ],
+  'bbq':          [ {id:'zinfandel',why:"Zinfandel and BBQ is an American institution — jammy fruit, black pepper, and high alcohol match char, smoke, and spice."}, {id:'syrah',why:"Syrah's smoky bacon and black pepper character amplifies everything great about BBQ — ribs, brisket, spiced wings."}, {id:'malbec',why:"Argentine Malbec was practically designed for the grill — plummy richness and velvety tannins suit char-grilled meats."}, {id:'carignan',why:"Old-vine Carignan — robust, tannic, and full of dark spice — stands up beautifully to smoked or spiced BBQ meats."}, {id:'mourvedre',why:"Mourvèdre's meaty, smoky quality resonates with wood-smoked BBQ; one of the few wines that tastes like the grill."}, {id:'tempranillo',why:"Spanish chuletón and Rioja are inseparable — Tempranillo's structure and earthy complexity are the perfect backdrop."} ],
+  'oysters':      [ {id:'melon-de-bourgogne',why:"Muscadet sur lie is the ultimate oyster wine — saline, biscuity freshness mirrors the sea and lees add oceanic mineral depth."}, {id:'picpoul',why:"Picpoul de Pinet from the Mediterranean coast is the classic Languedoc answer — razor acidity and coastal salinity are a natural match."}, {id:'albarino',why:"Galician Albariño, grown minutes from oyster beds, has Atlantic salinity and citrus freshness making it a great shellfish wine."}, {id:'chardonnay',why:"Unoaked Chablis — chalk-mineral and almost briny — is extraordinarily precise with fine oysters."}, {id:'grillo',why:"Modern Sicilian Grillo's saline, citrusy freshness echoes the sea — an underrated but excellent match for oysters."}, {id:'assyrtiko',why:"Santorini Assyrtiko's volcanic mineral intensity and saline salinity rivals Chablis as an oyster companion."} ],
+  'salmon':       [ {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit richness is exceptional with salmon — particularly with cream or butter sauces."}, {id:'chardonnay',why:"Lightly oaked Burgundy-style Chardonnay — creamy, mineral, and textured — is the classic match for grilled or poached salmon."}, {id:'pinot-noir',why:"A delicate, cool-climate Pinot Noir pairs surprisingly well with rich salmon — earthy red fruit complements the fish's oiliness."}, {id:'viognier',why:"Viognier's peach and apricot richness works beautifully with salmon's fattiness, especially with Asian-inspired glazes."}, {id:'grenache-blanc',why:"White Grenache's roundness and stone-fruit character are an often-overlooked match for salmon with herb crusts."}, {id:'semillon',why:"Hunter Valley Semillon — lean and citrusy when young — cuts through salmon's richness with precision."} ],
+  'white-fish':   [ {id:'chardonnay',why:"Classic unoaked Chardonnay — clean, citrusy, and mineral — is the benchmark match for cod, halibut, or sole."}, {id:'vermentino',why:"Sardinian Vermentino's herbal salinity and citrus freshness are ideal for grilled or pan-fried white fish."}, {id:'albarino',why:"Galician Albariño — from a coast defined by seafood — has the saline minerality that white fish demands."}, {id:'sauvignon-blanc',why:"Sancerre or Marlborough Sauvignon Blanc's herbaceous citrus pairs well with delicate white fish and herb-crusted preparations."}, {id:'verdicchio',why:"The Marche's Verdicchio — bitter almond finish and saline mineral backbone — is one of Italy's finest fish wines."}, {id:'falanghina',why:"Campanian Falanghina's volcanic mineral quality and citrus freshness complement white fish, especially Mediterranean preparations."} ],
+  'lobster':      [ {id:'chardonnay',why:"White Burgundy — rich, textured, and creamy — is the prestige pairing for lobster, its buttery weight matching the rich flesh."}, {id:'viognier',why:"Viognier's opulent peach and apricot character alongside its full body is an outstanding match for lobster with butter or cream."}, {id:'roussanne',why:"Rhône Roussanne — nutty, textured, and complex — has the body to hold its own alongside luxurious lobster and crab dishes."}, {id:'semillon',why:"Aged white Bordeaux (Semillon-dominant) develops waxy, honeyed richness that pairs beautifully with the sweetness of lobster flesh."}, {id:'grenache-blanc',why:"A top white Châteauneuf's Grenache Blanc has the body and exotic fruit to partner lobster without being dominated."}, {id:'torrontes',why:"Argentine Torrontés — intensely aromatic with rose, lychee, and peach — is intriguing with cold lobster or crab with citrus dressing."} ],
+  'sushi':        [ {id:'riesling',why:"Dry Riesling — low alcohol, high acidity, delicately aromatic — is one of the most versatile wines with Japanese cuisine."}, {id:'gewurztraminer',why:"Alsace Gewürztraminer's rose and lychee have a natural affinity with Japanese aromatics: ginger, sesame, and soy."}, {id:'albarino',why:"Albariño's saline citrus freshness mirrors the oceanic character of sushi without overwhelming delicate fish flavours."}, {id:'grillo',why:"Modern Sicilian Grillo — light, citrusy, and saline — has the clean freshness that pairs elegantly with high-quality sashimi."}, {id:'chardonnay',why:"Blanc de Blancs Champagne (Chardonnay-based) is celebrated with sushi — bubbles and mineral precision enhance fish umami."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper, citrus, and mineral precision make it an outstanding match for the clean flavours of Japanese cuisine."} ],
+  'mussels':      [ {id:'melon-de-bourgogne',why:"Moules marinières with Muscadet is a French coastal institution — saline, citrusy freshness mirrors the sea in every mouthful."}, {id:'albarino',why:"Galician Albariño is grown in Spain's most prolific mussel-producing region — saline citrus wine to saline shellfish is intuitive."}, {id:'vermentino',why:"Sardinian Vermentino's herbal coastal character and fresh acidity are an excellent match for mussels with garlic and olive oil."}, {id:'viura-macabeo',why:"Fresh, citrussy Viura — particularly from the Basque coast — is a local match for Atlantic mussels and clams."}, {id:'picpoul',why:"Picpoul de Pinet, produced near France's biggest shellfish lagoons, is almost designed for moules frites — bracingly acidic and oceanic."}, {id:'fernao-pires',why:"Portuguese Fernão Pires — floral, citrusy, and fresh — pairs well with the shellfish dishes of the Setúbal and Alentejo coast."} ],
+  'soft-cheese':  [ {id:'chardonnay',why:"Unoaked Chardonnay's creaminess echoes Brie or Camembert — the match of buttery wine to buttery cheese is deeply satisfying."}, {id:'chenin-blanc',why:"Vouvray demi-sec pairs exquisitely with Brie — acidity cuts through the fat and fruit complements the mushroomy rind."}, {id:'pinot-noir',why:"A lighter Burgundy is a classic partner for Brie and Camembert, whose mild earthiness matches the wine's complexity."}, {id:'pinot-meunier',why:"Champagne (Pinot Meunier gives it freshness and red fruit) with soft cheese is a cliché for good reason — bubbles cleanse between rich bites."}, {id:'pinot-blanc',why:"Alsace Pinot Blanc's gentle creaminess and floral character make it a sympathetic partner for triple-cream or young Camembert."}, {id:'gamay',why:"A chilled Beaujolais with young Brie is a French picnic staple — light tannins and cherry fruit don't overwhelm the delicate cheese."} ],
+  'hard-cheese':  [ {id:'nebbiolo',why:"Parmesan and Barolo is an Italian institution — tartness and tannin mirror the cheese's crystalline saltiness and intensity."}, {id:'sangiovese',why:"Pecorino Toscano with Chianti is a Tuscan classic — acidity and cherry fruit complement the sheep's milk nuttiness."}, {id:'tempranillo',why:"Rioja with aged Manchego is Spain's definitive cheese pairing — oak-vanilla character resonates with the cheese's butterscotch."}, {id:'corvina',why:"Aged Valpolicella or Amarone with Grana Padano is a Venetian tradition — richness balances the saltiness of hard cheese."}, {id:'barbera',why:"Barbera's bright acidity makes it versatile with hard cheeses, cutting through salt and fat while dark fruit adds complexity."}, {id:'cabernet-sauvignon',why:"Aged Cheddar with Cabernet Sauvignon is a classic — tannins bind to the cheese's proteins, softening both."} ],
+  'blue-cheese':  [ {id:'semillon',why:"Sauternes and Roquefort is one of the world's greatest food-wine pairings — honeyed richness and acidity balance the cheese's saltiness perfectly."}, {id:'riesling',why:"German Spätlese or Auslese Riesling — sweet, acidic, and honeyed — is an excellent match for blue cheese, sweetness taming salt and funk."}, {id:'gewurztraminer',why:"Alsace Gewürztraminer's off-dry rose and lychee character cuts through blue cheese's pungency with exotic, aromatic flair."}, {id:'pedro-ximenez',why:"PX Sherry with blue cheese is a Spanish revelation — the treacle sweetness and dried fruit make Gorgonzola or Stilton sing."}, {id:'touriga-nacional',why:"Vintage Port and Stilton is Britain's most celebrated cheese-wine tradition — sweetness, tannin, and power counterpoint the cheese's intensity."}, {id:'cabernet-sauvignon',why:"Bold Cabernet can hold its own against strong blues — tannins bind to intense proteins while dark fruit provides welcome contrast."} ],
+  'goat-cheese':  [ {id:'sauvignon-blanc',why:"Sancerre and chèvre is France's most celebrated cheese-wine marriage — grassy, citrusy minerality mirrors the chalk freshness of goat cheese."}, {id:'chenin-blanc',why:"Vouvray's Chenin Blanc has the citrus and mineral character to echo fresh goat cheese's tangy personality."}, {id:'verdejo',why:"Rueda's Verdejo — grassy, citrusy, and herbal — pairs well with Spanish and French goat cheeses, herbaceous notes echoing the cheese."}, {id:'assyrtiko',why:"Santorini Assyrtiko's saline mineral intensity and citrus brightness are an outstanding match for fresh goat cheese."}, {id:'albarino',why:"Albariño's citrus freshness and herbal notes echo fresh goat cheese beautifully, especially with herbs or honey."}, {id:'riesling',why:"Dry German or Alsace Riesling — mineral, citrusy, precise — is an excellent alternative to Sauvignon Blanc with goat cheese."} ],
+  'washed-rind':  [ {id:'gewurztraminer',why:"Alsace Gewürztraminer is the classic match for washed-rind cheeses like Munster — aromatic intensity and slight sweetness tame the pungency."}, {id:'pinot-gris',why:"Vendange Tardive Pinot Gris — rich, spiced, and honeyed — is extraordinary with powerful washed-rind cheeses like Époisses."}, {id:'savagnin',why:"Jura Savagnin and Comté is a hyperlocal pairing that works brilliantly — oxidative, nutty character mirrors the aged cheese."}, {id:'gruner-veltliner',why:"Older Austrian Grüner Veltliner Smaragd has the weight and spice to stand up to washed-rind cheeses while acidity cleanses."}, {id:'riesling',why:"A rich Alsace Riesling Vendange Tardive can handle the most aggressive washed-rind cheeses — acidity and aromatics counterpoint the pungency."} ],
+  'mushrooms':    [ {id:'pinot-noir',why:"Mushrooms and Pinot Noir share an earthy, forest-floor character — this pairing is almost too obvious in the best possible way."}, {id:'nebbiolo',why:"White truffle and Barolo is Italy's most celebrated pairing — tar, roses, and earthiness resonate with mushrooms at every level."}, {id:'chardonnay',why:"A rich oaked Chardonnay — with its own mushroom and butter notes from lees ageing — is a textbook match for creamy mushroom dishes."}, {id:'barbera',why:"Barbera's vibrant acidity and dark fruit cut through rich mushroom sauces, an excellent everyday red for mushroom-based Italian dishes."}, {id:'sangiovese',why:"Earthy Chianti Classico with mushroom-based dishes (porcini pasta, mushroom ragù) is a Tuscan classic — Sangiovese echoes the forest floor."}, {id:'corvina',why:"Valpolicella and mushroom risotto is a Venetian pairing — sour cherry and earthiness complement mushroom umami beautifully."} ],
+  'tomato-dishes':[ {id:'sangiovese',why:"Sangiovese and tomato is Italy's greatest food-wine match — the grape's acidity is perfectly calibrated for tomato-based dishes."}, {id:'barbera',why:"Barbera's bright, almost aggressive acidity makes it ideal for tomato-based sauces and pizzas — wine and sauce share the same acidic personality."}, {id:'montepulciano',why:"Montepulciano d'Abruzzo and tomato sauce is a central Italian classic — soft tannins and dark fruit complement tomato's sweetness."}, {id:'nero-davola',why:"Sicilian Nero d'Avola with tomato sauces is intuitive — grape and tomatoes thrive in the same hot, arid Sicilian conditions."}, {id:'grenache',why:"Southern French Grenache with Provençal tomato dishes (ratatouille, daube) is rooted in centuries of culinary tradition."}, {id:'carignan',why:"Old-vine Carignan — robust and tannic — holds up beautifully to heavily tomato-based dishes, particularly those with olives."} ],
+  'spicy':        [ {id:'riesling',why:"Off-dry Riesling is the world's best wine with spicy food — residual sugar tames heat, acidity refreshes, and aromatics complement spice."}, {id:'gewurztraminer',why:"Gewürztraminer and Asian or Indian spiced dishes is a classic pairing — rose, lychee, and ginger echo the aromatic spice blend."}, {id:'gruner-veltliner',why:"Austrian Grüner Veltliner's white pepper and citrus cuts through spice without fighting the heat — versatile with Southeast Asian cuisine."}, {id:'moschofilero',why:"Greek Moschofilero's gentle floral sweetness and moderate alcohol make it surprisingly good with spicy dishes — low tannin is essential."}, {id:'chenin-blanc',why:"Off-dry Chenin Blanc — demi-sec Vouvray — manages spice beautifully, its natural sweetness a counterpoint to chilli heat."}, {id:'viognier',why:"Viognier's peach and apricot character with moderate acidity suits aromatic, lightly spiced dishes — Thai green curry, Moroccan spice."} ],
+  'roasted-veg':  [ {id:'grenache',why:"Grenache's red fruit, warmth, and moderate tannin are a natural partner for roasted Mediterranean vegetables — aubergine, peppers, courgette."}, {id:'tempranillo',why:"Rioja with slow-roasted vegetables — particularly with smoky char — is a reliable Spanish pairing with earthy backbone."}, {id:'montepulciano',why:"Montepulciano d'Abruzzo's soft tannins and dark fruit make it a good everyday red for hearty roasted vegetable dishes with herbs and olive oil."}, {id:'sangiovese',why:"Chianti with Tuscan-style roasted vegetables (rosemary, garlic) is a regional tradition — acidity cuts through the olive oil richly."}, {id:'syrah',why:"Syrah with roasted root vegetables and herbs is a Provençal pairing — olive, herb, and meat character resonates with roasted earthiness."}, {id:'barbera',why:"Barbera's bright acidity and dark fruit make it a versatile partner for any roasted vegetable dish, particularly with caramelised onions."} ],
+  'salads':       [ {id:'sauvignon-blanc',why:"Sauvignon Blanc's grassy citrus freshness is the benchmark salad wine — mirrors vinaigrette's acidity and complements herbs and raw vegetables."}, {id:'vermentino',why:"Sardinian Vermentino — herbal, citrusy, and light — is ideal for Mediterranean salads with olive oil, capers, and grilled vegetables."}, {id:'pinot-gris',why:"A lighter Pinot Gris is a versatile salad wine — gentle stone fruit and citrus don't compete with delicate ingredients."}, {id:'albarino',why:"Albariño's saline citrus precision is excellent with seafood salads, grain salads with lemon dressing, or fresh herb preparations."}, {id:'gruner-veltliner',why:"Austrian Grüner Veltliner's pepper and citrus makes it one of the most food-friendly whites for salads — handles even artichokes."}, {id:'picpoul',why:"Picpoul de Pinet — sharp, lean, and refreshing — is ideal for simple summer salads and anything with a citrus or vinegar dressing."} ],
+  'tomato-pasta': [ {id:'sangiovese',why:"Pasta al pomodoro or Bolognese with Chianti is Italy's most iconic food-wine pairing — acidity perfectly calibrated for tomato sauce."}, {id:'barbera',why:"Barbera d'Asti with a rich meat ragù is a Piedmontese classic — bright acidity cuts through richness while fruit complements tomato."}, {id:'montepulciano',why:"Montepulciano d'Abruzzo is affordable, delicious, and perfectly matched to simple tomato pasta — soft tannins, dark fruit, great acidity."}, {id:'nero-davola',why:"Sicilian Nero d'Avola with pasta alla Norma (aubergine, tomato, ricotta salata) is an island pairing of great natural harmony."}, {id:'aglianico',why:"Campanian Aglianico with pasta al ragù is a southern Italian institution — high acidity and tannin need a substantial meat sauce."}, {id:'corvina',why:"Valpolicella with pasta and tomato sauce is a Venetian everyday pairing — sour cherry and earthiness are natural partners for tomato."} ],
+  'cream-pasta':  [ {id:'chardonnay',why:"Oaked Chardonnay's creamy, buttery character echoes cream pasta sauces — the pairing of like-for-like richness is deeply satisfying."}, {id:'pinot-gris',why:"Alsace Pinot Gris — rich, spiced, and full-bodied — has the weight and texture to match heavy cream sauces without being lost."}, {id:'verdicchio',why:"Verdicchio's mineral depth and bitter almond finish cut through cream pasta beautifully, adding contrast to the richness."}, {id:'arneis',why:"Piedmontese Arneis — white peach, almond, and flowers — is a regional classic with cream-based Piedmontese pasta dishes like tajarin al burro."}, {id:'cortese',why:"Gavi (Cortese) with cream pasta is a Piedmontese pairing — mineral citrus cuts through cream while complementing egg pasta."}, {id:'trebbiano',why:"Central Italian Trebbiano is the everyday Roman choice for pasta alla carbonara — its freshness balances egg and guanciale."} ],
+  'risotto':      [ {id:'chardonnay',why:"Burgundy-style Chardonnay and risotto (particularly mushroom or truffle) is one of the greatest pairings — the wine's creaminess echoes the dish."}, {id:'pinot-gris',why:"Alsace Pinot Gris with seafood or asparagus risotto is elegant — body and spiced stone fruit complement risotto's richness."}, {id:'arneis',why:"Piedmontese Arneis is the classic local white for risotto — almond and stone-fruit character with local risotto ai funghi is exceptional."}, {id:'verdicchio',why:"Verdicchio with a seafood or saffron risotto is an elegant central Italian pairing — mineral depth and freshness are ideal."}, {id:'garganega',why:"Soave Classico from volcanic hillsides paired with a simple Venetian risotto (mushroom, asparagus) is understated brilliance."}, {id:'vermentino',why:"Sardinian Vermentino with a seafood risotto is a Mediterranean pairing of great harmony — herbal, citrusy wine enhances ocean flavours."} ],
+  'pizza':        [ {id:'sangiovese',why:"Chianti with Margherita or Neapolitan pizza is an Italian certainty — acidity and tomato-friendly character make it the perfect pizza wine."}, {id:'nero-davola',why:"Sicilian Nero d'Avola with Sicilian-style pizza is a natural island pairing — robust dark fruit and southern warmth match a loaded pizza."}, {id:'barbera',why:"Barbera's fresh acidity and dark fruit make it one of Italy's best pizza wines — versatile enough for any topping from Margherita to quattro formaggi."}, {id:'montepulciano',why:"Montepulciano d'Abruzzo — affordable, flavourful, highly acidic — is the ideal everyday wine for pizza, matching tomato and cheese alike."}, {id:'frappato',why:"Light, cherry-bright Frappato from Sicily is inspired for pizza — fresh fruit and low tannin suit melted cheese and tomato perfectly."}, {id:'lambrusco',why:"Lambrusco Grasparossa — sparkling, tangy, and dry — is one of Italy's best pizza wines; bubbles cut through cheese fat and acidity matches tomato."} ],
+  'seafood-pasta':[ {id:'vermentino',why:"Sardinian Vermentino with spaghetti alle vongole is a Mediterranean pairing rooted in coastal tradition — herbal, saline, and citrusy."}, {id:'verdicchio',why:"Verdicchio dei Castelli di Jesi with seafood pasta from the Adriatic coast is a regional pairing of great precision — mineral salinity echoes the sea."}, {id:'falanghina',why:"Campanian Falanghina with linguine ai frutti di mare is a Neapolitan institution — volcanic mineral character complements ocean flavours."}, {id:'albarino',why:"Galician Albariño with any seafood pasta is intuitive — the grape is grown in Spain's most productive seafood region and designed for this match."}, {id:'melon-de-bourgogne',why:"Muscadet with seafood pasta (particularly clams or mussels) brings Atlantic coastal freshness — saline, biscuity wine mirrors the shellfish."}, {id:'grillo',why:"Sicilian Grillo with pasta con le sarde (sardines, fennel, pine nuts) is a natural island pairing of aromatic, saline whites."} ],
+  'truffle-pasta':[ {id:'chardonnay',why:"White Burgundy and white truffle is one of the world's most celebrated pairings — mushroom, butter, and mineral notes resonate with truffle's earthiness."}, {id:'nebbiolo',why:"Barolo with white truffle is the great Piedmontese luxury — tar, roses, and earth are the textbook complement to tartufo bianco d'Alba."}, {id:'pinot-noir',why:"Burgundy with black truffle pasta is a classic — forest-floor earthiness and dark cherry mirror the truffle's complexity perfectly."}, {id:'barbera',why:"Barbera d'Alba with tagliolini al tartufo is a Piedmontese everyday luxury — bright acidity balances the richness."}, {id:'savagnin',why:"Jura Savagnin — nutty, oxidative, complex — is a fascinating match for truffle pasta; vin jaune character resonates with earthy umami."}, {id:'corvina',why:"Valpolicella Ripasso with black truffle pasta is a Venetian luxury pairing — richer profile from Amarone lees suits truffle's intensity."} ],
+  'chocolate':    [ {id:'syrah',why:"A powerful Northern Rhône Syrah — chocolate, coffee, and olive — is one of the most satisfying pairings with 70%+ dark chocolate."}, {id:'zinfandel',why:"California Zinfandel's jammy dark fruit and high alcohol are an excellent match for dark chocolate — sweetness tames bitterness."}, {id:'brachetto',why:"Brachetto d'Acqui — gently sparkling, lightly sweet, intensely rose-scented — is an Italian match made in heaven for dark chocolate truffles."}, {id:'muscat-blanc',why:"Muscat de Beaumes-de-Venise's orange blossom and honey sweetness complements dark chocolate's bitterness with seductive aromatic contrast."}, {id:'pedro-ximenez',why:"PX Sherry — treacle-dark, intensely sweet, with dried fruit and chocolate — is extraordinary alongside pure fine dark chocolate."}, {id:'cabernet-sauvignon',why:"An aged Napa Cabernet, with its deep cassis and chocolate notes from barrel ageing, pairs naturally with fine dark chocolate of similar complexity."} ],
+  'fruit-tart':   [ {id:'riesling',why:"German Spätlese Riesling with apple, pear, or stone fruit tart mirrors the fruit character while acidity provides balance."}, {id:'gewurztraminer',why:"Alsace Gewürztraminer Vendange Tardive with a peach or apricot tart is extraordinary — lychee and rose intensity echo the fruit."}, {id:'muscat-blanc',why:"Muscat Blanc's grapey, floral sweetness complements any fruit in the tart — its aromatic freshness is the most versatile dessert wine pairing."}, {id:'chenin-blanc',why:"Vouvray moelleux — honeyed Chenin Blanc from the Loire — is a beautiful match for apple or quince tart, especially with crème fraîche."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine with a fruit tart is a luxury pairing — peach, apricot, and tropical concentration amplifies the pastry's fruit."}, {id:'brachetto',why:"Brachetto d'Acqui's strawberry and rose character is delightful with a berry or strawberry tart — lifts the fruit and adds Italian elegance."} ],
+  'creme-brulee': [ {id:'semillon',why:"Sauternes (Semillon-dominant) with crème brûlée is one of France's most celebrated dessert pairings — honey, apricot, and Botrytis against egg-cream richness."}, {id:'muscat-blanc',why:"Muscat de Beaumes-de-Venise with crème brûlée is a southern French pairing of seductive simplicity — honey and orange blossom suit the custard."}, {id:'gewurztraminer',why:"Alsace Gewürztraminer Sélection de Grains Nobles — intense, honeyed, and exotic — is an extraordinary match for crème brûlée's richness."}, {id:'riesling',why:"German Auslese or Beerenauslese Riesling balances sweetness and acidity perfectly — the wine's lift prevents the pairing becoming cloying."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine's intense peach-apricot concentration alongside crème brûlée is a luxury pairing that rivals Sauternes in richness."}, {id:'tamaioasa-romaneasca',why:"Romanian Tămâioasă Românească — incense-scented, honeyed, and exotic — is a discovery pairing, its orange blossom intensity resonating beautifully."} ],
+  'berries':      [ {id:'brachetto',why:"Brachetto d'Acqui — rose-scented, sparkling, gently sweet — is perhaps the world's best match for fresh strawberries and mixed berries."}, {id:'muscat-blanc',why:"Muscat Blanc's grapey, floral sweetness complements all fresh berries — particularly in panna cotta, Eton mess, or served with cream."}, {id:'pinot-noir',why:"A delicate, fruit-forward Pinot Noir is one of the few reds that works with berry desserts — cherry and raspberry echo rather than compete."}, {id:'gamay',why:"Chilled Fleurie with fresh strawberries is a classic French summer pairing — the wine's fresh cherry matches the fruit perfectly."}, {id:'riesling',why:"A German Spätlese Riesling with peaches, raspberries, and summer fruit has enough sweetness to complement while acidity stays fresh."}, {id:'moschofilero',why:"Greek Moschofilero's rose and violet aromatics with a bowl of mixed berries and yoghurt is a simple, delightful pairing showcasing its floral freshness."} ],
+  'tiramisu':     [ {id:'brachetto',why:"Brachetto d'Acqui — sparkling, rose-scented, slightly sweet — cuts through tiramisu's coffee and mascarpone richness with effervescent charm."}, {id:'muscat-blanc',why:"Moscato d'Asti (Muscat Blanc) is the classic northern Italian pairing for tiramisu — delicate sweetness and low alcohol are the perfect counterpoint."}, {id:'corvina',why:"Recioto della Valpolicella — sweet, dried-grape red from Veneto — is a regional Italian match for tiramisu, cherry-chocolate sweetness echoing the dessert."}, {id:'pedro-ximenez',why:"PX Sherry with tiramisu is a bold, indulgent pairing — treacle, coffee, and raisin character amplifies the espresso notes in the dessert."}, {id:'lambrusco',why:"A dolce-style Lambrusco with tiramisu is an Emilian tradition — sparkling dark cherry fruit cuts through the mascarpone richness."}, {id:'muscat-ottonel',why:"Austrian Muscat Ottonel dessert wine offers a lighter counterpoint — floral, honeyed, and refreshing against tiramisu's intensity."} ],
+};
+
+// ── Pairing UI ────────────────────────────────────────────────────────────
+let activeCategoryId = null;
+let activeDishId     = null;
+
+function renderCategories() {
+  const grid = document.getElementById('category-grid');
+  grid.innerHTML = CATEGORIES.map(cat => `
+    <button class="category-card" data-cat="${cat.id}" aria-label="${cat.name}">
+      <span class="cat-icon">${cat.icon}</span>
+      <span class="cat-name">${cat.name}</span>
+    </button>`).join('');
+
+  grid.querySelectorAll('.category-card').forEach(card => {
+    card.addEventListener('click', () => {
+      grid.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      activeCategoryId = card.dataset.cat;
+      activeDishId = null;
+      renderDishes(activeCategoryId);
+      document.getElementById('pairing-results').hidden = true;
+    });
+  });
+}
+
+function renderDishes(catId) {
+  const section = document.getElementById('dish-section');
+  const cat     = CATEGORIES.find(c => c.id === catId);
+  const dishes  = DISHES[catId] || [];
+  section.hidden = false;
+  section.innerHTML = `
+    <span class="dish-section-label">Choose a dish — ${cat.name}</span>
+    <div class="dish-chips">
+      ${dishes.map(d => `<button class="dish-chip" data-dish="${d.id}">${d.name}</button>`).join('')}
+    </div>`;
+
+  section.querySelectorAll('.dish-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      section.querySelectorAll('.dish-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      activeDishId = chip.dataset.dish;
+      const dishName = dishes.find(d => d.id === activeDishId).name;
+      renderPairings(activeDishId, dishName);
+    });
+  });
+}
+
+function renderPairings(dishId, dishName) {
+  const container = document.getElementById('pairing-results');
+  const entries   = PAIRINGS[dishId] || [];
+  const grapes    = entries.map(e => ({ grape: GRAPES.find(g => g.id === e.id), why: e.why })).filter(e => e.grape);
+
+  container.hidden = false;
+  container.innerHTML = `
+    <p class="pairing-results-header">Recommended wines for <strong>${dishName}</strong></p>
+    <div class="pairing-cards">
+      ${grapes.map(({grape, why}) => `
+        <div class="pairing-card" data-id="${grape.id}" role="button" tabindex="0" aria-label="Open ${grape.name} details">
+          <div class="pairing-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+          <div class="pairing-body">
+            <h4>${grape.name}</h4>
+            <p class="pairing-why">${why}</p>
+            <span class="pairing-badge" style="background:${grape.type==='red'?'#f8e8ea':'#e8f0f8'};color:${grape.type==='red'?'#8a1820':'#1a4a7a'};">${grape.type}</span>
+          </div>
+        </div>`).join('')}
+    </div>`;
+
+  container.querySelectorAll('.pairing-card').forEach(card => {
+    const open = () => openModal(GRAPES.find(g => g.id === card.dataset.id));
+    card.addEventListener('click', open);
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
+  });
+
+  container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+renderCategories();
 </script>
 </body>
 </html>
