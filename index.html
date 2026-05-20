@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; frame-ancestors 'none'; form-action 'none'; base-uri 'self';" />
+  <meta name="referrer" content="no-referrer" />
   <title>Vine & Terroir — Wine Grape Education</title>
   <style>
     /* ── Reset & base ───────────────────────────────────────────────────── */
@@ -560,6 +562,15 @@
 </div>
 
 <script>
+function escapeHtml(s) {
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#x27;');
+}
+
 const GRAPES = [
   {
     id: "cabernet-sauvignon",
@@ -5240,20 +5251,21 @@ function renderCards(grapes) {
     card.setAttribute('role', 'button');
     card.setAttribute('aria-label', `Learn about ${grape.name}`);
 
-    const topRegions = grape.regions.slice(0, 3).map(r => `${r.flag} ${r.name.split(',')[0]}`).join(' · ');
+    const topRegions = grape.regions.slice(0, 3).map(r => `${r.flag} ${escapeHtml(r.name.split(',')[0])}`).join(' · ');
+    const typeLabel  = grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé';
 
     card.innerHTML = `
       <div class="card-header">
         <div class="grape-icon" style="background:${grape.bgLight};">${grape.icon}</div>
         <div class="card-title">
-          <h2>${grape.name}</h2>
-          <div class="alias">${grape.alias}</div>
-          <span class="type-badge ${grape.type}">${grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé'}</span>
+          <h2>${escapeHtml(grape.name)}</h2>
+          <div class="alias">${escapeHtml(grape.alias)}</div>
+          <span class="type-badge ${grape.type}">${typeLabel}</span>
         </div>
       </div>
-      <p class="card-notes">${grape.summary}</p>
+      <p class="card-notes">${escapeHtml(grape.summary)}</p>
       <div class="taste-pills">
-        ${grape.flavors.map(f => `<span class="pill">${f.icon} ${f.label}</span>`).join('')}
+        ${grape.flavors.map(f => `<span class="pill">${f.icon} ${escapeHtml(f.label)}</span>`).join('')}
       </div>
       <div class="card-footer">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
@@ -5270,20 +5282,21 @@ function renderCards(grapes) {
 // ── Modal ─────────────────────────────────────────────────────────────────────
 function openModal(grape) {
   const content = document.getElementById('modal-content');
+  const typeLabel = grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé';
   content.innerHTML = `
     <div class="modal-hero">
       <div class="modal-icon" style="background:${grape.bgLight};">${grape.icon}</div>
       <div class="modal-title">
-        <h2 id="modal-grape-name">${grape.name}</h2>
-        <div class="alias">${grape.alias}</div>
-        <span class="type-badge ${grape.type}">${grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé'}</span>
+        <h2 id="modal-grape-name">${escapeHtml(grape.name)}</h2>
+        <div class="alias">${escapeHtml(grape.alias)}</div>
+        <span class="type-badge ${grape.type}">${typeLabel}</span>
       </div>
     </div>
     <div class="modal-body">
 
       <div class="modal-section">
         <h3>About This Grape</h3>
-        <p>${grape.summary}</p>
+        <p>${escapeHtml(grape.summary)}</p>
       </div>
 
       <div class="modal-section">
@@ -5292,7 +5305,7 @@ function openModal(grape) {
           ${grape.flavors.map(f => `
             <div class="flavor-item">
               <span class="icon">${f.icon}</span>
-              <span>${f.label}</span>
+              <span>${escapeHtml(f.label)}</span>
             </div>
           `).join('')}
         </div>
@@ -5305,11 +5318,11 @@ function openModal(grape) {
             <div class="region-card">
               <div class="region-name">
                 <span class="flag">${r.flag}</span>
-                <span>${r.name}</span>
+                <span>${escapeHtml(r.name)}</span>
               </div>
-              <p class="region-effect">${r.effect}</p>
+              <p class="region-effect">${escapeHtml(r.effect)}</p>
               <div class="region-notes">
-                ${r.notes.map(n => `<span class="pill">${n}</span>`).join('')}
+                ${r.notes.map(n => `<span class="pill">${escapeHtml(n)}</span>`).join('')}
               </div>
             </div>
           `).join('')}
@@ -5618,9 +5631,9 @@ let activeDishId     = null;
 function renderCategories() {
   const grid = document.getElementById('category-grid');
   grid.innerHTML = CATEGORIES.map(cat => `
-    <button class="category-card" data-cat="${cat.id}" aria-label="${cat.name}">
+    <button class="category-card" data-cat="${escapeHtml(cat.id)}" aria-label="${escapeHtml(cat.name)}">
       <span class="cat-icon">${cat.icon}</span>
-      <span class="cat-name">${cat.name}</span>
+      <span class="cat-name">${escapeHtml(cat.name)}</span>
     </button>`).join('');
 
   grid.querySelectorAll('.category-card').forEach(card => {
@@ -5641,9 +5654,9 @@ function renderDishes(catId) {
   const dishes  = DISHES[catId] || [];
   section.hidden = false;
   section.innerHTML = `
-    <span class="dish-section-label">Choose a dish — ${cat.name}</span>
+    <span class="dish-section-label">Choose a dish — ${escapeHtml(cat.name)}</span>
     <div class="dish-chips">
-      ${dishes.map(d => `<button class="dish-chip" data-dish="${d.id}">${d.name}</button>`).join('')}
+      ${dishes.map(d => `<button class="dish-chip" data-dish="${escapeHtml(d.id)}">${escapeHtml(d.name)}</button>`).join('')}
     </div>`;
 
   section.querySelectorAll('.dish-chip').forEach(chip => {
@@ -5664,15 +5677,15 @@ function renderPairings(dishId, dishName) {
 
   container.hidden = false;
   container.innerHTML = `
-    <p class="pairing-results-header">Recommended wines for <strong>${dishName}</strong></p>
+    <p class="pairing-results-header">Recommended wines for <strong>${escapeHtml(dishName)}</strong></p>
     <div class="pairing-cards">
       ${grapes.map(({grape, why}) => `
-        <div class="pairing-card" data-id="${grape.id}" role="button" tabindex="0" aria-label="Open ${grape.name} details">
+        <div class="pairing-card" data-id="${escapeHtml(grape.id)}" role="button" tabindex="0" aria-label="Open ${escapeHtml(grape.name)} details">
           <div class="pairing-icon" style="background:${grape.bgLight};">${grape.icon}</div>
           <div class="pairing-body">
-            <h4>${grape.name}</h4>
-            <p class="pairing-why">${why}</p>
-            <span class="pairing-badge" style="background:${grape.type==='red'?'#f8e8ea':'#e8f0f8'};color:${grape.type==='red'?'#8a1820':'#1a4a7a'};">${grape.type}</span>
+            <h4>${escapeHtml(grape.name)}</h4>
+            <p class="pairing-why">${escapeHtml(why)}</p>
+            <span class="pairing-badge" style="background:${grape.type==='red'?'#f8e8ea':'#e8f0f8'};color:${grape.type==='red'?'#8a1820':'#1a4a7a'};">${escapeHtml(grape.type)}</span>
           </div>
         </div>`).join('')}
     </div>`;
