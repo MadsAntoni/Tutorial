@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; frame-ancestors 'none'; form-action 'none'; base-uri 'self';" />
   <meta name="referrer" content="no-referrer" />
+  <meta name="permissions-policy" content="camera=(), microphone=(), geolocation=(), payment=(), usb=(), bluetooth=()" />
   <title>Vine & Terroir — Wine Grape Education</title>
   <style>
     /* ── Reset & base ───────────────────────────────────────────────────── */
@@ -570,6 +571,15 @@ function escapeHtml(s) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#x27;');
 }
+
+// Allow only 3- or 6-digit hex colours in style attributes
+function safeCssColor(val) {
+  return /^#[0-9a-fA-F]{3,6}$/.test(String(val)) ? val : 'transparent';
+}
+
+const VALID_TYPES   = new Set(['red', 'white']);
+const VALID_TABS    = new Set(['explorer', 'pairing']);
+const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 const GRAPES = [
   {
@@ -5252,15 +5262,16 @@ function renderCards(grapes) {
     card.setAttribute('aria-label', `Learn about ${grape.name}`);
 
     const topRegions = grape.regions.slice(0, 3).map(r => `${r.flag} ${escapeHtml(r.name.split(',')[0])}`).join(' · ');
-    const typeLabel  = grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé';
+    const safeT      = VALID_TYPES.has(grape.type) ? grape.type : 'red';
+    const typeLabel  = safeT === 'red' ? 'Red Wine' : 'White Wine';
 
     card.innerHTML = `
       <div class="card-header">
-        <div class="grape-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+        <div class="grape-icon" style="background:${safeCssColor(grape.bgLight)};">${grape.icon}</div>
         <div class="card-title">
           <h2>${escapeHtml(grape.name)}</h2>
           <div class="alias">${escapeHtml(grape.alias)}</div>
-          <span class="type-badge ${grape.type}">${typeLabel}</span>
+          <span class="type-badge ${safeT}">${typeLabel}</span>
         </div>
       </div>
       <p class="card-notes">${escapeHtml(grape.summary)}</p>
@@ -5282,14 +5293,15 @@ function renderCards(grapes) {
 // ── Modal ─────────────────────────────────────────────────────────────────────
 function openModal(grape) {
   const content = document.getElementById('modal-content');
-  const typeLabel = grape.type === 'red' ? 'Red Wine' : grape.type === 'white' ? 'White Wine' : 'Rosé';
+  const safeT     = VALID_TYPES.has(grape.type) ? grape.type : 'red';
+  const typeLabel = safeT === 'red' ? 'Red Wine' : 'White Wine';
   content.innerHTML = `
     <div class="modal-hero">
-      <div class="modal-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+      <div class="modal-icon" style="background:${safeCssColor(grape.bgLight)};">${grape.icon}</div>
       <div class="modal-title">
         <h2 id="modal-grape-name">${escapeHtml(grape.name)}</h2>
         <div class="alias">${escapeHtml(grape.alias)}</div>
-        <span class="type-badge ${grape.type}">${typeLabel}</span>
+        <span class="type-badge ${safeT}">${typeLabel}</span>
       </div>
     </div>
     <div class="modal-body">
@@ -5365,6 +5377,7 @@ const REGION_KEYWORDS = {
   'americas':         ['USA', 'California', 'Oregon', 'Washington', 'Napa', 'Sonoma', 'Canada', 'Ontario', 'Argentina', 'Chile', 'Brazil', 'New York', 'Virginia', 'Missouri', 'Finger Lakes', 'Ohio', 'British Columbia', 'Quebec', 'Manitoba', 'Saskatchewan', 'Nova Scotia', 'Willamette', 'Paso Robles', 'New England', 'Vermont', 'Mendoza', 'Colchagua', 'Hudson Valley'],
   'asia-pacific':     ['Japan', 'Australia', 'New Zealand', 'China', 'Korea', 'South Korea', 'Yamanashi', 'Hokkaido', 'Nagano', 'Niigata', 'Kyushu', 'McLaren Vale', 'Barossa', 'South Australia', 'Victoria', 'King Valley', 'Hawke\'s Bay', 'Marlborough', 'Otago', 'Xinjiang', 'Shandong', 'Jeju', 'Okanagan', 'Ishikawa'],
 };
+const VALID_REGIONS = new Set(['all', ...Object.keys(REGION_KEYWORDS)]);
 
 function matchesRegion(g) {
   if (activeRegion === 'all') return true;
@@ -5396,18 +5409,22 @@ document.getElementById('search').addEventListener('input', e => {
 
 document.querySelectorAll('.filter-btn:not(.region-btn)').forEach(btn => {
   btn.addEventListener('click', () => {
+    const f = btn.dataset.filter;
+    if (!VALID_FILTERS.has(f)) return;
     document.querySelectorAll('.filter-btn:not(.region-btn)').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    activeFilter = btn.dataset.filter;
+    activeFilter = f;
     renderCards(getFiltered());
   });
 });
 
 document.querySelectorAll('.region-btn').forEach(btn => {
   btn.addEventListener('click', () => {
+    const r = btn.dataset.region;
+    if (!VALID_REGIONS.has(r)) return;
     document.querySelectorAll('.region-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    activeRegion = btn.dataset.region;
+    activeRegion = r;
     renderCards(getFiltered());
   });
 });
@@ -5420,9 +5437,11 @@ document.querySelectorAll('.tab-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    const tab = btn.dataset.tab;
+    if (!VALID_TABS.has(tab)) return;
     btn.classList.add('active');
     btn.setAttribute('aria-selected','true');
-    document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
   });
 });
 
@@ -5636,11 +5655,14 @@ function renderCategories() {
       <span class="cat-name">${escapeHtml(cat.name)}</span>
     </button>`).join('');
 
+  const validCatIds = new Set(CATEGORIES.map(c => c.id));
   grid.querySelectorAll('.category-card').forEach(card => {
     card.addEventListener('click', () => {
+      const catId = card.dataset.cat;
+      if (!validCatIds.has(catId)) return;
       grid.querySelectorAll('.category-card').forEach(c => c.classList.remove('active'));
       card.classList.add('active');
-      activeCategoryId = card.dataset.cat;
+      activeCategoryId = catId;
       activeDishId = null;
       renderDishes(activeCategoryId);
       document.getElementById('pairing-results').hidden = true;
@@ -5659,13 +5681,16 @@ function renderDishes(catId) {
       ${dishes.map(d => `<button class="dish-chip" data-dish="${escapeHtml(d.id)}">${escapeHtml(d.name)}</button>`).join('')}
     </div>`;
 
+  const validDishIds = new Set(dishes.map(d => d.id));
   section.querySelectorAll('.dish-chip').forEach(chip => {
     chip.addEventListener('click', () => {
+      const dishId = chip.dataset.dish;
+      if (!validDishIds.has(dishId)) return;
       section.querySelectorAll('.dish-chip').forEach(c => c.classList.remove('active'));
       chip.classList.add('active');
-      activeDishId = chip.dataset.dish;
-      const dishName = dishes.find(d => d.id === activeDishId).name;
-      renderPairings(activeDishId, dishName);
+      activeDishId = dishId;
+      const dish = dishes.find(d => d.id === dishId);
+      renderPairings(dishId, dish.name);
     });
   });
 }
@@ -5679,19 +5704,27 @@ function renderPairings(dishId, dishName) {
   container.innerHTML = `
     <p class="pairing-results-header">Recommended wines for <strong>${escapeHtml(dishName)}</strong></p>
     <div class="pairing-cards">
-      ${grapes.map(({grape, why}) => `
+      ${grapes.map(({grape, why}) => {
+        const t   = VALID_TYPES.has(grape.type) ? grape.type : 'red';
+        const bg  = t === 'red' ? '#f8e8ea' : '#e8f0f8';
+        const col = t === 'red' ? '#8a1820' : '#1a4a7a';
+        return `
         <div class="pairing-card" data-id="${escapeHtml(grape.id)}" role="button" tabindex="0" aria-label="Open ${escapeHtml(grape.name)} details">
-          <div class="pairing-icon" style="background:${grape.bgLight};">${grape.icon}</div>
+          <div class="pairing-icon" style="background:${safeCssColor(grape.bgLight)};">${grape.icon}</div>
           <div class="pairing-body">
             <h4>${escapeHtml(grape.name)}</h4>
             <p class="pairing-why">${escapeHtml(why)}</p>
-            <span class="pairing-badge" style="background:${grape.type==='red'?'#f8e8ea':'#e8f0f8'};color:${grape.type==='red'?'#8a1820':'#1a4a7a'};">${escapeHtml(grape.type)}</span>
+            <span class="pairing-badge" style="background:${bg};color:${col};">${escapeHtml(t)}</span>
           </div>
-        </div>`).join('')}
+        </div>`;
+      }).join('')}
     </div>`;
 
   container.querySelectorAll('.pairing-card').forEach(card => {
-    const open = () => openModal(GRAPES.find(g => g.id === card.dataset.id));
+    const open = () => {
+      const grape = GRAPES.find(g => g.id === card.dataset.id);
+      if (grape) openModal(grape);
+    };
     card.addEventListener('click', open);
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') open(); });
   });
