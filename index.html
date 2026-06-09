@@ -386,7 +386,90 @@
     .fault-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
     .fault-fix { font-size: .8rem; color: var(--wine); margin-top: 6px; font-weight: 600; }
 
+    /* ── Ageing & Vessels ────────────────────────────────────────────────── */
+    .ageing-container {
+      max-width: 900px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .ageing-intro h2 { font-size: 1.5rem; color: var(--wine); margin-bottom: 6px; }
+    .ageing-intro p  { color: var(--muted); font-style: italic; }
+    .ageing-section-title {
+      font-size: 1.15rem; font-weight: 700; color: var(--text);
+      margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #ecdde8;
+    }
 
+    .why-age-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+    .why-age-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px 16px; }
+    .why-age-icon  { font-size: 1.6rem; margin-bottom: 8px; display: block; }
+    .why-age-title { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 6px; }
+    .why-age-desc  { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+
+    .oak-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .oak-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 20px 18px; }
+    .oak-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+    .oak-flag  { font-size: 1.6rem; }
+    .oak-name  { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .oak-species { font-size: .72rem; color: var(--muted); }
+    .oak-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
+    .oak-tag { background: #f5edf2; border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
+    .oak-desc    { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .oak-used-in { font-size: .78rem; color: var(--text); margin-top: 8px; font-style: italic; }
+    .oak-cost    { font-size: .76rem; color: var(--muted); margin-top: 4px; }
+
+    .barrel-list { display: flex; flex-direction: column; gap: 10px; }
+    .barrel-row  { display: flex; align-items: center; gap: 14px; background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 12px 16px; }
+    .barrel-name { font-weight: 700; font-size: .85rem; color: var(--text); width: 190px; flex-shrink: 0; }
+    .barrel-sub  { font-weight: 400; font-size: .75rem; color: var(--muted); display: block; }
+    .barrel-bar-wrap { flex: 1; background: #ecdde8; border-radius: 4px; height: 10px; }
+    .barrel-bar  { height: 100%; border-radius: 4px; background: var(--wine); }
+    .barrel-vol  { font-size: .8rem; color: var(--muted); width: 80px; text-align: right; flex-shrink: 0; }
+    @media (max-width: 520px) { .barrel-name { width: 130px; } .barrel-vol { display: none; } }
+
+    .toast-fill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .toast-fill-grid { grid-template-columns: 1fr; } }
+    .toast-card, .fill-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; }
+    .toast-fill-title { font-weight: 700; font-size: .92rem; color: var(--text); margin-bottom: 12px; }
+    .toast-row, .fill-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
+    .toast-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
+    .toast-dot-light  { background: #f5deb3; border: 1px solid #c8a870; }
+    .toast-dot-medium { background: #c8864a; }
+    .toast-dot-heavy  { background: #4a2010; }
+    .toast-text, .fill-text { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .toast-text strong, .fill-text strong { color: var(--text); }
+    .fill-number { font-size: 1rem; font-weight: 800; color: var(--wine); width: 24px; flex-shrink: 0; text-align: center; }
+
+    .vessel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
+    .vessel-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; transition: border-color .2s; }
+    .vessel-card:hover { border-color: var(--wine); }
+    .vessel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .vessel-icon { font-size: 1.8rem; }
+    .vessel-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .vessel-badge { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 2px 8px; border-radius: 10px; margin-top: 2px; display: inline-block; }
+    .badge-reductive { background: #e8f0f8; color: #1a4a7a; }
+    .badge-oxidative  { background: #f8ede0; color: #8a4010; }
+    .badge-neutral    { background: #f0f4e8; color: #2e6020; }
+    .badge-ancient    { background: #f5edf2; color: #7b2d42; }
+    .vessel-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .vessel-used { font-size: .78rem; color: var(--wine); margin-top: 6px; font-style: italic; }
+
+    .lees-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
+    @media (max-width: 560px) { .lees-grid { grid-template-columns: 1fr; } }
+    .lees-card   { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; }
+    .lees-title  { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 8px; }
+    .lees-desc   { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .lees-examples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
+    .lees-chip { background: #f5edf2; border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
+
+    .bottle-timeline { display: flex; flex-direction: column; gap: 10px; }
+    .bottle-row { display: flex; align-items: flex-start; gap: 14px; background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 14px 16px; }
+    .bottle-potential { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 3px 9px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
+    .pot-drink-now { background: #e8f8e8; color: #1a6020; }
+    .pot-medium    { background: #f8f0e0; color: #8a5000; }
+    .pot-long      { background: #f0e8f8; color: #4a1a7a; }
+    .pot-very-long { background: #f8e8ea; color: #8a1820; }
+    .bottle-detail strong { font-size: .88rem; color: var(--text); display: block; margin-bottom: 3px; }
+    .bottle-detail span   { font-size: .8rem; color: var(--muted); }
 
     /* ── Food Pairing ────────────────────────────────────────────────────── */
     .pairing-container {
@@ -742,6 +825,7 @@
   <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">🍇 Grape Explorer</button>
   <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">🍽️ Food Pairing</button>
   <button class="tab-btn" data-tab="tasting" role="tab" aria-selected="false">🍷 How to Taste</button>
+  <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">🪵 Ageing & Vessels</button>
 </nav>
 
 <section id="tab-explorer" class="tab-panel active" role="tabpanel">
@@ -1131,6 +1215,366 @@
   </div><!-- /tasting-container -->
 </section>
 
+<section id="tab-ageing" class="tab-panel" role="tabpanel">
+  <div class="ageing-container">
+
+    <div class="ageing-intro">
+      <h2>Ageing &amp; Vessels</h2>
+      <p>Where a wine rests — and for how long — shapes its character as profoundly as the vineyard itself.</p>
+    </div>
+
+    <!-- ── Why Age ──────────────────────────────────────────────── -->
+    <div class="ageing-section-title">Why Wines Age</div>
+    <div class="why-age-grid">
+      <div class="why-age-card">
+        <span class="why-age-icon">🔗</span>
+        <div class="why-age-title">Tannin Polymerisation</div>
+        <p class="why-age-desc">Short, harsh tannin molecules link together into longer chains. The result feels softer and silkier on the palate — the transformation from a grippy young Barolo to a velvet-textured aged one.</p>
+      </div>
+      <div class="why-age-card">
+        <span class="why-age-icon">💨</span>
+        <div class="why-age-title">Controlled Oxidation</div>
+        <p class="why-age-desc">A small, steady intake of oxygen — through barrel staves or a cork — drives flavour development. Too much = oxidised and flat. Too little = reduced and sulphurous. The vessel determines the rate.</p>
+      </div>
+      <div class="why-age-card">
+        <span class="why-age-icon">🌿</span>
+        <div class="why-age-title">Fruit Evolution</div>
+        <p class="why-age-desc">Bright primary fruit gradually transforms: fresh cherry becomes dried cherry, then leather and earth. In white wines, crisp apple becomes honeyed quince, then lanolin and petrol. Primary gives way to tertiary.</p>
+      </div>
+      <div class="why-age-card">
+        <span class="why-age-icon">🧪</span>
+        <div class="why-age-title">Ester &amp; Compound Development</div>
+        <p class="why-age-desc">Hundreds of chemical reactions produce new flavour compounds over time. TDN creates the petrol note in aged Riesling. Esters form from acids and alcohols. Pyrazines soften. Each molecule has its own timeline.</p>
+      </div>
+      <div class="why-age-card">
+        <span class="why-age-icon">🧂</span>
+        <div class="why-age-title">Acid &amp; Crystal Changes</div>
+        <p class="why-age-desc">Malic acid converts to softer lactic acid during malolactic fermentation. Tartaric acid precipitates as harmless tartrate crystals (the glassy deposits sometimes found in bottles or on corks).</p>
+      </div>
+    </div>
+
+    <!-- ── Oak Barrels ──────────────────────────────────────────── -->
+    <div class="ageing-section-title">Oak Barrels</div>
+    <div class="oak-grid">
+
+      <div class="oak-card">
+        <div class="oak-card-head">
+          <span class="oak-flag">🇫🇷</span>
+          <div>
+            <div class="oak-name">French Oak</div>
+            <div class="oak-species">Quercus petraea / Quercus robur</div>
+          </div>
+        </div>
+        <div class="oak-tag-row">
+          <span class="oak-tag">Tight grain</span>
+          <span class="oak-tag">Subtle</span>
+          <span class="oak-tag">Elegant</span>
+        </div>
+        <p class="oak-desc">The finest-grained of the major oaks. Slow, gradual flavour extraction produces delicate vanilla, spice, cedar, and gentle toast without overwhelming the wine. Adds silky tannin and complexity.</p>
+        <p class="oak-used-in">Used in: Burgundy, Bordeaux, Champagne, top Rioja, world-class Chardonnay and Cabernet everywhere.</p>
+        <p class="oak-cost">~€700–1,200 per new 225L barrique. Forests: Allier, Tronçais, Vosges, Nevers.</p>
+      </div>
+
+      <div class="oak-card">
+        <div class="oak-card-head">
+          <span class="oak-flag">🇺🇸</span>
+          <div>
+            <div class="oak-name">American Oak</div>
+            <div class="oak-species">Quercus alba</div>
+          </div>
+        </div>
+        <div class="oak-tag-row">
+          <span class="oak-tag">Wide grain</span>
+          <span class="oak-tag">Bold</span>
+          <span class="oak-tag">Aromatic</span>
+        </div>
+        <p class="oak-desc">Wider grain means faster, more pronounced flavour transfer. Higher levels of oak lactones produce vivid vanilla, coconut, dill, and cream-soda notes. Can dominate lighter wines if used heavily.</p>
+        <p class="oak-used-in">Used in: Traditional Rioja, Australian Shiraz, Bourbon barrels used in wine ageing, US Cabernet and Chardonnay.</p>
+        <p class="oak-cost">~€200–400 per barrel — significantly cheaper than French oak.</p>
+      </div>
+
+      <div class="oak-card">
+        <div class="oak-card-head">
+          <span class="oak-flag">🇭🇺</span>
+          <div>
+            <div class="oak-name">Hungarian Oak</div>
+            <div class="oak-species">Quercus petraea (Carpathian)</div>
+          </div>
+        </div>
+        <div class="oak-tag-row">
+          <span class="oak-tag">Medium grain</span>
+          <span class="oak-tag">Spicy</span>
+          <span class="oak-tag">Aromatic</span>
+        </div>
+        <p class="oak-desc">Grain between French and American. Notably spicy and aromatic — contributes cinnamon, clove, and toasty notes. High extractive content can add structure and colour. Gaining popularity as a quality, affordable alternative.</p>
+        <p class="oak-used-in">Used in: Tokaji (traditional), some Rhône and Bordeaux châteaux, adventurous New World producers.</p>
+        <p class="oak-cost">~€300–500 per barrel.</p>
+      </div>
+
+      <div class="oak-card">
+        <div class="oak-card-head">
+          <span class="oak-flag">🇭🇷</span>
+          <div>
+            <div class="oak-name">Slavonian Oak (Botti)</div>
+            <div class="oak-species">Quercus robur</div>
+          </div>
+        </div>
+        <div class="oak-tag-row">
+          <span class="oak-tag">Large format</span>
+          <span class="oak-tag">Neutral</span>
+          <span class="oak-tag">Oxidative</span>
+        </div>
+        <p class="oak-desc">Used in vast casks (botti) of 2,000–30,000L. At this scale, the oak-to-wine ratio is tiny, so almost no oak flavour transfers. The primary role is gentle, slow oxidation and micro-breathing — softening tannins without adding wood character.</p>
+        <p class="oak-used-in">Traditional in: Barolo, Barbaresco, Brunello di Montalcino, Amarone. Preserves the grape's pure character.</p>
+        <p class="oak-cost">Very large investment, but vessels last decades with proper maintenance.</p>
+      </div>
+
+    </div>
+
+    <!-- ── Barrel Sizes & Usage ──────────────────────────────────── -->
+    <div class="ageing-section-title">Barrel Sizes &amp; Their Influence</div>
+    <div class="barrel-list">
+      <div class="barrel-row">
+        <div class="barrel-name">Barrique / Pièce<span class="barrel-sub">Bordeaux / Burgundy</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:8%;"></div></div>
+        <div class="barrel-vol">225–228 L</div>
+      </div>
+      <div class="barrel-row">
+        <div class="barrel-name">Hogshead<span class="barrel-sub">Common in Australia / NZ</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:12%;"></div></div>
+        <div class="barrel-vol">300 L</div>
+      </div>
+      <div class="barrel-row">
+        <div class="barrel-name">Demi-Muid<span class="barrel-sub">Rhône / Burgundy</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:18%;"></div></div>
+        <div class="barrel-vol">500–600 L</div>
+      </div>
+      <div class="barrel-row">
+        <div class="barrel-name">Puncheon<span class="barrel-sub">Port / Sherry / Bourbon</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:17%;"></div></div>
+        <div class="barrel-vol">480–500 L</div>
+      </div>
+      <div class="barrel-row">
+        <div class="barrel-name">Foudre<span class="barrel-sub">Alsace / Rhône / Germany</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:55%;"></div></div>
+        <div class="barrel-vol">2,500–10,000 L</div>
+      </div>
+      <div class="barrel-row">
+        <div class="barrel-name">Botti<span class="barrel-sub">Barolo / Brunello / Amarone</span></div>
+        <div class="barrel-bar-wrap"><div class="barrel-bar" style="width:100%;"></div></div>
+        <div class="barrel-vol">5,000–30,000 L</div>
+      </div>
+    </div>
+    <p style="font-size:.82rem;color:var(--muted);margin-top:10px;font-style:italic;">Smaller vessels = more oak surface per litre = stronger, faster flavour extraction. Larger vessels = gentle oxidation with minimal oak character.</p>
+
+    <div class="toast-fill-grid" style="margin-top:20px;">
+      <div class="toast-card">
+        <div class="toast-fill-title">🔥 Toast Levels</div>
+        <div class="toast-row">
+          <div class="toast-dot toast-dot-light"></div>
+          <div class="toast-text"><strong>Light toast</strong> — More wood tannins and grain flavour. Subtle vanillin, herbal notes. Better structural contribution than aromatic.</div>
+        </div>
+        <div class="toast-row">
+          <div class="toast-dot toast-dot-medium"></div>
+          <div class="toast-text"><strong>Medium toast</strong> — The most versatile. Caramel, spice, vanilla, toasted bread. Most widely used for red and white wines.</div>
+        </div>
+        <div class="toast-row">
+          <div class="toast-dot toast-dot-heavy"></div>
+          <div class="toast-text"><strong>Heavy toast</strong> — Smoky, roasted espresso, dark chocolate, char. Can overwhelm delicate wines. Works for bold reds and some whisky-influenced styles.</div>
+        </div>
+      </div>
+      <div class="fill-card">
+        <div class="toast-fill-title">🔄 New vs Used Oak</div>
+        <div class="fill-row">
+          <div class="fill-number">1st</div>
+          <div class="fill-text"><strong>New barrel</strong> — Full oak flavour and tannin extraction. Powerful vanilla, toast, and spice. Used for flagship wines. Can overwhelm lighter grapes.</div>
+        </div>
+        <div class="fill-row">
+          <div class="fill-number">2nd</div>
+          <div class="fill-text"><strong>Second fill</strong> — ~50% of new-oak flavour. Subtle wood influence with gentler extraction. Widely used as a balance between character and freshness.</div>
+        </div>
+        <div class="fill-row">
+          <div class="fill-number">3rd</div>
+          <div class="fill-text"><strong>Third fill</strong> — ~20–25% of new-oak flavour. Mainly oxygen permeability and micro-breathing. Common for wines where freshness is paramount.</div>
+        </div>
+        <div class="fill-row">
+          <div class="fill-number">4+</div>
+          <div class="fill-text"><strong>Neutral barrel</strong> — Essentially no oak flavour. Acts like a breathable container — gentle oxidation only. Traditional for Barolo, Brunello, white Burgundy.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── Alternative Vessels ──────────────────────────────────── -->
+    <div class="ageing-section-title">Alternative Vessels</div>
+    <div class="vessel-grid">
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">⚙️</span>
+          <div>
+            <div class="vessel-name">Stainless Steel</div>
+            <span class="vessel-badge badge-reductive">Reductive</span>
+          </div>
+        </div>
+        <p class="vessel-desc">Hermetically sealed — zero oxygen exchange. Preserves every last molecule of primary fruit aroma, freshness, and varietal character. Temperature-controlled via a jacket system. The modern standard for aromatic whites and early-drinking reds.</p>
+        <p class="vessel-used">Used for: Riesling, Sauvignon Blanc, Pinot Grigio, Muscadet, Vinho Verde, Champagne base wines.</p>
+      </div>
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">🥚</span>
+          <div>
+            <div class="vessel-name">Concrete (Egg &amp; Tank)</div>
+            <span class="vessel-badge badge-neutral">Neutral</span>
+          </div>
+        </div>
+        <p class="vessel-desc">Slightly porous — allows a tiny, even rate of oxygen exchange without any oak flavour. Adds subtle texture and a distinctive mineral quality. The egg shape creates a natural convection current, keeping lees in suspension without stirring.</p>
+        <p class="vessel-used">Used by: Burgundy, Loire, Rhône, California, Argentina — especially for Chardonnay, Chenin Blanc, and Cabernet Franc.</p>
+      </div>
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">🏺</span>
+          <div>
+            <div class="vessel-name">Amphora &amp; Qvevri</div>
+            <span class="vessel-badge badge-ancient">Ancient Method</span>
+          </div>
+        </div>
+        <p class="vessel-desc">Clay or terracotta vessels, sealed with beeswax. The Georgian Qvevri is buried in the earth, which maintains a constant cool temperature. Slightly porous, neutral in flavour, with an earthy, textural character. Extended skin contact in amphora creates orange wines.</p>
+        <p class="vessel-used">Traditional in: Georgia (Rkatsiteli, Mtsvane). Revived globally by natural wine producers in Italy, Spain, France, and California.</p>
+      </div>
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">🌳</span>
+          <div>
+            <div class="vessel-name">Acacia Wood</div>
+            <span class="vessel-badge badge-neutral">Light &amp; Floral</span>
+          </div>
+        </div>
+        <p class="vessel-desc">A lighter, less extractive alternative to oak. Acacia (Robinia) contributes delicate floral and honey notes without the heavy vanilla and spice of oak. Particularly suited to aromatic grape varieties where wood character should be minimal.</p>
+        <p class="vessel-used">Traditional in: Alsace for Gewurztraminer and Pinot Gris. Also used in Burgundy and Loire for delicate whites.</p>
+      </div>
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">🌰</span>
+          <div>
+            <div class="vessel-name">Chestnut</div>
+            <span class="vessel-badge badge-oxidative">Rustic &amp; Tannic</span>
+          </div>
+        </div>
+        <p class="vessel-desc">Coarser-grained than oak, with higher tannin levels from the wood itself. Gives a rustic, slightly bitter character. Largely replaced by oak and steel, but still used by traditionalists in parts of Tuscany (Vino Nobile), Portugal, and southern France.</p>
+        <p class="vessel-used">Traditional in: Parts of Tuscany, Corsica, Portugal (Vinho Verde region), and some old-fashioned Languedoc producers.</p>
+      </div>
+
+      <div class="vessel-card">
+        <div class="vessel-head">
+          <span class="vessel-icon">🔶</span>
+          <div>
+            <div class="vessel-name">Foudre (Large Oak)</div>
+            <span class="vessel-badge badge-neutral">Gentle Oxidation</span>
+          </div>
+        </div>
+        <p class="vessel-desc">Large-format French or Slavonian oak vats, typically 2,500–10,000L. The vast size means minimal oak flavour transfer per litre, while the wood still allows gentle oxidative development. The favoured vessel when a winemaker wants oxygen's softening effects without wood character.</p>
+        <p class="vessel-used">Traditional in: Alsace, southern Rhône, Châteauneuf-du-Pape, Beaujolais (Moulin-à-Vent), and Germany's large Fuder casks.</p>
+      </div>
+
+    </div>
+
+    <!-- ── Lees Ageing ──────────────────────────────────────────── -->
+    <div class="ageing-section-title">Lees Ageing — Sur Lie</div>
+    <div class="lees-grid">
+      <div class="lees-card">
+        <div class="lees-title">🍞 What Are Lees?</div>
+        <p class="lees-desc">Lees are the sediment of dead yeast cells and grape solids that settle after fermentation. <strong>Heavy lees</strong> (gross lees — grape pulp, skins, seeds) are usually removed quickly by racking. <strong>Fine lees</strong> (yeast cells) are the beneficial material kept for sur lie ageing.</p>
+      </div>
+      <div class="lees-card">
+        <div class="lees-title">🥣 Bâtonnage — Lees Stirring</div>
+        <p class="lees-desc">Stirring the fine lees back into suspension with a long stick (bâton) at regular intervals. Increases the rate of autolysis, adds more creaminess, body, and texture. Also helps protect the wine from oxidation by consuming dissolved oxygen. Used in white Burgundy and barrel-fermented whites.</p>
+      </div>
+      <div class="lees-card">
+        <div class="lees-title">⚗️ Autolysis — Yeast Breakdown</div>
+        <p class="lees-desc">As yeast cells die and break down, they release mannoproteins, polysaccharides, and amino acids into the wine. This process — autolysis — adds creaminess, roundness, and a distinctive biscuit, brioche, and bread-dough quality. The longer the contact, the more pronounced the effect.</p>
+      </div>
+      <div class="lees-card">
+        <div class="lees-title">🗓️ Duration Matters</div>
+        <p class="lees-desc">Muscadet sur lie: minimum 5 months on lees before March release. Champagne NV: minimum 15 months. Vintage Champagne: minimum 36 months. Prestige cuvées: often 5–10 years. A wine aged briefly on lees gains freshness; aged long, it gains profound yeasty complexity.</p>
+      </div>
+    </div>
+    <div class="lees-examples" style="margin-top:0;">
+      <span class="lees-chip">Muscadet sur Lie</span>
+      <span class="lees-chip">White Burgundy</span>
+      <span class="lees-chip">Champagne</span>
+      <span class="lees-chip">Cava</span>
+      <span class="lees-chip">Gavi (Cortese)</span>
+      <span class="lees-chip">Hunter Valley Semillon</span>
+      <span class="lees-chip">Rías Baixas Albariño</span>
+      <span class="lees-chip">Barrel-fermented Chardonnay</span>
+    </div>
+
+    <!-- ── Bottle Ageing ─────────────────────────────────────────── -->
+    <div class="ageing-section-title">Bottle Ageing — Cellaring Potential</div>
+    <div class="bottle-timeline">
+      <div class="bottle-row">
+        <span class="bottle-potential pot-drink-now">Drink Young</span>
+        <div class="bottle-detail">
+          <strong>0–3 years from vintage</strong>
+          <span>Pinot Grigio, Sauvignon Blanc, Muscadet, Vinho Verde, Gamay Beaujolais, Prosecco, most Rosé. Designed for freshness and primary fruit — ageing only diminishes them. Drink within a year or two of purchase.</span>
+        </div>
+      </div>
+      <div class="bottle-row">
+        <span class="bottle-potential pot-medium">5–10 Years</span>
+        <div class="bottle-detail">
+          <strong>Medium-term agers</strong>
+          <span>Village Burgundy, Rioja Reserva, Chianti Classico, New World Pinot Noir, Viognier, unoaked to lightly oaked Chardonnay. Develop complexity without requiring decades of patience. Secondary notes begin to emerge.</span>
+        </div>
+      </div>
+      <div class="bottle-row">
+        <span class="bottle-potential pot-long">10–20 Years</span>
+        <div class="bottle-detail">
+          <strong>Long-term agers</strong>
+          <span>Premier Cru Burgundy, Barolo, Brunello, aged Rioja Gran Reserva, Bordeaux Crus Classés, Hunter Valley Semillon, Chenin Blanc (Savennières), Riesling Spätlese. Tannins soften; primary fruit transforms to complex tertiary notes.</span>
+        </div>
+      </div>
+      <div class="bottle-row">
+        <span class="bottle-potential pot-very-long">20–50+ Years</span>
+        <div class="bottle-detail">
+          <strong>Legendary agers</strong>
+          <span>Grand Cru Burgundy, top Bordeaux, Barolo Riserva from great vintages, Sauternes, Tokaji Eszencia, German TBA/Eiswein, Vintage Port, Madeira (arguably immortal). Cellar conditions — 12–14°C, dark, humid, horizontal — become critical at this scale.</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; background:var(--card-bg); border:2px solid #ecdde8; border-radius:var(--radius); padding:18px;">
+      <div style="font-weight:700;font-size:.92rem;color:var(--text);margin-bottom:12px;">🔍 Signs a Wine Is Ready vs Past Its Peak</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+        <div>
+          <div style="font-size:.78rem;font-weight:700;color:#2e7d32;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">✓ Ready to Drink</div>
+          <ul style="font-size:.82rem;color:var(--muted);line-height:1.7;padding-left:16px;">
+            <li>Brick or tawny rim on reds</li>
+            <li>Soft, integrated, silky tannins</li>
+            <li>Tertiary aromas (leather, earth, dried fruit) prominent</li>
+            <li>Sediment present — decant carefully</li>
+            <li>Colour: deep golden in whites; ruby-garnet in reds</li>
+          </ul>
+        </div>
+        <div>
+          <div style="font-size:.78rem;font-weight:700;color:#c0404a;text-transform:uppercase;letter-spacing:.04em;margin-bottom:8px;">✗ Past Its Peak</div>
+          <ul style="font-size:.82rem;color:var(--muted);line-height:1.7;padding-left:16px;">
+            <li>Brown or amber colour in reds</li>
+            <li>Flat, oxidised, sherry-like aroma</li>
+            <li>Loss of all fruit — just decay and earth</li>
+            <li>Watery, thin texture with no fruit support</li>
+            <li>Unpleasant, vinegar-like finish</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /ageing-container -->
+</section>
+
 <!-- Modal -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
   <div class="modal" id="modal">
@@ -1155,7 +1599,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 const GRAPES = [
