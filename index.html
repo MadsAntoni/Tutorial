@@ -157,6 +157,237 @@
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
+    /* ── How to Taste ────────────────────────────────────────────────────── */
+    .tasting-container {
+      max-width: 900px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .tasting-intro { margin-bottom: 36px; }
+    .tasting-intro h2 { font-size: 1.5rem; color: var(--wine); }
+    .tasting-intro p { color: var(--muted); margin-top: 6px; font-style: italic; }
+
+    .tasting-section-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text);
+      margin: 40px 0 16px;
+      padding-bottom: 8px;
+      border-bottom: 2px solid #ecdde8;
+    }
+
+    /* Five S's */
+    .five-s { display: flex; flex-direction: column; gap: 10px; }
+    .five-s-step {
+      background: var(--card-bg);
+      border: 2px solid #ecdde8;
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: border-color .2s;
+    }
+    .five-s-step.open { border-color: var(--wine); }
+    .step-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 16px 20px;
+      cursor: pointer;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-family: inherit;
+    }
+    .step-header:hover { background: #fdf5f7; }
+    .step-icon {
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f5edf2;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .step-label {
+      flex: 1;
+    }
+    .step-label strong {
+      display: block;
+      font-size: 1rem;
+      color: var(--text);
+    }
+    .step-label span {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+    .step-chevron {
+      font-size: .9rem;
+      color: var(--muted);
+      transition: transform .25s;
+      flex-shrink: 0;
+    }
+    .five-s-step.open .step-chevron { transform: rotate(180deg); }
+    .step-body {
+      display: none;
+      padding: 0 20px 20px;
+      border-top: 1px solid #ecdde8;
+    }
+    .five-s-step.open .step-body { display: block; }
+    .step-body p { color: var(--muted); font-size: .9rem; line-height: 1.65; margin-top: 14px; }
+    .step-body p:first-child { margin-top: 14px; }
+    .step-tips {
+      margin-top: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .step-tip {
+      background: #fdf5f7;
+      border-left: 3px solid var(--wine);
+      border-radius: 0 8px 8px 0;
+      padding: 8px 12px;
+      font-size: .85rem;
+      color: var(--text);
+    }
+    .step-tip strong { color: var(--wine); }
+
+    /* Color guide */
+    .color-guide { display: flex; flex-direction: column; gap: 20px; }
+    .color-row-label {
+      font-size: .82rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      margin-bottom: 6px;
+    }
+    .color-strip {
+      border-radius: 8px;
+      height: 36px;
+      width: 100%;
+    }
+    .color-strip-white  { background: linear-gradient(to right, #f8f8e8, #f5e88a, #d4b84a, #a07828); }
+    .color-strip-rose   { background: linear-gradient(to right, #fce8e0, #f0b8a0, #e09070, #c86848); }
+    .color-strip-red    { background: linear-gradient(to right, #7030a0, #a02030, #801820, #603818, #904830); }
+    .color-stops {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 5px;
+    }
+    .color-stop {
+      font-size: .72rem;
+      color: var(--muted);
+      text-align: center;
+      flex: 1;
+    }
+    .color-insight {
+      font-size: .84rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-top: 6px;
+    }
+
+    /* Structure */
+    .structure-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .structure-card {
+      background: var(--card-bg);
+      border: 2px solid #ecdde8;
+      border-radius: var(--radius);
+      padding: 18px 18px 16px;
+    }
+    .structure-card-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .structure-icon { font-size: 1.4rem; }
+    .structure-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .structure-bar-wrap {
+      background: #ecdde8;
+      border-radius: 6px;
+      height: 6px;
+      margin: 10px 0;
+      position: relative;
+    }
+    .structure-bar-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: .7rem;
+      color: var(--muted);
+      margin-top: 3px;
+    }
+    .structure-desc { font-size: .83rem; color: var(--muted); line-height: 1.6; margin-top: 8px; }
+    .structure-examples { font-size: .78rem; color: var(--wine); margin-top: 6px; font-style: italic; }
+
+    /* Aroma families */
+    .aroma-tier { margin-bottom: 28px; }
+    .aroma-tier-label {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+    .aroma-tier-primary .aroma-tier-label   { color: #2e7d32; }
+    .aroma-tier-secondary .aroma-tier-label { color: #c85a00; }
+    .aroma-tier-tertiary .aroma-tier-label  { color: #7b2d42; }
+    .aroma-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+    .aroma-chip {
+      background: var(--card-bg);
+      border: 1.5px solid #ecdde8;
+      border-radius: 20px;
+      padding: 6px 13px;
+      font-size: .83rem;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+    .aroma-chip-sub { font-size: .73rem; color: var(--muted); display: block; }
+
+    /* Faults */
+    .faults-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .fault-card {
+      background: var(--card-bg);
+      border: 2px solid #ecdde8;
+      border-radius: var(--radius);
+      padding: 18px;
+    }
+    .fault-card:hover { border-color: #c0404a; }
+    .fault-head {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 10px;
+    }
+    .fault-icon { font-size: 1.6rem; }
+    .fault-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .fault-freq { font-size: .72rem; color: var(--muted); }
+    .fault-smell {
+      font-size: .83rem;
+      color: var(--text);
+      font-style: italic;
+      background: #fdf5f7;
+      border-left: 3px solid #c0404a;
+      border-radius: 0 6px 6px 0;
+      padding: 6px 10px;
+      margin-bottom: 8px;
+    }
+    .fault-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .fault-fix { font-size: .8rem; color: var(--wine); margin-top: 6px; font-weight: 600; }
+
+
+
     /* ── Food Pairing ────────────────────────────────────────────────────── */
     .pairing-container {
       max-width: 1100px;
@@ -510,6 +741,7 @@
 <nav class="tab-nav" role="tablist">
   <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">🍇 Grape Explorer</button>
   <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">🍽️ Food Pairing</button>
+  <button class="tab-btn" data-tab="tasting" role="tab" aria-selected="false">🍷 How to Taste</button>
 </nav>
 
 <section id="tab-explorer" class="tab-panel active" role="tabpanel">
@@ -554,6 +786,351 @@
   </div>
 </section>
 
+<section id="tab-tasting" class="tab-panel" role="tabpanel">
+  <div class="tasting-container">
+
+    <div class="tasting-intro">
+      <h2>How to Taste Wine</h2>
+      <p>A structured approach turns every glass into a learning experience. Use the Five S's, then explore the reference guides below.</p>
+    </div>
+
+    <!-- ── Five S's ─────────────────────────────────────────────── -->
+    <div class="tasting-section-title">The Five S's</div>
+    <div class="five-s" id="five-s">
+
+      <div class="five-s-step">
+        <button class="step-header" aria-expanded="false">
+          <div class="step-icon">👁️</div>
+          <div class="step-label">
+            <strong>1 — See</strong>
+            <span>Colour, clarity & viscosity</span>
+          </div>
+          <span class="step-chevron">▼</span>
+        </button>
+        <div class="step-body">
+          <p>Hold the glass at a 45° angle against a white background or a light source. Observe three things: <strong>colour</strong>, <strong>clarity</strong>, and <strong>viscosity</strong>.</p>
+          <div class="step-tips">
+            <div class="step-tip"><strong>Colour &amp; Hue</strong> — The shade tells you the grape variety and how old the wine is. Red wines move from purple-violet when young toward brick and tawny with age. White wines deepen from pale straw to gold to amber as they age or are made from riper grapes.</div>
+            <div class="step-tip"><strong>Intensity</strong> — Pale wines often suggest cool climates, delicate grapes, or young vintages. Deep, concentrated colour usually signals warm climates, thick-skinned grapes, or extended maceration.</div>
+            <div class="step-tip"><strong>Clarity</strong> — Most wines should be clear and bright. Cloudiness in still wines can indicate a fault — though some natural wines are deliberately unfiltered.</div>
+            <div class="step-tip"><strong>Legs / Tears</strong> — Swirl the glass then watch the rivulets run down the side. Slow, thick tears suggest higher alcohol or residual sugar (more glycerol). Fast, thin tears suggest a lighter, lower-alcohol wine.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="five-s-step">
+        <button class="step-header" aria-expanded="false">
+          <div class="step-icon">🌀</div>
+          <div class="step-label">
+            <strong>2 — Swirl</strong>
+            <span>Aerate &amp; release aromas</span>
+          </div>
+          <span class="step-chevron">▼</span>
+        </button>
+        <div class="step-body">
+          <p>Rest the glass on a flat surface and rotate it in small circles, or cradle the stem and swirl in the air. Three to four rotations is enough.</p>
+          <div class="step-tips">
+            <div class="step-tip"><strong>Why it matters</strong> — Swirling increases the wine's surface area, allowing volatile aromatic compounds to evaporate. Without swirling you're catching only the lightest, most volatile molecules.</div>
+            <div class="step-tip"><strong>How much</strong> — Over-swirling (10+ rotations) can actually dissipate the most delicate aromatics. A few controlled rotations is ideal.</div>
+            <div class="step-tip"><strong>Tip for beginners</strong> — Keep the base of the glass on a table and rotate. It's easier to control and avoids spills.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="five-s-step">
+        <button class="step-header" aria-expanded="false">
+          <div class="step-icon">👃</div>
+          <div class="step-label">
+            <strong>3 — Sniff</strong>
+            <span>Primary, secondary &amp; tertiary aromas</span>
+          </div>
+          <span class="step-chevron">▼</span>
+        </button>
+        <div class="step-body">
+          <p>Take two sniffs: first a quick, passive one before swirling to catch the top notes; then a deeper inhale after swirling to access the full aromatic range.</p>
+          <div class="step-tips">
+            <div class="step-tip"><strong>Primary aromas</strong> — Come directly from the grape. Fruit (apple, cherry, blackcurrant), floral (rose, violet, elderflower), and herbal (grass, mint, green pepper) notes all fall here.</div>
+            <div class="step-tip"><strong>Secondary aromas</strong> — Produced during fermentation by yeasts and bacteria. Bread dough, brioche, butter, yoghurt, and cheese notes are secondary. Common in Champagne and oaked Chardonnay.</div>
+            <div class="step-tip"><strong>Tertiary aromas (Bouquet)</strong> — Develop through aging in barrel or bottle. Vanilla, cedar, tobacco, leather, earth, mushroom, dried fruit, and petrol (classic in aged Riesling).</div>
+            <div class="step-tip"><strong>Off-aromas</strong> — Musty cardboard (cork taint), vinegar (volatile acidity), struck match (reduction), or barnyard (brett) can signal a fault. See the Faults section below.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="five-s-step">
+        <button class="step-header" aria-expanded="false">
+          <div class="step-icon">👅</div>
+          <div class="step-label">
+            <strong>4 — Sip</strong>
+            <span>Sweetness, acidity, tannin, body &amp; alcohol</span>
+          </div>
+          <span class="step-chevron">▼</span>
+        </button>
+        <div class="step-body">
+          <p>Take a small sip and let it coat every part of your mouth for five to ten seconds before swallowing. Different areas of the palate register different sensations.</p>
+          <div class="step-tips">
+            <div class="step-tip"><strong>Sweetness</strong> — Perceived first at the tip of the tongue. Dry wines have no sweetness; off-dry wines have a subtle hint; sweet wines are obviously so.</div>
+            <div class="step-tip"><strong>Acidity</strong> — Makes your mouth water — you'll feel salivation on the sides and under the tongue. High acidity = crisp and fresh (Riesling, Sauvignon Blanc). Low acidity = soft and round, sometimes flat.</div>
+            <div class="step-tip"><strong>Tannin</strong> — The drying, gripping sensation on your gums and inner cheeks. Only in red wines and some orange whites. Soft in Pinot Noir and Gamay; grippy in Cabernet Sauvignon and Nebbiolo.</div>
+            <div class="step-tip"><strong>Body</strong> — The weight and texture of the wine. Think of it like milk: skimmed = light body (Pinot Grigio), semi-skimmed = medium (Merlot), full-fat = full body (oaked Chardonnay, Barossa Shiraz).</div>
+            <div class="step-tip"><strong>Alcohol</strong> — Creates warmth in the back of the throat. Low-alcohol wines (&lt;12%) feel lighter and cooler; high-alcohol wines (&gt;14%) feel heavier and warmer.</div>
+            <div class="step-tip"><strong>Flavour</strong> — Does the palate confirm or contradict the aromas? Note whether the flavours evolve or stay constant — evolution suggests complexity.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="five-s-step">
+        <button class="step-header" aria-expanded="false">
+          <div class="step-icon">✨</div>
+          <div class="step-label">
+            <strong>5 — Savor</strong>
+            <span>Finish, balance &amp; overall quality</span>
+          </div>
+          <span class="step-chevron">▼</span>
+        </button>
+        <div class="step-body">
+          <p>After swallowing (or spitting at a tasting), assess what remains: how long does the flavour linger, and does it remain pleasant?</p>
+          <div class="step-tips">
+            <div class="step-tip"><strong>Finish / Length</strong> — Count the seconds of flavour after swallowing. Short (&lt;5 sec) = simple wine. Medium (5–15 sec) = good quality. Long (&gt;15 sec) = fine wine territory. The longer and more pleasant the finish, the higher the quality.</div>
+            <div class="step-tip"><strong>Balance</strong> — No single element should dominate aggressively. Does the fruit, acidity, tannin, alcohol, and sweetness feel like they belong together? Imbalance — harsh tannin with no fruit, heat with no body — is a quality flaw.</div>
+            <div class="step-tip"><strong>Complexity</strong> — Do multiple layers of flavour appear and evolve over time? Does the wine change from first sip to finish? Complexity is a hallmark of quality.</div>
+            <div class="step-tip"><strong>Typicity</strong> — Does it taste and smell like the grape variety and region it claims to be? A Chablis should be flinty and lean; a Barossa Shiraz should be ripe and full. Wines that taste true to their identity score higher on typicity.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /five-s -->
+
+    <!-- ── Colour Guide ──────────────────────────────────────────── -->
+    <div class="tasting-section-title">Reading the Glass — Colour</div>
+    <div class="color-guide">
+      <div>
+        <div class="color-row-label">White Wine</div>
+        <div class="color-strip color-strip-white"></div>
+        <div class="color-stops">
+          <span class="color-stop">Pale Straw</span>
+          <span class="color-stop">Golden</span>
+          <span class="color-stop">Deep Gold</span>
+          <span class="color-stop">Amber</span>
+        </div>
+        <div class="color-insight">Pale straw → young, cool-climate, neutral grapes (Pinot Grigio, Muscadet). Deep gold → ripe grapes, oak ageing, or botrytis (oaked Chardonnay, Sauternes). Amber → very old wine, oxidative ageing, or orange wine.</div>
+      </div>
+      <div>
+        <div class="color-row-label">Rosé Wine</div>
+        <div class="color-strip color-strip-rose"></div>
+        <div class="color-stops">
+          <span class="color-stop">Pale Salmon</span>
+          <span class="color-stop">Copper</span>
+          <span class="color-stop">Deep Pink</span>
+          <span class="color-stop">Orange-Pink</span>
+        </div>
+        <div class="color-insight">Pale salmon → brief skin contact, cool pressing (Provence). Copper and deep pink → longer maceration or warmer climate (Tavel, Bandol). Orange-pink may indicate an older rosé or some orange winemaking influence.</div>
+      </div>
+      <div>
+        <div class="color-row-label">Red Wine</div>
+        <div class="color-strip color-strip-red"></div>
+        <div class="color-stops">
+          <span class="color-stop">Purple-Violet</span>
+          <span class="color-stop">Ruby</span>
+          <span class="color-stop">Garnet</span>
+          <span class="color-stop">Brick-Tawny</span>
+        </div>
+        <div class="color-insight">Purple-violet → young wine with lots of anthocyanins (young Malbec, Syrah). Ruby → moderate age or cool climate (Pinot Noir). Garnet → some development (mid-age Bordeaux, Rioja Reserva). Brick-tawny rim → significant age or warm-climate oxidation (aged Barolo, Rioja Gran Reserva).</div>
+      </div>
+    </div>
+
+    <!-- ── Structure ──────────────────────────────────────────────── -->
+    <div class="tasting-section-title">Understanding Structure</div>
+    <div class="structure-grid">
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">🍋</span>
+          <span class="structure-name">Acidity</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#c9a84c,#7b2d42);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Low — Soft, flat</span><span>High — Crisp, tart</span></div>
+        <p class="structure-desc">Makes your mouth water — literally triggers salivation on the sides of the tongue. Acidity is wine's backbone, preserving freshness and enabling ageing. A wine without enough acid feels flabby; too much can feel sharp.</p>
+        <p class="structure-examples">High: Riesling, Sauvignon Blanc, Pinot Noir, Nebbiolo<br>Low: Viognier, Grenache, Marsanne</p>
+      </div>
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">🍇</span>
+          <span class="structure-name">Tannin</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#e8d0e0,#7b2d42);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Low — Silky, smooth</span><span>High — Grippy, firm</span></div>
+        <p class="structure-desc">Only in red wines (and some skin-contact whites). Comes from grape skins, seeds, stems, and oak barrels. Creates a drying sensation on your gums and inner cheeks — like over-steeped black tea. Tannin is a key preservative for ageing.</p>
+        <p class="structure-examples">High: Cabernet Sauvignon, Nebbiolo, Tannat, Sagrantino<br>Low: Pinot Noir, Gamay, Barbera</p>
+      </div>
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">🥛</span>
+          <span class="structure-name">Body</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#e8f0f8,#1a4a7a);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Light — Delicate</span><span>Full — Rich, weighty</span></div>
+        <p class="structure-desc">The weight and texture of the wine in your mouth. Imagine skimmed milk (light-bodied), semi-skimmed (medium), and full-fat cream (full-bodied). Body is primarily driven by alcohol, residual sugar, and extract.</p>
+        <p class="structure-examples">Light: Pinot Grigio, Muscadet, Gamay, Vinho Verde<br>Full: Oaked Chardonnay, Barossa Shiraz, Zinfandel</p>
+      </div>
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">🍯</span>
+          <span class="structure-name">Sweetness</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#f0f4e8,#c9a84c);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Dry — No sweetness</span><span>Sweet — Obvious sugar</span></div>
+        <p class="structure-desc">Perceived first on the tip of the tongue. Most table wines are dry (under 4 g/L residual sugar). Off-dry wines have a subtle hint. Sweet wines — Sauternes, German Auslese, Port — have significant residual sugar.</p>
+        <p class="structure-examples">Dry: Most Burgundy, Bordeaux, Rioja<br>Sweet: Sauternes, Tokaji, German TBA, Port, Moscato</p>
+      </div>
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">🌡️</span>
+          <span class="structure-name">Alcohol</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#e8f5e8,#c85a00);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Low — &lt;11.5%</span><span>High — &gt;14.5%</span></div>
+        <p class="structure-desc">Creates warmth and a slight burning sensation in the back of the throat. Alcohol adds body and richness, but too much unbalanced by fruit and acidity feels 'hot'. Check the label — it's legally required.</p>
+        <p class="structure-examples">Low: German Riesling Kabinett, Vinho Verde, Moscato d'Asti<br>High: Barossa Shiraz, Zinfandel, Châteauneuf-du-Pape</p>
+      </div>
+
+      <div class="structure-card">
+        <div class="structure-card-head">
+          <span class="structure-icon">⏱️</span>
+          <span class="structure-name">Finish</span>
+        </div>
+        <div class="structure-bar-wrap">
+          <div style="position:absolute;left:0;top:0;height:100%;background:linear-gradient(to right,#f8e8ea,#7b2d42);border-radius:6px;width:100%;"></div>
+        </div>
+        <div class="structure-bar-labels"><span>Short — &lt;5 sec</span><span>Long — &gt;15 sec</span></div>
+        <p class="structure-desc">How long the flavour lingers after you swallow. A hallmark of fine wine is a long, complex, evolving finish. The best wines continue to develop flavour for 30 seconds or more — sommeliers call this 'persistence' or 'length'.</p>
+        <p class="structure-examples">Long: Grand Cru Burgundy, aged Barolo, Premier Cru Chablis, vintage Champagne<br>Short: Simple everyday wines</p>
+      </div>
+
+    </div><!-- /structure-grid -->
+
+    <!-- ── Aroma Families ──────────────────────────────────────────── -->
+    <div class="tasting-section-title">Aroma Families</div>
+
+    <div class="aroma-tier aroma-tier-primary">
+      <div class="aroma-tier-label">🌱 Primary — From the Grape</div>
+      <div class="aroma-chips">
+        <div class="aroma-chip">🍎 Tree Fruit <span class="aroma-chip-sub">Apple, pear, peach, apricot, quince</span></div>
+        <div class="aroma-chip">🍋 Citrus <span class="aroma-chip-sub">Lemon, lime, grapefruit, orange peel</span></div>
+        <div class="aroma-chip">🍓 Red Fruit <span class="aroma-chip-sub">Strawberry, raspberry, cherry, redcurrant</span></div>
+        <div class="aroma-chip">🫐 Dark Fruit <span class="aroma-chip-sub">Blackberry, blueberry, blackcurrant, plum</span></div>
+        <div class="aroma-chip">🍑 Tropical <span class="aroma-chip-sub">Mango, lychee, pineapple, passionfruit</span></div>
+        <div class="aroma-chip">🌸 Floral <span class="aroma-chip-sub">Rose, violet, lavender, elderflower, blossom</span></div>
+        <div class="aroma-chip">🌿 Herbal <span class="aroma-chip-sub">Grass, green pepper, mint, eucalyptus, thyme</span></div>
+        <div class="aroma-chip">🪨 Mineral <span class="aroma-chip-sub">Flint, chalk, wet stone, saline, volcanic</span></div>
+      </div>
+    </div>
+
+    <div class="aroma-tier aroma-tier-secondary">
+      <div class="aroma-tier-label">🍶 Secondary — From Fermentation</div>
+      <div class="aroma-chips">
+        <div class="aroma-chip">🍞 Bread &amp; Yeast <span class="aroma-chip-sub">Brioche, toast, crackers, bread dough</span></div>
+        <div class="aroma-chip">🧈 Dairy <span class="aroma-chip-sub">Butter, cream, yoghurt — from malolactic fermentation</span></div>
+        <div class="aroma-chip">🍺 Yeasty <span class="aroma-chip-sub">Beer-like notes in natural or autolytic wines</span></div>
+        <div class="aroma-chip">🧀 Cheese <span class="aroma-chip-sub">Aged brie, parmesan rind — from long lees contact</span></div>
+      </div>
+    </div>
+
+    <div class="aroma-tier aroma-tier-tertiary">
+      <div class="aroma-tier-label">🪵 Tertiary — From Ageing (Bouquet)</div>
+      <div class="aroma-chips">
+        <div class="aroma-chip">🪵 Oak <span class="aroma-chip-sub">Vanilla, coconut, cedar, cigar box, sawdust</span></div>
+        <div class="aroma-chip">🍂 Earthy <span class="aroma-chip-sub">Forest floor, mushroom, truffle, wet earth</span></div>
+        <div class="aroma-chip">🍫 Confectionery <span class="aroma-chip-sub">Dark chocolate, mocha, toffee, caramel</span></div>
+        <div class="aroma-chip">🫙 Dried Fruit <span class="aroma-chip-sub">Fig, raisin, prune, dried apricot, date</span></div>
+        <div class="aroma-chip">🧳 Leather &amp; Spice <span class="aroma-chip-sub">Tobacco, tar, clove, cinnamon, game, meat</span></div>
+        <div class="aroma-chip">⛽ Petrol <span class="aroma-chip-sub">Classic in aged Riesling — TDN compound from bottle age</span></div>
+      </div>
+    </div>
+
+    <!-- ── Faults ──────────────────────────────────────────────────── -->
+    <div class="tasting-section-title">Recognising Wine Faults</div>
+    <div class="faults-grid">
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🍄</span>
+          <div><div class="fault-name">Cork Taint (TCA)</div><div class="fault-freq">Affects ~3–5% of cork-sealed bottles</div></div>
+        </div>
+        <div class="fault-smell">"Musty cardboard, damp newspaper, wet dog"</div>
+        <p class="fault-desc">Caused by trichloroanisole (TCA), a compound formed when natural cork reacts with certain chlorine-based compounds. It suppresses fruit aromas and leaves a mouldy, flat character even at very low concentrations.</p>
+        <p class="fault-fix">→ Return the bottle. There is no fix once the wine is affected.</p>
+      </div>
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🍂</span>
+          <div><div class="fault-name">Oxidation</div><div class="fault-freq">Common in old or poorly stored wine</div></div>
+        </div>
+        <div class="fault-smell">"Sherry-like, nutty, stale, bruised apple, flat"</div>
+        <p class="fault-desc">Caused by excessive oxygen exposure — through a failed cork, poor storage (heat, light, upright), or winemaking error. The wine loses freshness and fruit, taking on a flat, oxidised character. Note: intentional in Sherry, Madeira, and Vin Jaune.</p>
+        <p class="fault-fix">→ Return or discard if unintentional. Acceptable or desirable in oxidative styles.</p>
+      </div>
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🍶</span>
+          <div><div class="fault-name">Volatile Acidity (VA)</div><div class="fault-freq">Low levels common; high levels = fault</div></div>
+        </div>
+        <div class="fault-smell">"Nail varnish, vinegar, acetic acid, acetone"</div>
+        <p class="fault-desc">Caused by acetic acid bacteria producing acetic acid and ethyl acetate. Low VA adds complexity — some premium Italian reds carry it deliberately. High VA is aggressive and unpleasant, signalling poor hygiene or bacterial infection.</p>
+        <p class="fault-fix">→ Low levels: enjoy. High levels: return or discard.</p>
+      </div>
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🐴</span>
+          <div><div class="fault-name">Brettanomyces (Brett)</div><div class="fault-freq">Debated — complex at low levels</div></div>
+        </div>
+        <div class="fault-smell">"Barnyard, horse sweat, leather, Band-Aid, wet hay"</div>
+        <p class="fault-desc">Caused by Brettanomyces yeast, often in poorly sanitised cellars or barrels. At low levels some tasters find it adds earthy, savoury complexity — especially in Rhône reds and some Bordeaux. At high levels it overwhelms fruit entirely.</p>
+        <p class="fault-fix">→ Subjective: low brett divides opinion. High brett = fault.</p>
+      </div>
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🥚</span>
+          <div><div class="fault-name">Reduction</div><div class="fault-freq">Often resolves with aeration</div></div>
+        </div>
+        <div class="fault-smell">"Struck match, rubber, garlic, cabbage, rotten eggs"</div>
+        <p class="fault-desc">Caused by sulphur compounds (hydrogen sulphide, mercaptans) from insufficient oxygen during fermentation or winemaking. Unlike most faults, reduction is often temporary — it can blow off with vigorous swirling or decanting.</p>
+        <p class="fault-fix">→ Swirl vigorously or decant. If it persists after 30 minutes of air, it's a winemaking flaw.</p>
+      </div>
+
+      <div class="fault-card">
+        <div class="fault-head">
+          <span class="fault-icon">🫧</span>
+          <div><div class="fault-name">Unexpected Refermentation</div><div class="fault-freq">Rare in modern still wines</div></div>
+        </div>
+        <div class="fault-smell">"Unexpected fizz or prickling in a still wine"</div>
+        <p class="fault-desc">Caused by residual sugar refermented in the bottle by surviving yeasts, creating CO₂. In still wines this is always a fault. It can also make the wine slightly vinegar-sweet with off-flavours. Entirely normal and intended in Champagne, Prosecco, and Vinho Verde.</p>
+        <p class="fault-fix">→ Return the bottle if it's a still wine. Fine in intended sparkling styles.</p>
+      </div>
+
+    </div><!-- /faults-grid -->
+
+  </div><!-- /tasting-container -->
+</section>
+
 <!-- Modal -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
   <div class="modal" id="modal">
@@ -578,7 +1155,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 const GRAPES = [
@@ -5731,6 +6308,22 @@ function renderPairings(dishId, dishName) {
 
   container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
+
+// ── Five S's accordion ───────────────────────────────────────────────────
+document.querySelectorAll('.five-s-step .step-header').forEach(header => {
+  header.addEventListener('click', () => {
+    const step = header.closest('.five-s-step');
+    const isOpen = step.classList.contains('open');
+    document.querySelectorAll('.five-s-step').forEach(s => {
+      s.classList.remove('open');
+      s.querySelector('.step-header').setAttribute('aria-expanded', 'false');
+    });
+    if (!isOpen) {
+      step.classList.add('open');
+      header.setAttribute('aria-expanded', 'true');
+    }
+  });
+});
 
 renderCategories();
 </script>
