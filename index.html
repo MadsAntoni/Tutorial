@@ -13,28 +13,34 @@
 
     :root {
       --wine:    #7b2d42;
-      --wine-dk: #541e2d;
-      --gold:    #c9a84c;
-      --cream:   #fdf6ec;
-      --text:    #2c1a22;
+      --wine-dk: #4e1b2a;
+      --gold:    #b8953d;
+      --cream:   #faf4ee;
+      --text:    #1e1418;
       --muted:   #7a6570;
-      --card-bg: #fff;
-      --shadow:  0 2px 12px rgba(0,0,0,.10);
+      --card-bg: #ffffff;
+      --border:  rgba(100,40,55,.11);
+      --shadow:  0 1px 3px rgba(0,0,0,.05), 0 3px 10px rgba(0,0,0,.07);
       --radius:  12px;
     }
 
     body {
-      font-family: 'Georgia', serif;
+      font-family: Georgia, serif;
       background: var(--cream);
       color: var(--text);
       min-height: 100vh;
+      background-image:
+        radial-gradient(ellipse 100% 60% at 10% 0%, rgba(123,45,66,.06) 0%, transparent 70%),
+        radial-gradient(ellipse 80% 50% at 90% 100%, rgba(184,149,61,.04) 0%, transparent 60%);
     }
+
+    button, input, select { font-family: system-ui, -apple-system, 'Segoe UI', sans-serif; }
 
     /* ── Header ─────────────────────────────────────────────────────────── */
     header {
-      background: linear-gradient(135deg, var(--wine-dk) 0%, var(--wine) 60%, #a34060 100%);
+      background: linear-gradient(160deg, #1e0b12 0%, #4e1b2a 45%, #7b2d42 100%);
       color: #fff;
-      padding: 48px 24px 40px;
+      padding: 52px 24px 44px;
       text-align: center;
       position: relative;
       overflow: hidden;
@@ -43,12 +49,19 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='30' cy='30' r='28' fill='none' stroke='rgba(255,255,255,.05)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+      background: radial-gradient(ellipse 70% 80% at 50% 120%, rgba(184,149,61,.12) 0%, transparent 70%);
       pointer-events: none;
     }
-    header h1 { font-size: clamp(1.8rem, 5vw, 3rem); letter-spacing: .03em; }
+    header::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='40' cy='40' r='38' fill='none' stroke='rgba(255,255,255,.03)' stroke-width='1'/%3E%3C/svg%3E") repeat;
+      pointer-events: none;
+    }
+    header h1 { font-size: clamp(2rem, 5vw, 3.2rem); letter-spacing: .04em; font-weight: 400; }
     header h1 span { color: var(--gold); }
-    header p  { margin-top: 10px; font-size: 1.05rem; opacity: .85; font-style: italic; }
+    header p  { margin-top: 12px; font-size: 1rem; opacity: .75; font-style: italic; letter-spacing: .01em; }
 
     /* ── Controls ───────────────────────────────────────────────────────── */
     .controls {
@@ -93,15 +106,15 @@
     #search {
       flex: 1 1 220px;
       padding: 10px 16px;
-      border: 2px solid #ddd;
+      border: 1.5px solid rgba(0,0,0,.12);
       border-radius: 30px;
       font-size: .95rem;
-      font-family: inherit;
       background: #fff;
       outline: none;
-      transition: border-color .2s;
+      transition: border-color .2s, box-shadow .2s;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
     }
-    #search:focus { border-color: var(--wine); }
+    #search:focus { border-color: var(--wine); box-shadow: 0 0 0 3px rgba(123,45,66,.1); }
 
     .filters {
       display: flex;
@@ -109,20 +122,21 @@
       gap: 8px;
     }
     .filter-btn {
-      padding: 8px 18px;
-      border: 2px solid #ddd;
+      padding: 7px 16px;
+      border: 1.5px solid rgba(0,0,0,.12);
       border-radius: 30px;
       background: #fff;
-      font-family: inherit;
-      font-size: .88rem;
+      font-size: .85rem;
       cursor: pointer;
       color: var(--muted);
-      transition: all .2s;
+      transition: all .18s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
     }
     .filter-btn:hover, .filter-btn.active {
       border-color: var(--wine);
       background: var(--wine);
       color: #fff;
+      box-shadow: 0 2px 8px rgba(123,45,66,.25);
     }
     .region-btn {
       padding: 6px 13px;
@@ -134,26 +148,38 @@
     /* ── Tabs ────────────────────────────────────────────────────────────── */
     .tab-nav {
       max-width: 1100px;
-      margin: 28px auto 0;
-      padding: 0 20px;
+      margin: 20px auto 0;
+      padding: 8px 20px;
       display: flex;
-      border-bottom: 2px solid #ecdde8;
+      gap: 3px;
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+      scrollbar-width: none;
+      background: rgba(255,255,255,.6);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
     }
+    .tab-nav::-webkit-scrollbar { display: none; }
     .tab-btn {
-      padding: 11px 24px;
+      padding: 8px 16px;
       border: none;
-      border-bottom: 3px solid transparent;
-      background: none;
-      font-family: inherit;
-      font-size: .95rem;
-      font-weight: 600;
+      border-bottom: none;
+      border-radius: 8px;
+      background: transparent;
+      font-size: .85rem;
+      font-weight: 500;
       color: var(--muted);
       cursor: pointer;
-      margin-bottom: -2px;
-      transition: color .2s, border-color .2s;
+      margin-bottom: 0;
+      transition: background .18s, color .18s;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
     }
-    .tab-btn.active { color: var(--wine); border-bottom-color: var(--wine); }
-    .tab-btn:hover:not(.active) { color: var(--dark); }
+    .tab-btn.active { background: var(--wine); color: #fff; }
+    .tab-btn:hover:not(.active) { background: rgba(123,45,66,.07); color: var(--wine); }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
@@ -173,14 +199,14 @@
       color: var(--text);
       margin: 40px 0 16px;
       padding-bottom: 8px;
-      border-bottom: 2px solid #ecdde8;
+      border-bottom: 1px solid var(--border);
     }
 
     /* Five S's */
     .five-s { display: flex; flex-direction: column; gap: 10px; }
     .five-s-step {
       background: var(--card-bg);
-      border: 2px solid #ecdde8;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       overflow: hidden;
       transition: border-color .2s;
@@ -198,7 +224,7 @@
       text-align: left;
       font-family: inherit;
     }
-    .step-header:hover { background: #fdf5f7; }
+    .step-header:hover { background: rgba(123,45,66,.03); }
     .step-icon {
       font-size: 1.8rem;
       width: 44px;
@@ -206,7 +232,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background: #f5edf2;
+      background: rgba(123,45,66,.06);
       border-radius: 50%;
       flex-shrink: 0;
     }
@@ -232,7 +258,7 @@
     .step-body {
       display: none;
       padding: 0 20px 20px;
-      border-top: 1px solid #ecdde8;
+      border-top: 1px solid var(--border);
     }
     .five-s-step.open .step-body { display: block; }
     .step-body p { color: var(--muted); font-size: .9rem; line-height: 1.65; margin-top: 14px; }
@@ -244,7 +270,7 @@
       gap: 8px;
     }
     .step-tip {
-      background: #fdf5f7;
+      background: rgba(123,45,66,.03);
       border-left: 3px solid var(--wine);
       border-radius: 0 8px 8px 0;
       padding: 8px 12px;
@@ -297,7 +323,7 @@
     }
     .structure-card {
       background: var(--card-bg);
-      border: 2px solid #ecdde8;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px 18px 16px;
     }
@@ -359,7 +385,7 @@
     }
     .fault-card {
       background: var(--card-bg);
-      border: 2px solid #ecdde8;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 18px;
     }
@@ -377,7 +403,7 @@
       font-size: .83rem;
       color: var(--text);
       font-style: italic;
-      background: #fdf5f7;
+      background: rgba(123,45,66,.03);
       border-left: 3px solid #c0404a;
       border-radius: 0 6px 6px 0;
       padding: 6px 10px;
@@ -396,29 +422,29 @@
     .ageing-intro p  { color: var(--muted); font-style: italic; }
     .ageing-section-title {
       font-size: 1.15rem; font-weight: 700; color: var(--text);
-      margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 2px solid #ecdde8;
+      margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
     }
 
     .why-age-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
-    .why-age-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px 16px; }
+    .why-age-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 16px; }
     .why-age-icon  { font-size: 1.6rem; margin-bottom: 8px; display: block; }
     .why-age-title { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 6px; }
     .why-age-desc  { font-size: .82rem; color: var(--muted); line-height: 1.6; }
 
     .oak-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-    .oak-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 20px 18px; }
+    .oak-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px 18px; }
     .oak-card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
     .oak-flag  { font-size: 1.6rem; }
     .oak-name  { font-weight: 700; font-size: .95rem; color: var(--text); }
     .oak-species { font-size: .72rem; color: var(--muted); }
     .oak-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; }
-    .oak-tag { background: #f5edf2; border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
+    .oak-tag { background: rgba(123,45,66,.06); border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
     .oak-desc    { font-size: .82rem; color: var(--muted); line-height: 1.6; }
     .oak-used-in { font-size: .78rem; color: var(--text); margin-top: 8px; font-style: italic; }
     .oak-cost    { font-size: .76rem; color: var(--muted); margin-top: 4px; }
 
     .barrel-list { display: flex; flex-direction: column; gap: 10px; }
-    .barrel-row  { display: flex; align-items: center; gap: 14px; background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 12px 16px; }
+    .barrel-row  { display: flex; align-items: center; gap: 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; }
     .barrel-name { font-weight: 700; font-size: .85rem; color: var(--text); width: 190px; flex-shrink: 0; }
     .barrel-sub  { font-weight: 400; font-size: .75rem; color: var(--muted); display: block; }
     .barrel-bar-wrap { flex: 1; background: #ecdde8; border-radius: 4px; height: 10px; }
@@ -428,7 +454,7 @@
 
     .toast-fill-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     @media (max-width: 560px) { .toast-fill-grid { grid-template-columns: 1fr; } }
-    .toast-card, .fill-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; }
+    .toast-card, .fill-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
     .toast-fill-title { font-weight: 700; font-size: .92rem; color: var(--text); margin-bottom: 12px; }
     .toast-row, .fill-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
     .toast-dot { width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0; margin-top: 2px; }
@@ -440,8 +466,9 @@
     .fill-number { font-size: 1rem; font-weight: 800; color: var(--wine); width: 24px; flex-shrink: 0; text-align: center; }
 
     .vessel-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 16px; }
-    .vessel-card { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; transition: border-color .2s; }
-    .vessel-card:hover { border-color: var(--wine); }
+    .vessel-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; transition: border-color .2s; }
+    .vessel-card { transition: border-color .2s, box-shadow .2s; }
+    .vessel-card:hover { border-color: var(--wine); box-shadow: 0 4px 18px rgba(0,0,0,.1); }
     .vessel-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
     .vessel-icon { font-size: 1.8rem; }
     .vessel-name { font-weight: 700; font-size: .95rem; color: var(--text); }
@@ -449,20 +476,20 @@
     .badge-reductive { background: #e8f0f8; color: #1a4a7a; }
     .badge-oxidative  { background: #f8ede0; color: #8a4010; }
     .badge-neutral    { background: #f0f4e8; color: #2e6020; }
-    .badge-ancient    { background: #f5edf2; color: #7b2d42; }
+    .badge-ancient    { background: rgba(123,45,66,.06); color: #7b2d42; }
     .vessel-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
     .vessel-used { font-size: .78rem; color: var(--wine); margin-top: 6px; font-style: italic; }
 
     .lees-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 16px; }
     @media (max-width: 560px) { .lees-grid { grid-template-columns: 1fr; } }
-    .lees-card   { background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 18px; }
+    .lees-card   { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
     .lees-title  { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 8px; }
     .lees-desc   { font-size: .82rem; color: var(--muted); line-height: 1.6; }
     .lees-examples { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; }
-    .lees-chip { background: #f5edf2; border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
+    .lees-chip { background: rgba(123,45,66,.06); border-radius: 12px; padding: 3px 10px; font-size: .76rem; color: var(--wine); font-weight: 600; }
 
     .bottle-timeline { display: flex; flex-direction: column; gap: 10px; }
-    .bottle-row { display: flex; align-items: flex-start; gap: 14px; background: var(--card-bg); border: 2px solid #ecdde8; border-radius: var(--radius); padding: 14px 16px; }
+    .bottle-row { display: flex; align-items: flex-start; gap: 14px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
     .bottle-potential { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .04em; padding: 3px 9px; border-radius: 10px; white-space: nowrap; flex-shrink: 0; margin-top: 1px; }
     .pot-drink-now { background: #e8f8e8; color: #1a6020; }
     .pot-medium    { background: #f8f0e0; color: #8a5000; }
@@ -488,15 +515,15 @@
     }
     .category-card {
       background: var(--card-bg);
-      border: 2px solid #ecdde8;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       padding: 22px 14px 18px;
       text-align: center;
       cursor: pointer;
       transition: all .2s;
     }
-    .category-card:hover { border-color: var(--wine); background: #fdf5f7; transform: translateY(-2px); }
-    .category-card.active { border-color: var(--wine); background: var(--wine); color: #fff; }
+    .category-card:hover { border-color: var(--wine); background: rgba(123,45,66,.03); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,.10); }
+    .category-card.active { border-color: var(--wine); background: var(--wine); color: #fff; box-shadow: 0 4px 14px rgba(123,45,66,.3); }
     .cat-icon { font-size: 2.2rem; display: block; }
     .cat-name { margin-top: 10px; font-size: .92rem; font-weight: 600; display: block; }
 
@@ -513,16 +540,16 @@
     .dish-chips { display: flex; flex-wrap: wrap; gap: 10px; }
     .dish-chip {
       padding: 8px 18px;
-      border: 2px solid #ddd;
+      border: 1.5px solid rgba(0,0,0,.12);
       border-radius: 30px;
       background: #fff;
-      font-family: inherit;
       font-size: .88rem;
       cursor: pointer;
-      transition: all .2s;
+      transition: all .18s;
+      box-shadow: 0 1px 3px rgba(0,0,0,.04);
     }
-    .dish-chip:hover { border-color: var(--wine); }
-    .dish-chip.active { border-color: var(--wine); background: var(--wine); color: #fff; }
+    .dish-chip:hover { border-color: var(--wine); background: rgba(123,45,66,.04); }
+    .dish-chip.active { border-color: var(--wine); background: var(--wine); color: #fff; box-shadow: 0 2px 8px rgba(123,45,66,.22); }
 
     .pairing-results { margin-top: 32px; }
     .pairing-results-header {
@@ -593,16 +620,18 @@
     .card {
       background: var(--card-bg);
       border-radius: var(--radius);
+      border: 1px solid var(--border);
       box-shadow: var(--shadow);
       overflow: hidden;
       cursor: pointer;
-      transition: transform .2s, box-shadow .2s;
+      transition: transform .2s, box-shadow .2s, border-color .2s;
       display: flex;
       flex-direction: column;
     }
     .card:hover {
       transform: translateY(-4px);
-      box-shadow: 0 8px 28px rgba(0,0,0,.14);
+      box-shadow: 0 8px 28px rgba(0,0,0,.13);
+      border-color: rgba(123,45,66,.22);
     }
 
     .card-header {
@@ -610,6 +639,7 @@
       display: flex;
       align-items: flex-start;
       gap: 14px;
+      background: linear-gradient(145deg, rgba(123,45,66,.025) 0%, transparent 60%);
     }
     .grape-icon {
       width: 54px;
@@ -620,6 +650,8 @@
       justify-content: center;
       font-size: 1.6rem;
       flex-shrink: 0;
+      border: 1px solid rgba(123,45,66,.1);
+      background: rgba(123,45,66,.04);
     }
     .card-title h2 { font-size: 1.15rem; }
     .card-title .alias { font-size: .82rem; color: var(--muted); font-style: italic; margin-top: 2px; }
@@ -628,21 +660,21 @@
       margin-top: 6px;
       padding: 2px 10px;
       border-radius: 20px;
-      font-size: .74rem;
-      font-family: sans-serif;
-      font-weight: 600;
-      letter-spacing: .04em;
+      font-size: .72rem;
+      font-family: system-ui, -apple-system, sans-serif;
+      font-weight: 700;
+      letter-spacing: .06em;
       text-transform: uppercase;
     }
-    .red   { background: #f5e0e5; color: #8b2040; }
-    .white { background: #fdf5d6; color: #7a6010; }
-    .rose  { background: #fce8ef; color: #c05070; }
+    .red   { background: #f2e0e6; color: #7b2040; }
+    .white { background: #fdf5d4; color: #7a5c10; }
+    .rose  { background: #fde8ef; color: #c04870; }
 
     .card-notes {
       padding: 0 22px 16px;
       font-size: .88rem;
       color: var(--muted);
-      line-height: 1.5;
+      line-height: 1.55;
       flex: 1;
     }
 
@@ -656,20 +688,21 @@
       padding: 3px 11px;
       border-radius: 20px;
       font-size: .78rem;
-      font-family: sans-serif;
-      background: #f0eae8;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: rgba(123,45,66,.06);
       color: var(--text);
     }
 
     .card-footer {
-      border-top: 1px solid #f0e8e8;
+      border-top: 1px solid var(--border);
       padding: 12px 22px;
       font-size: .8rem;
       color: var(--muted);
-      font-family: sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       display: flex;
       align-items: center;
       gap: 6px;
+      background: rgba(123,45,66,.015);
     }
     .card-footer svg { flex-shrink: 0; }
 
@@ -710,7 +743,7 @@
       margin: 16px 16px 0 0;
       width: 32px; height: 32px;
       border: none;
-      background: #f0e8e8;
+      background: rgba(123,45,66,.08);
       border-radius: 50%;
       font-size: 1.1rem;
       cursor: pointer;
@@ -720,7 +753,7 @@
       z-index: 10;
       transition: background .2s;
     }
-    .modal-close:hover { background: #e0d0d4; }
+    .modal-close:hover { background: rgba(123,45,66,.16); }
 
     .modal-hero {
       padding: 32px 32px 0;
@@ -747,14 +780,14 @@
     .modal-section { margin-bottom: 28px; }
     .modal-section h3 {
       font-size: .8rem;
-      font-family: sans-serif;
+      font-family: system-ui, -apple-system, sans-serif;
       font-weight: 700;
       letter-spacing: .1em;
       text-transform: uppercase;
       color: var(--wine);
       margin-bottom: 12px;
       padding-bottom: 6px;
-      border-bottom: 2px solid #f0e0e5;
+      border-bottom: 1px solid var(--border);
     }
     .modal-section p { line-height: 1.7; font-size: .95rem; color: #3a2530; }
 
@@ -765,7 +798,7 @@
       gap: 10px;
     }
     .flavor-item {
-      background: #fdf3f5;
+      background: rgba(123,45,66,.04);
       border-radius: 10px;
       padding: 10px 12px;
       display: flex;
@@ -778,7 +811,7 @@
     /* Regions */
     .region-list { display: flex; flex-direction: column; gap: 14px; }
     .region-card {
-      border: 1px solid #eedde2;
+      border: 1px solid var(--border);
       border-radius: 10px;
       padding: 14px 16px;
     }
@@ -976,7 +1009,7 @@
     .quiz-choice-btn {
       flex: 1 1 180px;
       padding: 20px 16px 18px;
-      border: 2px solid #ecdde8;
+      border: 1px solid var(--border);
       border-radius: var(--radius);
       background: var(--card-bg);
       cursor: pointer;
@@ -984,7 +1017,7 @@
       text-align: center;
       transition: all .2s;
     }
-    .quiz-choice-btn:hover { border-color: var(--wine); background: #fdf5f7; }
+    .quiz-choice-btn:hover { border-color: var(--wine); background: rgba(123,45,66,.03); }
     .quiz-choice-btn.selected { border-color: var(--wine); background: var(--wine); color: #fff; }
     .qcb-icon  { font-size: 2rem; display: block; margin-bottom: 10px; }
     .qcb-label { font-weight: 700; font-size: .95rem; display: block; }
@@ -1046,7 +1079,7 @@
       align-items: center;
       margin-bottom: 24px;
       padding-bottom: 14px;
-      border-bottom: 2px solid #ecdde8;
+      border-bottom: 1px solid var(--border);
     }
     .finder-results-header h3 { font-size: 1.2rem; color: var(--text); }
     .finder-reset-btn {
@@ -1206,11 +1239,26 @@
 </header>
 
 <nav class="tab-nav" role="tablist">
-  <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">🍇 Grape Explorer</button>
-  <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">🍽️ Food Pairing</button>
-  <button class="tab-btn" data-tab="tasting" role="tab" aria-selected="false">🍷 How to Taste</button>
-  <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">🪵 Ageing & Vessels</button>
-  <button class="tab-btn" data-tab="finder" role="tab" aria-selected="false">🔍 Find a Wine</button>
+  <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5.5" r="2.3"/><circle cx="11" cy="5.5" r="2.3"/><circle cx="8" cy="10.5" r="2.3"/><circle cx="5" cy="10.5" r="0" opacity="0"/><path d="M9 3.5C9.6 2.2 11.5 2 11.5 3.5" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
+    Grape Explorer
+  </button>
+  <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 2v4.5C4 7.8 5 8.5 5 8.5V14"/><path d="M9 2v12"/><path d="M7 2v4C7 7.5 8.5 8.5 9 8.5"/></svg>
+    Food Pairing
+  </button>
+  <button class="tab-btn" data-tab="tasting" role="tab" aria-selected="false">
+    <svg width="13" height="15" viewBox="0 0 13 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 2h10L9 9.5C8.5 11 7.8 11.5 6.5 11.5S4.5 11 4 9.5L1.5 2z"/><line x1="6.5" y1="11.5" x2="6.5" y2="14.5"/><line x1="4" y1="14.5" x2="9" y2="14.5"/></svg>
+    How to Taste
+  </button>
+  <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">
+    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><ellipse cx="8" cy="3.5" rx="6" ry="2.5"/><ellipse cx="8" cy="10.5" rx="6" ry="2.5"/><line x1="2" y1="3.5" x2="2" y2="10.5"/><line x1="14" y1="3.5" x2="14" y2="10.5"/><line x1="2" y1="7" x2="14" y2="7"/></svg>
+    Ageing &amp; Vessels
+  </button>
+  <button class="tab-btn" data-tab="finder" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4.5"/><line x1="10" y1="10" x2="14" y2="14"/></svg>
+    Find a Wine
+  </button>
 </nav>
 
 <section id="tab-explorer" class="tab-panel active" role="tabpanel">
@@ -1525,7 +1573,7 @@
         <div class="aroma-chip">🪵 Oak <span class="aroma-chip-sub">Vanilla, coconut, cedar, cigar box, sawdust</span></div>
         <div class="aroma-chip">🍂 Earthy <span class="aroma-chip-sub">Forest floor, mushroom, truffle, wet earth</span></div>
         <div class="aroma-chip">🍫 Confectionery <span class="aroma-chip-sub">Dark chocolate, mocha, toffee, caramel</span></div>
-        <div class="aroma-chip">🫙 Dried Fruit <span class="aroma-chip-sub">Fig, raisin, prune, dried apricot, date</span></div>
+        <div class="aroma-chip">🍇 Dried Fruit <span class="aroma-chip-sub">Fig, raisin, prune, dried apricot, date</span></div>
         <div class="aroma-chip">🧳 Leather &amp; Spice <span class="aroma-chip-sub">Tobacco, tar, clove, cinnamon, game, meat</span></div>
         <div class="aroma-chip">⛽ Petrol <span class="aroma-chip-sub">Classic in aged Riesling — TDN compound from bottle age</span></div>
       </div>
@@ -1587,7 +1635,7 @@
 
       <div class="fault-card">
         <div class="fault-head">
-          <span class="fault-icon">🫧</span>
+          <span class="fault-icon">💧</span>
           <div><div class="fault-name">Unexpected Refermentation</div><div class="fault-freq">Rare in modern still wines</div></div>
         </div>
         <div class="fault-smell">"Unexpected fizz or prickling in a still wine"</div>
@@ -2341,7 +2389,7 @@ const GRAPES = [
       { icon: "🫐", label: "Blackberry" },
       { icon: "🌶️", label: "Black Pepper" },
       { icon: "🥩", label: "Cured Meat" },
-      { icon: "🫒", label: "Dark Olive" },
+      { icon: "🌿", label: "Dark Olive" },
       { icon: "🍫", label: "Dark Chocolate" },
       { icon: "💐", label: "Violets" },
     ],
@@ -2387,7 +2435,7 @@ const GRAPES = [
       { icon: "🍃", label: "Dried Fig" },
       { icon: "🪵", label: "Vanilla & Oak" },
       { icon: "🌿", label: "Tobacco Leaf" },
-      { icon: "🫙", label: "Leather" },
+      { icon: "🌰", label: "Leather" },
     ],
     regions: [
       {
@@ -2428,7 +2476,7 @@ const GRAPES = [
     flavors: [
       { icon: "🍒", label: "Sour Cherry" },
       { icon: "🍅", label: "Tomato Leaf" },
-      { icon: "🫒", label: "Olive" },
+      { icon: "🌿", label: "Olive" },
       { icon: "🌿", label: "Dried Herbs" },
       { icon: "🧱", label: "Iron & Earth" },
       { icon: "🌹", label: "Dried Rose" },
@@ -2473,7 +2521,7 @@ const GRAPES = [
       { icon: "🍓", label: "Raspberry" },
       { icon: "🫐", label: "Wild Strawberry" },
       { icon: "🌶️", label: "White Pepper" },
-      { icon: "🫚", label: "Garrigue Herbs" },
+      { icon: "🌼", label: "Garrigue Herbs" },
       { icon: "🍊", label: "Orange Zest" },
       { icon: "🧁", label: "Sweet Spice" },
     ],
@@ -2650,7 +2698,7 @@ const GRAPES = [
       { icon: "🍓", label: "Raspberry" },
       { icon: "🌶️", label: "Black Pepper" },
       { icon: "🍫", label: "Dark Chocolate" },
-      { icon: "🫙", label: "Anise" },
+      { icon: "🌿", label: "Anise" },
       { icon: "🥃", label: "Bourbon Oak" },
     ],
     regions: [
@@ -2736,7 +2784,7 @@ const GRAPES = [
     flavors: [
       { icon: "🫐", label: "Blackberry" },
       { icon: "🥩", label: "Game & Meat" },
-      { icon: "🫙", label: "Black Olive" },
+      { icon: "🌿", label: "Black Olive" },
       { icon: "🌿", label: "Provençal Herbs" },
       { icon: "🪵", label: "Leather" },
       { icon: "🦪", label: "Earthy Funk" },
@@ -2782,7 +2830,7 @@ const GRAPES = [
       { icon: "🌺", label: "Peach Blossom" },
       { icon: "💐", label: "Violet" },
       { icon: "🥭", label: "Mango" },
-      { icon: "🫚", label: "Honeysuckle" },
+      { icon: "🌼", label: "Honeysuckle" },
       { icon: "🧈", label: "Rich Texture" },
     ],
     regions: [
@@ -2869,7 +2917,7 @@ const GRAPES = [
       { icon: "🍋", label: "Lemon & Lime" },
       { icon: "🍑", label: "White Peach" },
       { icon: "🌺", label: "Orange Blossom" },
-      { icon: "🫙", label: "Saline Minerality" },
+      { icon: "💧", label: "Saline Minerality" },
       { icon: "🍈", label: "Grapefruit" },
       { icon: "🌿", label: "Fresh Herbs" },
     ],
@@ -2912,7 +2960,7 @@ const GRAPES = [
     flavors: [
       { icon: "🍐", label: "Pear" },
       { icon: "🍑", label: "White Peach" },
-      { icon: "🫚", label: "Honey" },
+      { icon: "🌼", label: "Honey" },
       { icon: "🌰", label: "Hazelnut" },
       { icon: "🌶️", label: "Spice" },
       { icon: "🧁", label: "Brioche" },
@@ -3001,7 +3049,7 @@ const GRAPES = [
       { icon: "🍋", label: "Lemon & Lime" },
       { icon: "🍑", label: "Apricot" },
       { icon: "🍯", label: "Honey" },
-      { icon: "🫚", label: "Beeswax" },
+      { icon: "🌼", label: "Beeswax" },
       { icon: "🪨", label: "Volcanic Mineral" },
       { icon: "🌸", label: "Dried Apricot (sweet)" },
     ],
@@ -3045,7 +3093,7 @@ const GRAPES = [
       { icon: "🍒", label: "Sour Cherry" },
       { icon: "🌶️", label: "Paprika Spice" },
       { icon: "🌹", label: "Rose Hip" },
-      { icon: "🫙", label: "Dried Herbs" },
+      { icon: "🌿", label: "Dried Herbs" },
       { icon: "🧱", label: "Earthy Funk" },
       { icon: "🍓", label: "Raspberry" },
     ],
@@ -3133,7 +3181,7 @@ const GRAPES = [
     flavors: [
       { icon: "🍋", label: "Lemon & Lime" },
       { icon: "🌊", label: "Saline Minerality" },
-      { icon: "🫙", label: "Sea Spray" },
+      { icon: "🌊", label: "Sea Spray" },
       { icon: "🍑", label: "White Peach" },
       { icon: "🪨", label: "Volcanic Stone" },
       { icon: "🍯", label: "Honey (sweet)" },
@@ -3352,11 +3400,11 @@ const GRAPES = [
     summary: "Greece's most serious and age-worthy red grape, grown primarily in northern Macedonia. Its name means 'acid-black' — a perfect summary of its defining characteristics: sky-high acidity, fierce tannins, and a pale ruby colour that belies extraordinary depth and complexity.",
     flavors: [
       { icon: "🍅", label: "Sun-dried Tomato" },
-      { icon: "🫒", label: "Olive" },
+      { icon: "🌿", label: "Olive" },
       { icon: "🌹", label: "Dried Rose" },
       { icon: "🍒", label: "Sour Cherry" },
       { icon: "🌿", label: "Oregano & Herbs" },
-      { icon: "🫙", label: "Leather" },
+      { icon: "🌰", label: "Leather" },
     ],
     regions: [
       {
@@ -3706,7 +3754,7 @@ const GRAPES = [
       { icon: "🍋", label: "Lemon & Lime" },
       { icon: "🍏", label: "Green Apple" },
       { icon: "🌿", label: "Fresh Herbs" },
-      { icon: "🫚", label: "White Almond" },
+      { icon: "🌼", label: "White Almond" },
       { icon: "🌊", label: "Saline Mineral" },
       { icon: "🍑", label: "White Peach" },
     ],
@@ -3753,7 +3801,7 @@ const GRAPES = [
       { icon: "🌿", label: "Anise" },
       { icon: "🍏", label: "Green Apple" },
       { icon: "🌼", label: "Chamomile" },
-      { icon: "🫙", label: "Neutral & Clean" },
+      { icon: "🏺", label: "Neutral & Clean" },
     ],
     regions: [
       { flag: "🇪🇸", name: "La Mancha, Spain", effect: "The heartland — its vast plains give extremely low yields from bush vines. Modern cold-fermented styles are crisp, aromatic and surprisingly pleasant; much of the crop is distilled into brandy.", notes: ["Lemon", "Green Apple", "Anise", "Dry & Neutral"] },
@@ -3776,7 +3824,7 @@ const GRAPES = [
       { icon: "🍏", label: "Green Apple" },
       { icon: "🌿", label: "Fresh Herb" },
       { icon: "🌸", label: "Almond Blossom" },
-      { icon: "🫙", label: "Neutral" },
+      { icon: "🏺", label: "Neutral" },
       { icon: "🍐", label: "Pear" },
     ],
     regions: [
@@ -3967,9 +4015,9 @@ const GRAPES = [
       { icon: "🌸", label: "White Blossom" },
       { icon: "🍑", label: "Stone Fruit" },
       { icon: "🌰", label: "Marzipan" },
-      { icon: "🫚", label: "Beeswax" },
+      { icon: "🌼", label: "Beeswax" },
       { icon: "🍯", label: "Honey (aged)" },
-      { icon: "🫙", label: "Quince" },
+      { icon: "🏺", label: "Quince" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Hermitage Blanc & St-Péray, Northern Rhône", effect: "Hermitage Blanc is the most age-worthy version: almost impenetrable in youth but extraordinary after 10–20 years — marzipan, beeswax, and dried flowers. St-Péray is Marsanne as sparkling wine, with surprising finesse.", notes: ["Marzipan", "Beeswax", "Quince", "Long-Lived"] },
@@ -3991,7 +4039,7 @@ const GRAPES = [
       { icon: "🌸", label: "Jasmine" },
       { icon: "🍑", label: "Peach" },
       { icon: "🌿", label: "Herbal Tea" },
-      { icon: "🫙", label: "Silky Texture" },
+      { icon: "🏺", label: "Silky Texture" },
       { icon: "🍯", label: "Honey" },
       { icon: "🌹", label: "Rose Hip" },
     ],
@@ -4110,7 +4158,7 @@ const GRAPES = [
     flavors: [
       { icon: "🍒", label: "Cherry" },
       { icon: "🍫", label: "Dark Chocolate" },
-      { icon: "🫒", label: "Dried Fig" },
+      { icon: "🌿", label: "Dried Fig" },
       { icon: "🌹", label: "Dried Rose" },
       { icon: "☕", label: "Coffee" },
       { icon: "🪵", label: "Tobacco" },
@@ -4137,7 +4185,7 @@ const GRAPES = [
       { icon: "⚫", label: "Tar" },
       { icon: "🧱", label: "Volcanic Mineral" },
       { icon: "🪵", label: "Tobacco" },
-      { icon: "🫙", label: "Leather" },
+      { icon: "🌰", label: "Leather" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Taurasi DOCG, Campania", effect: "The most celebrated Aglianico appellation — 'the Barolo of the South'. Taurasi's volcanic clay soils at altitude produce wines of extraordinary structure: massive tannins, high acidity, and a complex interplay of cherry, tar, and mineral. Requires 3+ years ageing by law; ideally 10–20 years minimum.", notes: ["Dark Cherry", "Tar", "Volcanic Earth", "Iron Tannins"] },
@@ -4160,7 +4208,7 @@ const GRAPES = [
       { icon: "🫐", label: "Blueberry" },
       { icon: "🍒", label: "Dark Cherry" },
       { icon: "🌿", label: "Fresh Herbs" },
-      { icon: "🫙", label: "Cedar" },
+      { icon: "🏺", label: "Cedar" },
       { icon: "🌺", label: "Floral Lift" },
     ],
     regions: [
@@ -4230,7 +4278,7 @@ const GRAPES = [
     summary: "A 19th-century cross (Riesling × Madeleine Royale, not Sylvaner as once believed), Müller-Thurgau dominated German plantings for decades with its early-ripening reliability. Soft, gently floral, and easy-drinking, it was the backbone of Liebfraumilch but now faces decline as quality wine culture demands more character.",
     flavors: [
       { icon: "🌸", label: "Elderflower" }, { icon: "🍇", label: "Muscat Grape" }, { icon: "🍋", label: "Lemon" },
-      { icon: "🍐", label: "Pear" }, { icon: "🌿", label: "Herb" }, { icon: "🫙", label: "Gentle & Soft" },
+      { icon: "🍐", label: "Pear" }, { icon: "🌿", label: "Herb" }, { icon: "🏺", label: "Gentle & Soft" },
     ],
     regions: [
       { flag: "🇩🇪", name: "Rheinhessen & Pfalz, Germany", effect: "The heartland of Müller-Thurgau production — flat, fertile land ideal for its high yields. Semi-sweet, softly aromatic styles were once the face of German wine abroad. Ambitious producers now work with it on better sites for more structured, drier styles.", notes: ["Elderflower", "Lemon", "Gentle Sweetness", "Easy Drinking"] },
@@ -4250,7 +4298,7 @@ const GRAPES = [
     summary: "Silvaner (Sylvaner in France and Austria) is one of Germany's oldest and most underrated varieties. Earthy, mineral, and savoury rather than aromatic, it is the soul of Franken and makes some of Germany's most food-friendly whites — especially with the region's hearty cuisine.",
     flavors: [
       { icon: "🌿", label: "Earth & Herb" }, { icon: "🍋", label: "Lemon" }, { icon: "🧄", label: "White Pepper" },
-      { icon: "🌾", label: "Smoky Mineral" }, { icon: "🍏", label: "Green Apple" }, { icon: "🫙", label: "Savoury" },
+      { icon: "🌾", label: "Smoky Mineral" }, { icon: "🍏", label: "Green Apple" }, { icon: "🏺", label: "Savoury" },
     ],
     regions: [
       { flag: "🇩🇪", name: "Franken, Germany", effect: "The spiritual home. Franken's Muschelkalk (shell limestone) and Keuper (gypsum sandstone) soils give Silvaner an earthy, mineral, almost smoky character found nowhere else. The Bocksbeutel flagon is iconic — Franken Silvaner is dry, savoury, and deeply food-friendly.", notes: ["Earth", "Mineral", "Dry & Savoury", "Food-Friendly"] },
@@ -4270,7 +4318,7 @@ const GRAPES = [
     summary: "One of the dominant red grapes of southern France and Lebanon, Cinsault is thin-skinned, high-yielding, and produces light, refreshing reds and some of the Mediterranean's finest rosés. It is also, famously, one parent of Pinotage (crossed with Pinot Noir in South Africa in 1925).",
     flavors: [
       { icon: "🍓", label: "Strawberry" }, { icon: "🌹", label: "Rose Petal" }, { icon: "🍒", label: "Cherry" },
-      { icon: "🌿", label: "Fresh Herb" }, { icon: "🍊", label: "Orange Zest" }, { icon: "🫙", label: "Light & Fresh" },
+      { icon: "🌿", label: "Fresh Herb" }, { icon: "🍊", label: "Orange Zest" }, { icon: "🏺", label: "Light & Fresh" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Provence (rosé), France", effect: "Cinsault is the heart of Provence rosé — its pale colour, low tannins, and fresh strawberry character define the Provençal style. Often blended with Grenache and Mourvèdre, it gives the delicacy and freshness that makes Provence rosé globally famous.", notes: ["Strawberry", "Rose Petal", "Pale Colour", "Crisp Rosé"] },
@@ -4429,7 +4477,7 @@ const GRAPES = [
     bgLight: "#fef8d0",
     summary: "As a table wine, Palomino Fino is barely drinkable — neutral and flat. But grown on Jerez's chalky albariza soils and transformed by the biological ageing of flor yeast, it becomes Sherry: one of the world's most complex and misunderstood wine categories, ranging from bone-dry Fino to lusciously rich Oloroso.",
     flavors: [
-      { icon: "🌰", label: "Almond & Walnut" }, { icon: "🫙", label: "Saline" }, { icon: "🍞", label: "Bread Dough" },
+      { icon: "🌰", label: "Almond & Walnut" }, { icon: "💧", label: "Saline" }, { icon: "🍞", label: "Bread Dough" },
       { icon: "🍋", label: "Lemon Zest" }, { icon: "🧀", label: "Oxidative Funk" }, { icon: "🥜", label: "Hazelnut" },
     ],
     regions: [
@@ -4450,7 +4498,7 @@ const GRAPES = [
     summary: "Pedro Ximénez (PX) produces what may be the sweetest wine in the world — grapes are sun-dried for two weeks after harvest, intensifying their sugar to extraordinary levels. The resulting dark, syrupy, raisin-rich wine is used both as a sweetening agent for Sherry and bottled as an extraordinary dessert wine in its own right.",
     flavors: [
       { icon: "🍇", label: "Raisin" }, { icon: "🍫", label: "Dark Chocolate" }, { icon: "🍮", label: "Caramel" },
-      { icon: "☕", label: "Coffee" }, { icon: "🫙", label: "Molasses" }, { icon: "🍰", label: "Christmas Cake" },
+      { icon: "☕", label: "Coffee" }, { icon: "🍯", label: "Molasses" }, { icon: "🍰", label: "Christmas Cake" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Jerez & Montilla-Moriles, Andalucía, Spain", effect: "The heartland. Grapes are laid on grass mats in the blazing Andalusian sun for 10–15 days (soleo), concentrating to 400+ g/l residual sugar. The resulting wine — served over vanilla ice cream or poured over aged Manchego cheese — is one of gastronomy's great pleasures.", notes: ["Raisin", "Fig", "Dark Chocolate", "Extreme Sweetness"] },
@@ -4490,7 +4538,7 @@ const GRAPES = [
     summary: "A 19th-century cross developed in France but at home in Central Europe, Muscat Ottonel is the dominant Muscat in Alsace, Austria, and Eastern Europe. Lighter and less intense than Muscat Blanc à Petits Grains, it produces delicate, floral dry wines with gentle muscat character.",
     flavors: [
       { icon: "🌸", label: "Rose Petal" }, { icon: "🍇", label: "Muscat" }, { icon: "🍋", label: "Lemon" },
-      { icon: "🌼", label: "Chamomile" }, { icon: "🍑", label: "White Peach" }, { icon: "🫙", label: "Delicate & Soft" },
+      { icon: "🌼", label: "Chamomile" }, { icon: "🍑", label: "White Peach" }, { icon: "🏺", label: "Delicate & Soft" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Alsace, France", effect: "Alsatian Muscat is almost always dry — one of the world's very few totally dry Muscat wines. The frail, delicate rose-petal and citrus character is compelling with Alsatian asparagus. Some Vendange Tardive sweet versions show additional honeyed complexity.", notes: ["Rose Petal", "Lemon", "Completely Dry", "Delicate"] },
@@ -4550,7 +4598,7 @@ const GRAPES = [
     summary: "Sicily's most delicate and aromatic red grape, Frappato is the secret ingredient in Cerasuolo di Vittoria — Sicily's only DOCG. Thin-skinned, low in tannin, and intensely perfumed with cherry blossom and strawberry, it produces some of Italy's most food-friendly and surprising reds.",
     flavors: [
       { icon: "🍓", label: "Strawberry" }, { icon: "🍒", label: "Cherry Blossom" }, { icon: "🌹", label: "Rose" },
-      { icon: "🌿", label: "Fresh Herbs" }, { icon: "🍋", label: "Citrus" }, { icon: "🫙", label: "Light & Silky" },
+      { icon: "🌿", label: "Fresh Herbs" }, { icon: "🍋", label: "Citrus" }, { icon: "🏺", label: "Light & Silky" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Cerasuolo di Vittoria DOCG, Sicily", effect: "The sole DOCG of Sicily blends 50–70% Nero d'Avola with 30–50% Frappato. Frappato brings the perfume, floral lift, and freshness; Nero d'Avola the colour, tannin, and dark fruit. COS and Arianna Occhipinti are the leading producers.", notes: ["Cherry", "Strawberry", "Floral Lift", "Elegant Blend"] },
@@ -4631,7 +4679,7 @@ const GRAPES = [
     summary: "Once Alto Adige's dominant red grape (locally called Vernatsch in German), Schiava produces some of the lightest red wines in Italy — pale ruby, low in tannin and alcohol, with a distinctive almond-cherry freshness. Often dismissed as simple, but the finest old-vine examples from Santa Maddalena show genuine elegance.",
     flavors: [
       { icon: "🍒", label: "Cherry" }, { icon: "🌰", label: "Bitter Almond" }, { icon: "🌹", label: "Rose" },
-      { icon: "🌿", label: "Herb" }, { icon: "🍓", label: "Strawberry" }, { icon: "🫙", label: "Light & Delicate" },
+      { icon: "🌿", label: "Herb" }, { icon: "🍓", label: "Strawberry" }, { icon: "🏺", label: "Light & Delicate" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Santa Maddalena DOC, Bolzano, Alto Adige", effect: "The classic expression — Schiava from steep hillside vineyards above Bolzano. Light ruby, cherry-almond, and a soft, almost silky texture. Best drunk young and slightly cool with South Tyrolean speck and dumplings. More serious than its reputation suggests.", notes: ["Cherry", "Bitter Almond", "Light Ruby", "Easy Alpine"] },
@@ -4751,7 +4799,7 @@ const GRAPES = [
     summary: "One of the world's oldest cultivated grape varieties, Rkatsiteli has been grown in Georgia for at least 5,000 years. The most widely planted grape in the former Soviet Union, it produces crisp, savoury whites with notes of quince and fresh herbs — either in modern stainless steel or the traditional amber/orange wine style from qvevri (clay amphora).",
     flavors: [
       { icon: "🍐", label: "Quince" }, { icon: "🍏", label: "Green Apple" }, { icon: "🌿", label: "Fresh Herb" },
-      { icon: "🍋", label: "Lemon" }, { icon: "🫙", label: "Amber (qvevri)" }, { icon: "🪵", label: "Beeswax" },
+      { icon: "🍋", label: "Lemon" }, { icon: "🏺", label: "Amber (qvevri)" }, { icon: "🪵", label: "Beeswax" },
     ],
     regions: [
       { flag: "🇬🇪", name: "Kakheti, Georgia", effect: "The homeland and most complex expression. Modern Rkatsiteli is crisp, herbal, and mineral. Traditional qvevri fermentation with extended skin contact (6 months) creates 'amber wine' — deeply coloured, tannic, with dried apricot, wax, and oxidative complexity that is utterly unique.", notes: ["Quince", "Herb", "Amber Wine Option", "Georgian Heritage"] },
@@ -4791,7 +4839,7 @@ const GRAPES = [
     summary: "Mtsvane means 'green' in Georgian, referring to the grape's vivid yellow-green colour when ripe. One of Georgia's finest white varieties, it produces fragrant, citrus-forward wines with a distinctive freshness and delicacy — both in modern style and as extraordinary amber wine from traditional qvevri ageing.",
     flavors: [
       { icon: "🍋", label: "Lemon & Lime" }, { icon: "🌸", label: "White Flower" }, { icon: "🍏", label: "Green Apple" },
-      { icon: "🌿", label: "Fresh Herb" }, { icon: "🫙", label: "Orange Peel (amber)" }, { icon: "🪨", label: "Mineral" },
+      { icon: "🌿", label: "Fresh Herb" }, { icon: "🏺", label: "Orange Peel (amber)" }, { icon: "🪨", label: "Mineral" },
     ],
     regions: [
       { flag: "🇬🇪", name: "Kakheti (Telavi & Gurjaani), Georgia", effect: "The heartland of quality Mtsvane. Gurjaani's calcareous soils produce the most mineral and complex expressions. Traditional qvevri Mtsvane develops stunning amber complexity — dried citrus, herb tea, and a fine tannic structure unlike anything outside Georgia.", notes: ["Citrus", "Herb Tea", "Amber Complexity", "Limestone Mineral"] },
@@ -4811,7 +4859,7 @@ const GRAPES = [
     summary: "The same grape — DNA-confirmed identical — that goes by Trousseau in France's Jura and Bastardo in Portugal's Douro and Dão. Thin-skinned and producing pale, perfumed, hauntingly delicate reds, it is one of wine's great rarities and a favourite of natural wine enthusiasts for its Pinot-like fragility and charm.",
     flavors: [
       { icon: "🍒", label: "Sour Cherry" }, { icon: "🌹", label: "Rose Hip" }, { icon: "🌿", label: "Wild Herbs" },
-      { icon: "🍓", label: "Red Berry" }, { icon: "🪨", label: "Earthy Mineral" }, { icon: "🫙", label: "Pale & Delicate" },
+      { icon: "🍓", label: "Red Berry" }, { icon: "🪨", label: "Earthy Mineral" }, { icon: "🏺", label: "Pale & Delicate" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Arbois & Jura, France", effect: "As Trousseau, this is one of Jura's most prized indigenous reds. Pale ruby, almost rosé in colour, with ethereal cherry, rose, and wild herb aromatics. The best single-vineyard Trousseau from Arbois — particularly from clay soils — develops extraordinary finesse with age.", notes: ["Wild Cherry", "Rose", "Earthy Herb", "Hauntingly Pale"] },
@@ -4831,7 +4879,7 @@ const GRAPES = [
     summary: "Portugal's most widely planted quality white grape, Arinto thrives from the Atlantic coast to the searing Alentejo interior. Its defining characteristic — naturally high acidity that persists regardless of heat — makes it one of the most versatile whites in the world, capable of fresh dry wines, age-worthy Reserve styles, and even sparkling.",
     flavors: [
       { icon: "🍋", label: "Lemon & Lime" }, { icon: "🍏", label: "Green Apple" }, { icon: "🌿", label: "Fresh Herb" },
-      { icon: "🌸", label: "White Blossom" }, { icon: "🪨", label: "Mineral" }, { icon: "🫙", label: "Saline Freshness" },
+      { icon: "🌸", label: "White Blossom" }, { icon: "🪨", label: "Mineral" }, { icon: "💧", label: "Saline Freshness" },
     ],
     regions: [
       { flag: "🇵🇹", name: "Bucelas DOC, near Lisbon, Portugal", effect: "Arinto's historic home — a tiny DOC north of Lisbon where it must be 75% of the blend. Bucelas Arinto from chalk soils is among Portugal's finest whites: Chablis-like in its mineral austerity, with laser-focused citrus and extraordinary longevity.", notes: ["Lemon", "Chalk Mineral", "Austere Precision", "Age-Worthy"] },
@@ -4931,7 +4979,7 @@ const GRAPES = [
     summary: "The most aromatic white grape of Portugal's Vinho Verde region, Loureiro ('laurel' in Portuguese — referring to its laurel-like leaf fragrance) produces wines of exceptional delicacy and perfume. At its best, it ranks alongside Portugal's finest whites, with elegant citrus and floral complexity.",
     flavors: [
       { icon: "🌿", label: "Laurel & Herb" }, { icon: "🌸", label: "White Flower" }, { icon: "🍋", label: "Lemon Blossom" },
-      { icon: "🍑", label: "White Peach" }, { icon: "🌊", label: "Saline Freshness" }, { icon: "🫙", label: "Delicate" },
+      { icon: "🍑", label: "White Peach" }, { icon: "🌊", label: "Saline Freshness" }, { icon: "🏺", label: "Delicate" },
     ],
     regions: [
       { flag: "🇵🇹", name: "Lima & Braga sub-regions, Vinho Verde, Portugal", effect: "Loureiro's heartland in Vinho Verde's northern Lima and Braga sub-zones produces wines of delicate fragrance — laurel, lemon blossom, and white flower. Single-variety Loureiro is gaining recognition as one of Portugal's most characterful whites.", notes: ["Lemon Blossom", "Herb", "Floral Delicacy", "Atlantic Freshness"] },
@@ -4951,7 +4999,7 @@ const GRAPES = [
     summary: "Portugal's most widely planted white grape (also known as Maria Gomes in Bairrada), Fernão Pires is ubiquitous but underrated — its natural aromatic character and freshness make it Portugal's equivalent of Müller-Thurgau, capable of charming everyday wines and, with lower yields, more serious expressions.",
     flavors: [
       { icon: "🌸", label: "Floral" }, { icon: "🍑", label: "Peach" }, { icon: "🌿", label: "Fresh Herb" },
-      { icon: "🍋", label: "Citrus" }, { icon: "🫙", label: "Spicy Floral" }, { icon: "🌼", label: "Chamomile" },
+      { icon: "🍋", label: "Citrus" }, { icon: "🏺", label: "Spicy Floral" }, { icon: "🌼", label: "Chamomile" },
     ],
     regions: [
       { flag: "🇵🇹", name: "Tejo & Lisboa, Portugal", effect: "The central heartland of Fernão Pires production. Tejo's alluvial soils and Lisboa's mixed terroirs give aromatic, easy-drinking whites — peach blossom, citrus, and a characteristic spicy floral note. High-volume but reliable quality.", notes: ["Peach Blossom", "Citrus", "Spicy Floral", "Reliable Everyday"] },
@@ -4991,7 +5039,7 @@ const GRAPES = [
     summary: "Portugal's most ferociously structured red grape — Baga's savage tannins, searing acidity, and deep colour make it one of the most challenging varieties on earth to vinify. When it works, from Bairrada's Atlantic-cooled clay soils, it produces wines of extraordinary longevity rivalling the world's greatest reds.",
     flavors: [
       { icon: "🍒", label: "Sour Cherry" }, { icon: "🌹", label: "Dried Rose" }, { icon: "🧱", label: "Earthy Mineral" },
-      { icon: "🫙", label: "Leather" }, { icon: "🌿", label: "Wild Herbs" }, { icon: "⚡", label: "Fierce Tannins" },
+      { icon: "🌰", label: "Leather" }, { icon: "🌿", label: "Wild Herbs" }, { icon: "⚡", label: "Fierce Tannins" },
     ],
     regions: [
       { flag: "🇵🇹", name: "Bairrada DOC, Portugal", effect: "The only place Baga achieves greatness. Atlantic climate, clay soils, and old vines combine to produce wines of extraordinary complexity. Luis Pato, Quinta das Bágeiras, and Filipa Pato have shown that low yields and modern winemaking can tame Baga's savage tannins into structured, 20–30 year wines of world-class quality.", notes: ["Sour Cherry", "Leather", "Clay Mineral", "Exceptional Longevity"] },
@@ -5010,7 +5058,7 @@ const GRAPES = [
     bgLight: "#fef8d8",
     summary: "Savagnin is one of Europe's oldest and most distinctive grape varieties — the parent of Gewurztraminer and grown almost exclusively in France's Jura. Its greatest expression is Vin Jaune ('yellow wine'), aged under a flor yeast layer for 6+ years in old barrels, developing an extraordinary walnut-curry-sherry complexity unlike any other wine on earth.",
     flavors: [
-      { icon: "🥜", label: "Walnut" }, { icon: "🍛", label: "Curry Spice" }, { icon: "🫙", label: "Oxidative Funk" },
+      { icon: "🥜", label: "Walnut" }, { icon: "🍛", label: "Curry Spice" }, { icon: "🏺", label: "Oxidative Funk" },
       { icon: "🍋", label: "Preserved Lemon" }, { icon: "🧀", label: "Aged Cheese" }, { icon: "🍯", label: "Honey" },
     ],
     regions: [
@@ -5031,7 +5079,7 @@ const GRAPES = [
     summary: "The most delicate of Jura's indigenous reds, Poulsard (or Ploussard in Pupillin) produces some of the palest red wines in France — barely distinguishable from dark rosé. Its haunting rose, cherry, and spice character, combined with minimal tannin and high acidity, makes it a natural wine enthusiast's dream.",
     flavors: [
       { icon: "🌹", label: "Rose Hip" }, { icon: "🍒", label: "Cherry" }, { icon: "🌿", label: "Wild Herbs" },
-      { icon: "🍓", label: "Raspberry" }, { icon: "🌶️", label: "White Pepper" }, { icon: "🫙", label: "Pale & Delicate" },
+      { icon: "🍓", label: "Raspberry" }, { icon: "🌶️", label: "White Pepper" }, { icon: "🏺", label: "Pale & Delicate" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Pupillin, Jura, France", effect: "The village of Pupillin has a legendary reputation for Ploussard (its local name). Pierre Overnoy's natural-wine cellar here is a pilgrimage site — his Ploussard, made without additions of any kind, has inspired a generation of winemakers worldwide.", notes: ["Rose Hip", "Wild Cherry", "Earthbound Herb", "Natural Wine Icon"] },
@@ -5091,7 +5139,7 @@ const GRAPES = [
     summary: "Picpoul (meaning 'stings the lip' — a reference to its exhilarating acidity) is the white grape of the Pinet area near Béziers, producing France's most famous oyster wine. Light, crisp, and intensely mineral from the Mediterranean coast, it has exploded in popularity as a seafood white of supreme freshness.",
     flavors: [
       { icon: "🍋", label: "Lemon Zest" }, { icon: "🌿", label: "Herb" }, { icon: "🌊", label: "Saline" },
-      { icon: "🍏", label: "Green Apple" }, { icon: "🌸", label: "White Blossom" }, { icon: "🫙", label: "Briny Fresh" },
+      { icon: "🍏", label: "Green Apple" }, { icon: "🌸", label: "White Blossom" }, { icon: "🏺", label: "Briny Fresh" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Picpoul de Pinet AOC, Languedoc, France", effect: "The only designated Picpoul AOC — clay and limestone soils near the Bassin de Thau lagoon, which produces France's finest oysters. The salty maritime air, Mediterranean sun, and the grape's natural acidity create one of the world's great oyster-pairing whites. Always drunk young.", notes: ["Lemon", "Saline", "Green Apple", "Oyster Pairing Classic"] },
@@ -5111,7 +5159,7 @@ const GRAPES = [
     summary: "One of southern France's oldest white varieties, Clairette produces full-bodied, floral whites that oxidise quickly — a characteristic that, in the traditional Clairette de Die sparkling wine, becomes an advantage. In still wines it contributes body and almond character to southern French blends.",
     flavors: [
       { icon: "🌸", label: "White Flower" }, { icon: "🌰", label: "Almond" }, { icon: "🍑", label: "Peach" },
-      { icon: "🍋", label: "Lemon" }, { icon: "🌿", label: "Provençal Herb" }, { icon: "🫙", label: "Round & Full" },
+      { icon: "🍋", label: "Lemon" }, { icon: "🌿", label: "Provençal Herb" }, { icon: "🏺", label: "Round & Full" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Clairette de Die, Drôme, France", effect: "The most famous Clairette appellation — and it is made from Muscat, not Clairette (confusingly). True Crémant de Die uses Clairette as the base. The ancestral-method Clairette de Die Tradition (from Muscat) is fresh, grapey, and low-alcohol. Complex names, simple pleasure.", notes: ["Muscat Grape (Tradition)", "Grapey Fizz", "Low Alcohol", "Ancestral Method"] },
@@ -5151,7 +5199,7 @@ const GRAPES = [
     summary: "One of the 13 permitted varieties in Châteauneuf-du-Pape, Bourboulenc is prized precisely for what most southern French grapes lack: natural acidity that resists the region's Mediterranean heat. Often blended with richer Grenache Blanc and Clairette to provide freshness and longevity.",
     flavors: [
       { icon: "🍋", label: "Citrus" }, { icon: "🌸", label: "White Flower" }, { icon: "🍏", label: "Green Apple" },
-      { icon: "🌿", label: "Herb" }, { icon: "🫙", label: "Fresh & Light" }, { icon: "🪨", label: "Mineral" },
+      { icon: "🌿", label: "Herb" }, { icon: "🏺", label: "Fresh & Light" }, { icon: "🪨", label: "Mineral" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Châteauneuf-du-Pape, Southern Rhône", effect: "Bourboulenc's main role: adding freshness and acidity to Châteauneuf Blanc blends. Rarely bottled as a varietal, it is the unsung hero of southern Rhône whites, preventing blends from becoming overly heavy and providing the backbone for ageing.", notes: ["Citrus", "Herb", "Freshness Support", "Longevity Anchor"] },
@@ -5171,7 +5219,7 @@ const GRAPES = [
     summary: "One of Châteauneuf-du-Pape's 13 permitted varieties, Counoise is a light, aromatic red that contributes freshness and floral complexity to blends rather than colour or tannin. Rare as a varietal, it is valued for maintaining elegance in the southern Rhône's powerful, sometimes heavy blends.",
     flavors: [
       { icon: "🍒", label: "Red Cherry" }, { icon: "🌿", label: "Fresh Herb" }, { icon: "🌸", label: "Floral" },
-      { icon: "🍓", label: "Strawberry" }, { icon: "🍋", label: "High Acidity" }, { icon: "🫙", label: "Light & Fresh" },
+      { icon: "🍓", label: "Strawberry" }, { icon: "🍋", label: "High Acidity" }, { icon: "🏺", label: "Light & Fresh" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Châteauneuf-du-Pape, Southern Rhône", effect: "The primary home. Counoise adds freshness and aromatic lift to Grenache-dominant blends — the 'pepper in the spice mix' that prevents Châteauneuf from becoming too heavy. Very occasionally bottled as a varietal by Château Rayas and a handful of others.", notes: ["Cherry", "Herb", "Aromatic Lift", "Blending Role"] },
@@ -5211,7 +5259,7 @@ const GRAPES = [
     summary: "The rarest and least-known of Châteauneuf-du-Pape's 13 permitted varieties, Muscardin produces light, musky, aromatic reds. Almost completely extinct, it is maintained by a tiny number of producers more for historical completeness than commercial importance.",
     flavors: [
       { icon: "🌹", label: "Musky Rose" }, { icon: "🍒", label: "Light Cherry" }, { icon: "🌿", label: "Herb" },
-      { icon: "🌸", label: "Floral" }, { icon: "🫙", label: "Light & Aromatic" }, { icon: "🍓", label: "Red Berry" },
+      { icon: "🌸", label: "Floral" }, { icon: "🏺", label: "Light & Aromatic" }, { icon: "🍓", label: "Red Berry" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Châteauneuf-du-Pape, Southern Rhône", effect: "The only place Muscardin survives in any meaningful quantity. A handful of estates — primarily those committed to vinifying all permitted varieties — maintain small parcels. The wine is almost never seen separately from blends.", notes: ["Musky", "Light Cherry", "Aromatic Rarity", "Historical Curiosity"] },
@@ -5231,7 +5279,7 @@ const GRAPES = [
     summary: "The most aromatic and delicate of the three traditional Cava grapes, Parellada is always grown at altitude to preserve its floral freshness. It contributes elegance and apple-blossom lift to Cava blends but is rarely vinified as a single varietal.",
     flavors: [
       { icon: "🍏", label: "Green Apple" }, { icon: "🌸", label: "Apple Blossom" }, { icon: "🍋", label: "Lemon" },
-      { icon: "🌿", label: "Herbal" }, { icon: "🍐", label: "Pear" }, { icon: "🫧", label: "Delicate & Light" },
+      { icon: "🌿", label: "Herbal" }, { icon: "🍐", label: "Pear" }, { icon: "💧", label: "Delicate & Light" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Penedès highlands, Catalonia, Spain", effect: "Parellada's natural home is on the higher, cooler slopes of Penedès where altitude preserves the high acidity and delicate aromatics. At lower altitudes it loses elegance rapidly. The cooler mountain mesoclimates give the grape its signature apple-blossom freshness.", notes: ["Apple Blossom", "Green Apple", "High Acidity", "Floral Lift"] },
@@ -5251,7 +5299,7 @@ const GRAPES = [
     summary: "The most distinctive and terroir-driven of the Cava trio, Xarel·lo brings body, earthiness, and local character. Long dismissed as rustic, it has been rediscovered by producers seeking complexity — its oxidative potential and phenolic grip make it ideal for skin-contact and aged still wines.",
     flavors: [
       { icon: "🍋", label: "Lemon Peel" }, { icon: "🌿", label: "Herbal/Fennel" }, { icon: "🍵", label: "Almond" },
-      { icon: "🧀", label: "Earthy/Nutty" }, { icon: "🍏", label: "Green Apple" }, { icon: "🫙", label: "Oxidative Complexity" },
+      { icon: "🧀", label: "Earthy/Nutty" }, { icon: "🍏", label: "Green Apple" }, { icon: "🏺", label: "Oxidative Complexity" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Penedès, Catalonia, Spain", effect: "Xarel·lo's heartland, where it produces structured still wines with herbal, earthy character and oxidative lift. The best examples — especially skin-contact 'orange wine' versions — are striking, complex, and age-worthy.", notes: ["Herbal", "Earthy", "Skin-Contact Potential", "Age-Worthy"] },
@@ -5291,7 +5339,7 @@ const GRAPES = [
     summary: "Trepat is a native Catalan grape grown almost exclusively in Conca de Barberà, where it is the primary component of light, fresh reds and rosés. Its naturally high acidity and pale colour make it ideal for sparkling rosé Cava, where it has found its most successful commercial expression.",
     flavors: [
       { icon: "🍓", label: "Strawberry" }, { icon: "🍒", label: "Light Cherry" }, { icon: "🌸", label: "Floral" },
-      { icon: "🍋", label: "Citrus Zest" }, { icon: "🌿", label: "Fresh Herbs" }, { icon: "🫧", label: "Light & Bright" },
+      { icon: "🍋", label: "Citrus Zest" }, { icon: "🌿", label: "Fresh Herbs" }, { icon: "💧", label: "Light & Bright" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Conca de Barberà DO, Catalonia, Spain", effect: "Trepat's almost exclusive home. The high-altitude plateau (700–900m) with warm days and cold nights preserves acidity. As a still red it is light-bodied, pale ruby, and best drunk young as a local table wine.", notes: ["High Altitude", "Light Ruby", "Bright Acidity", "Drink Young"] },
@@ -5371,7 +5419,7 @@ const GRAPES = [
     summary: "The primary white grape of Txakoli, the vibrant, gently sparkling Basque wine, Hondarrabi Zuri produces some of Spain's most distinctive whites — ultra-pale, searingly acidic, and richly aromatic with citrus, green apple, and the unmistakable scent of the nearby Atlantic Ocean.",
     flavors: [
       { icon: "🍋", label: "Lemon Zest" }, { icon: "🍏", label: "Green Apple" }, { icon: "🌊", label: "Sea Salt/Saline" },
-      { icon: "🌸", label: "White Flowers" }, { icon: "🍐", label: "Pear" }, { icon: "🫧", label: "Pétillant (Slight Fizz)" },
+      { icon: "🌸", label: "White Flowers" }, { icon: "🍐", label: "Pear" }, { icon: "💧", label: "Pétillant (Slight Fizz)" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Getaria Txakolina DO, Basque Country, Spain", effect: "The classic Txakoli zone closest to the sea at Getaria, producing the most marine-influenced, salinity-rich expressions of Hondarrabi Zuri. The Atlantic proximity, granite soils, and very high rainfall create wines of extreme freshness.", notes: ["Marine Saline", "Extreme Freshness", "Ultra-Dry", "Atlantic Influence"] },
@@ -5391,7 +5439,7 @@ const GRAPES = [
     summary: "The red counterpart to Hondarrabi Zuri, grown in tiny quantities in the Basque Country for Txakoli Rosado and rare red Txakoli. Deeply coloured for such a cool-climate grape, it produces wines of cherry, herb, and Atlantic salinity — unique expressions of Basque viticulture.",
     flavors: [
       { icon: "🍒", label: "Sour Cherry" }, { icon: "🌿", label: "Herbal" }, { icon: "🌊", label: "Sea Salt/Saline" },
-      { icon: "🌹", label: "Red Flower" }, { icon: "🍓", label: "Strawberry" }, { icon: "🫧", label: "Light Fizz" },
+      { icon: "🌹", label: "Red Flower" }, { icon: "🍓", label: "Strawberry" }, { icon: "💧", label: "Light Fizz" },
     ],
     regions: [
       { flag: "🇪🇸", name: "Getaria Txakolina DO (rosé), Spain", effect: "Hondarrabi Beltza is primarily used for rosé production in Getaria, the most traditional Txakoli zone. Pale salmon rosés have sea-spray freshness, cherry fruit, and the characteristic pétillance of Txakoli.", notes: ["Rosé Primary Use", "Sea-Spray", "Pale Salmon", "Pétillant"] },
@@ -5531,7 +5579,7 @@ const GRAPES = [
     summary: "Ribolla Gialla is an ancient Friulian grape that became the unlikely flagship of the natural wine and skin-contact ('orange wine') movement when Josko Gravner returned to traditional amphorae methods in the 1990s. Its thick skins and high acidity make it ideal for extended maceration, producing wines of remarkable depth and tannin.",
     flavors: [
       { icon: "🍋", label: "Citrus/Lemon" }, { icon: "🍊", label: "Orange Peel" }, { icon: "🌿", label: "Herbal/Honey" },
-      { icon: "🌰", label: "Hazelnut" }, { icon: "🫙", label: "Oxidative/Amber" }, { icon: "🍵", label: "Chamomile Tea" },
+      { icon: "🌰", label: "Hazelnut" }, { icon: "🏺", label: "Oxidative/Amber" }, { icon: "🍵", label: "Chamomile Tea" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Collio DOC & Friuli Colli Orientali DOC, Italy", effect: "Classic Friulian Ribolla Gialla in both conventional (clean, unoaked, crisp) and skin-contact (amber, complex, tannic) styles. The Ponca soils — alternating marl and sandstone — give a saline, chalky character to the best wines.", notes: ["Ponca Mineral", "Dual Style", "Clean or Amber", "Saline Chalk"] },
@@ -5571,7 +5619,7 @@ const GRAPES = [
     summary: "Once indispensable in the traditional Chianti blend — Bettino Ricasoli's 19th-century formula called for 15% Canaiolo to soften Sangiovese's edges — Canaiolo was progressively sidelined by international varieties and regulatory changes. Today it is rescued by traditionalists who value its cherry softness and low tannin.",
     flavors: [
       { icon: "🍒", label: "Sweet Cherry" }, { icon: "🌹", label: "Rose Petal" }, { icon: "🌿", label: "Herbal" },
-      { icon: "🫐", label: "Light Plum" }, { icon: "🌶️", label: "Gentle Spice" }, { icon: "🫧", label: "Soft & Round" },
+      { icon: "🫐", label: "Light Plum" }, { icon: "🌶️", label: "Gentle Spice" }, { icon: "💧", label: "Soft & Round" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Chianti Classico DOCG (blend), Tuscany, Italy", effect: "Canaiolo's historic home. Used as a minority partner (now up to 10%) to soften Sangiovese in Chianti Classico blends. Its natural low tannin and sweet cherry character rounds out Sangiovese's angular structure — exactly as Ricasoli intended.", notes: ["Chianti Blend", "Softener", "Sweet Cherry", "Ricasoli Formula"] },
@@ -5611,7 +5659,7 @@ const GRAPES = [
     summary: "The name means 'cherry' in Italian and Ciliegiolo delivers exactly that: intensely cherry-fruited, medium-bodied reds with silky tannin and floral lift. Once used purely as a blending grape in Chianti, it is now crafted as a solo variety by producers in Tuscany and Liguria who appreciate its charm.",
     flavors: [
       { icon: "🍒", label: "Vivid Cherry" }, { icon: "🌹", label: "Violet & Rose" }, { icon: "🍓", label: "Red Berry" },
-      { icon: "🌿", label: "Herbal" }, { icon: "🌶️", label: "Light Spice" }, { icon: "🫧", label: "Silky Tannin" },
+      { icon: "🌿", label: "Herbal" }, { icon: "🌶️", label: "Light Spice" }, { icon: "💧", label: "Silky Tannin" },
     ],
     regions: [
       { flag: "🇮🇹", name: "Morellino di Scansano DOCG, Tuscany, Italy", effect: "Ciliegiolo is permitted in Morellino blends (Sangiovese dominant), where it adds cherry freshness and floral lift. A small number of producers in the Maremma also bottle it alone, showcasing its vivid fruit character.", notes: ["Morellino Blend", "Cherry Freshness", "Floral Lift", "Maremma Coast"] },
@@ -5851,7 +5899,7 @@ const GRAPES = [
     summary: "Often confused with Pinot Auxerrois (a synonym for Malbec in Cahors) or Chardonnay, Alsace's Auxerrois Blanc is a distinct variety related to Pinot Blanc. It contributes body, tropical fruit, and lower acidity to the variety-blend sold as 'Pinot d'Alsace' — rarely labeled alone but ubiquitous in Alsatian wine.",
     flavors: [
       { icon: "🍑", label: "Peach & Apricot" }, { icon: "🌸", label: "White Flowers" }, { icon: "🍋", label: "Lemon Cream" },
-      { icon: "🌿", label: "Herbal" }, { icon: "🫙", label: "Spicy/Nutmeg" }, { icon: "🧈", label: "Buttery/Round" },
+      { icon: "🌿", label: "Herbal" }, { icon: "🏺", label: "Spicy/Nutmeg" }, { icon: "🧈", label: "Buttery/Round" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Alsace AOC (Pinot d'Alsace blend), France", effect: "Auxerrois's primary role is as a blending component in 'Pinot d'Alsace' or 'Pinot Blanc' sold as such — the variety can legally contribute to wines labeled Pinot Blanc in Alsace. Its body and tropical fruit rounds out the blend, giving roundness where pure Pinot Blanc can seem austere.", notes: ["Pinot d'Alsace Blend", "Roundness Provider", "Tropical Fruit", "Legal Blend Component"] },
@@ -5871,7 +5919,7 @@ const GRAPES = [
     summary: "Long overshadowed by Chardonnay, Aligoté is Burgundy's other white — a grape of high acidity, citrus sharpness, and mineral drive. Best known as the traditional base for Kir (with cassis liqueur), it has been rehabilitated by serious producers who value its precision and terroir transparency. The village of Bouzeron has its own AOC.",
     flavors: [
       { icon: "🍋", label: "Lemon/Lime" }, { icon: "🍏", label: "Green Apple" }, { icon: "🌿", label: "Fresh Herbs" },
-      { icon: "🪨", label: "Chalk Mineral" }, { icon: "🌸", label: "White Flowers" }, { icon: "🫧", label: "High Acid/Sharp" },
+      { icon: "🪨", label: "Chalk Mineral" }, { icon: "🌸", label: "White Flowers" }, { icon: "💧", label: "High Acid/Sharp" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Bouzeron AOC, Burgundy, France", effect: "The only single-village AOC dedicated to Aligoté, championed by Domaine de Villaine (co-owner of Romanée-Conti). Bouzeron Aligoté from old vines on limestone slopes achieves a complexity and mineral precision that challenges perceptions of the variety.", notes: ["Solo AOC", "Villaine Champion", "Old Vine Complexity", "Limestone Precision"] },
@@ -5931,7 +5979,7 @@ const GRAPES = [
     summary: "Colombard is one of the world's most planted white grapes — enormously important for Cognac, Armagnac, and South African brandy production, and widely grown in California for mass-market wine. When well-made, it produces crisp, fruity whites with tropical fruit and citrus; its high acidity makes it ideal as a distillation base.",
     flavors: [
       { icon: "🍋", label: "Citrus/Grapefruit" }, { icon: "🍍", label: "Tropical Fruit" }, { icon: "🌸", label: "White Flowers" },
-      { icon: "🍏", label: "Green Apple" }, { icon: "🌿", label: "Herbal/Grassy" }, { icon: "🫧", label: "High Acidity" },
+      { icon: "🍏", label: "Green Apple" }, { icon: "🌿", label: "Herbal/Grassy" }, { icon: "💧", label: "High Acidity" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Gascony / Côtes de Gascogne IGP, France", effect: "Colombard from Gascony (the Gers department) produces the famous Côtes de Gascogne — France's bestselling white IGP. Fresh, aromatic, citrusy, and inexpensive, these grapefruit-floral wines are international bistro staples.", notes: ["Côtes de Gascogne Icon", "France's Bestselling White IGP", "Grapefruit-Floral", "International Bistro"] },
@@ -5951,7 +5999,7 @@ const GRAPES = [
     summary: "Once the dominant grape of Cognac before phylloxera, Folle Blanche ('mad white') earned its name from its extreme disease susceptibility when grafted onto American rootstock. It produces hyper-acidic, neutral wine — the perfect distillation base — and survives as a minor Loire variety called Gros Plant, making searingly crisp wines.",
     flavors: [
       { icon: "🍋", label: "Extreme Lemon" }, { icon: "🌿", label: "Green/Herbal" }, { icon: "🌊", label: "Saline/Briny" },
-      { icon: "🍏", label: "Tart Green Apple" }, { icon: "🫧", label: "Razor Acidity" }, { icon: "🪨", label: "Mineral/Chalky" },
+      { icon: "🍏", label: "Tart Green Apple" }, { icon: "💧", label: "Razor Acidity" }, { icon: "🪨", label: "Mineral/Chalky" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Gros Plant du Pays Nantais AOC, Loire, France", effect: "The Loire identity for Folle Blanche — producing wines of ferocious acidity and mineral austerity that are perhaps the purest expression of 'food wine' in France. Utterly undrinkable without food; electrifying with oysters or grilled sardines. Best from sur lie aged versions.", notes: ["Ferocious Acidity", "Gros Plant Name", "Oyster Partner", "Sur Lie Transformation"] },
@@ -5971,7 +6019,7 @@ const GRAPES = [
     summary: "Mauzac is the traditional grape of Gaillac and Limoux in southwest France — and is widely claimed to have been used for the world's first sparkling wine (before Champagne) in the Benedictine abbey of Saint-Hilaire. Its apple, quince, and camomile character makes it distinctive; the ancestral method (méthode ancestrale) wines are still its finest expression.",
     flavors: [
       { icon: "🍎", label: "Apple/Quince" }, { icon: "🌸", label: "Camomile" }, { icon: "🌿", label: "Herbal" },
-      { icon: "🍐", label: "Pear" }, { icon: "🫧", label: "Natural Fizz (ancestral)" }, { icon: "🍋", label: "Citrus/Tart" },
+      { icon: "🍐", label: "Pear" }, { icon: "💧", label: "Natural Fizz (ancestral)" }, { icon: "🍋", label: "Citrus/Tart" },
     ],
     regions: [
       { flag: "🇫🇷", name: "Limoux AOC (méthode ancestrale), France", effect: "Blanquette Méthode Ancestrale from Limoux — using the ancient single-fermentation sparkling method — is thought to be the world's oldest sparkling wine. Pure Mauzac fermented in bottle with no disgorgement: cloudy, appley, low alcohol, and historically fascinating.", notes: ["World's Oldest Sparkling?", "Méthode Ancestrale", "Apple-Quince", "Historic Abbey"] },
@@ -6151,7 +6199,7 @@ const GRAPES = [
     summary: "Muscadine (Vitis rotundifolia) is America's native southeastern grape — a different species from European wine grapes, with thick skin, large berries, and intense musky character. Grown across the Deep South, it produces wines radically different from European styles: sweet, musky, and uniquely American. It has extraordinary antioxidant properties.",
     flavors: [
       { icon: "🍇", label: "Intense Muscat/Musk" }, { icon: "🍯", label: "Honey" }, { icon: "🌸", label: "Floral/Tropical" },
-      { icon: "🍑", label: "Peach" }, { icon: "🌿", label: "Wild/Earthy" }, { icon: "🫙", label: "Distinctive Pungency" },
+      { icon: "🍑", label: "Peach" }, { icon: "🌿", label: "Wild/Earthy" }, { icon: "🏺", label: "Distinctive Pungency" },
     ],
     regions: [
       { flag: "🇺🇸", name: "North Carolina (Yadkin Valley & coastal), USA", effect: "North Carolina is the leading Muscadine state, producing wines from the bronze-skinned Scuppernong (the 'white' Muscadine) and darker-skinned varieties. The humid subtropical climate is perfect for the disease-immune Muscadine.", notes: ["Leading State", "Scuppernong Bronze", "Subtropical Climate", "Disease Immune"] },
@@ -6291,7 +6339,7 @@ const GRAPES = [
     summary: "Kyoho ('Giant Mountain Peak' in Japanese) is the most popular table grape in Japan and China — a Concord × Vitis vinifera hybrid with enormous, deeply coloured berries and intensely sweet, foxy-adjacent flavour. While produced as wine in small quantities, it is overwhelmingly a premium fresh market grape commanding extraordinary prices.",
     flavors: [
       { icon: "🍇", label: "Intense Dark Grape" }, { icon: "🍯", label: "Sweet/Syrupy" }, { icon: "🌸", label: "Floral/Musky" },
-      { icon: "🍒", label: "Dark Cherry" }, { icon: "🫙", label: "Rich & Jammy" }, { icon: "🌿", label: "Earthiness" },
+      { icon: "🍒", label: "Dark Cherry" }, { icon: "🏺", label: "Rich & Jammy" }, { icon: "🌿", label: "Earthiness" },
     ],
     regions: [
       { flag: "🇯🇵", name: "Yamanashi & Nagano, Japan", effect: "Kyoho's birthplace (developed by Yasushi Ōhara in 1937) and still its most prestigious production zone. Japanese Kyoho grapes are sold in gift boxes with individual berries wrapped for protection, commanding prices of ¥500–2000 per bunch. Wine production is a tiny side interest.", notes: ["Birthplace", "Gift Fruit Premium", "Luxury Market", "Individual Berry Value"] },
@@ -6491,7 +6539,7 @@ const GRAPES = [
     summary: "Traminette is an American hybrid developed at the University of Illinois in 1965, released in 1996, as a cold-hardy alternative to Gewürztraminer. The cross of Joannes Seyve 23.416 with Gewürztraminer gives wines with the parent's signature lychee and rose character — without Gewürztraminer's viticultural fragility in cold climates.",
     flavors: [
       { icon: "🌹", label: "Rose/Lychee" }, { icon: "🌸", label: "Floral/Spicy" }, { icon: "🍑", label: "Peach" },
-      { icon: "🌿", label: "Herbal/Ginger" }, { icon: "🍋", label: "Citrus Zest" }, { icon: "🫙", label: "Spice/Aromatic" },
+      { icon: "🌿", label: "Herbal/Ginger" }, { icon: "🍋", label: "Citrus Zest" }, { icon: "🏺", label: "Spice/Aromatic" },
     ],
     regions: [
       { flag: "🇺🇸", name: "Indiana & Midwest, USA", effect: "Traminette is most successful in Indiana, which has elevated it to a regional signature variety. Indiana's wineries produce Traminette in both dry and off-dry styles, with the rose-lychee character intact. The grape's cold hardiness allows production at Indiana latitudes where Gewürztraminer would not reliably ripen.", notes: ["Indiana Signature", "Rose-Lychee Intact", "Dry & Off-Dry", "Cold Hardy Solution"] },
@@ -6591,7 +6639,7 @@ const GRAPES = [
     summary: "Reichensteiner (a cross of Müller-Thurgau × (Madeleine Angevine × Calabreser Frührot)) was developed at Geisenheim in 1939 and released in 1978. It produces reliable, if somewhat neutral, white wines that found favour in England and Germany for their reliable ripening and disease resistance rather than their flavour complexity.",
     flavors: [
       { icon: "🍋", label: "Lemon/Light Citrus" }, { icon: "🍏", label: "Green Apple" }, { icon: "🌸", label: "Neutral Floral" },
-      { icon: "🌿", label: "Grassy" }, { icon: "🍐", label: "Pear" }, { icon: "🫧", label: "Light & Clean" },
+      { icon: "🌿", label: "Grassy" }, { icon: "🍐", label: "Pear" }, { icon: "💧", label: "Light & Clean" },
     ],
     regions: [
       { flag: "🇬🇧", name: "England (established vineyards)", effect: "Reichensteiner was a foundation variety of English wine in the 1970s–1990s, when it was among the most planted. While now superseded by more aromatic varieties like Bacchus, older English vineyards still have Reichensteiner and it provides reliable blending material.", notes: ["Foundation Variety", "1970s-90s Dominant", "Now Superseded", "Blending Reliable"] },
@@ -6711,7 +6759,7 @@ const GRAPES = [
     summary: "Ruby Roman is Japan's most exclusive and expensive table grape, developed by Ishikawa prefecture and released in 2008. Each berry must weigh at least 20 grams and meet strict sugar and colour criteria. The first bunch sold at auction each year commands prices of ¥1–2 million. It is grown exclusively for the luxury fresh market, not wine.",
     flavors: [
       { icon: "🍒", label: "Rich Cherry" }, { icon: "🍇", label: "Dark Grape" }, { icon: "🌸", label: "Floral" },
-      { icon: "🍯", label: "Honey Sweet" }, { icon: "🫙", label: "Rich Jammy" }, { icon: "✨", label: "Luxury Sweetness" },
+      { icon: "🍯", label: "Honey Sweet" }, { icon: "🏺", label: "Rich Jammy" }, { icon: "✨", label: "Luxury Sweetness" },
     ],
     regions: [
       { flag: "🇯🇵", name: "Ishikawa Prefecture, Japan", effect: "Ruby Roman is grown exclusively in Ishikawa prefecture on Japan's Sea of Japan coast, under strict agricultural supervision. Each vine is inspected, each berry measured. The 2020 auction of the first bunch of the season sold for ¥1.1 million — approximately $10,000 USD. Not for wine.", notes: ["Ishikawa Exclusive", "Strictest Quality Control", "¥1M Auction Records", "Luxury Fresh Market Only"] },
