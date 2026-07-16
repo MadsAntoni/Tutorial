@@ -1160,6 +1160,23 @@
     }
     .finder-result-card:hover { transform: translateY(-3px); box-shadow: 0 8px 28px rgba(0,0,0,.13); }
     .finder-match-note { font-size: .82rem; color: var(--muted); line-height: 1.55; margin-top: 5px; }
+    .finder-producers { margin-top: 11px; padding-top: 11px; border-top: 1px solid var(--border); }
+    .finder-producers-label {
+      font-size: .68rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .08em; color: var(--muted);
+      display: block; margin-bottom: 7px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .finder-producer-list { display: flex; flex-direction: column; gap: 5px; }
+    .finder-producer-chip {
+      display: inline-flex; align-items: baseline; gap: 6px;
+      background: rgba(184,149,61,.09);
+      border: 1px solid rgba(184,149,61,.24);
+      border-radius: 20px; padding: 4px 11px;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .finder-producer-name { font-size: .8rem; font-weight: 600; color: var(--text); }
+    .finder-producer-region { font-size: .72rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -7157,6 +7174,168 @@ function finderSelectRegion(val) {
   setTimeout(() => showFinderResults(), 280);
 }
 
+const PRODUCERS = {
+  'Cabernet Sauvignon': [
+    { name: 'Château Margaux',    region: 'Bordeaux, France' },
+    { name: 'Opus One',           region: 'Napa Valley, USA' },
+    { name: 'Penfolds Bin 707',   region: 'South Australia' },
+  ],
+  'Merlot': [
+    { name: 'Château Pétrus',     region: 'Pomerol, France' },
+    { name: 'Duckhorn Vineyards', region: 'Napa Valley, USA' },
+    { name: 'Château Le Pin',     region: 'Pomerol, France' },
+  ],
+  'Pinot Noir': [
+    { name: 'Louis Jadot',             region: 'Burgundy, France' },
+    { name: 'Domaine Drouhin',         region: 'Burgundy & Oregon' },
+    { name: 'Domaine Romanée-Conti',   region: 'Burgundy, France' },
+  ],
+  'Syrah': [
+    { name: 'M. Chapoutier',       region: 'Rhône Valley, France' },
+    { name: 'Paul Jaboulet Aîné', region: 'Rhône Valley, France' },
+    { name: 'Penfolds',            region: 'Barossa Valley, Australia' },
+  ],
+  'Grenache': [
+    { name: 'Château Rayas',        region: 'Châteauneuf-du-Pape, France' },
+    { name: 'E. Guigal',            region: 'Rhône Valley, France' },
+    { name: 'Domaine de la Janasse',region: 'Châteauneuf-du-Pape, France' },
+  ],
+  'Nebbiolo': [
+    { name: 'Gaja',              region: 'Barbaresco, Italy' },
+    { name: 'Bruno Giacosa',     region: 'Barolo, Italy' },
+    { name: 'Giacomo Conterno', region: 'Barolo, Italy' },
+  ],
+  'Sangiovese': [
+    { name: 'Antinori',    region: 'Tuscany, Italy' },
+    { name: 'Biondi-Santi',region: 'Brunello di Montalcino, Italy' },
+    { name: 'Frescobaldi', region: 'Tuscany, Italy' },
+  ],
+  'Tempranillo': [
+    { name: 'Vega-Sicilia',         region: 'Ribera del Duero, Spain' },
+    { name: 'Marqués de Murrieta',  region: 'Rioja, Spain' },
+    { name: 'Torres',               region: 'Penedès, Spain' },
+  ],
+  'Garnacha': [
+    { name: 'Álvaro Palacios',     region: 'Priorat, Spain' },
+    { name: 'Bodegas Alto Moncayo',region: 'Aragón, Spain' },
+    { name: 'Clos Erasmus',        region: 'Priorat, Spain' },
+  ],
+  'Malbec': [
+    { name: 'Catena Zapata',        region: 'Mendoza, Argentina' },
+    { name: 'Achaval Ferrer',       region: 'Mendoza, Argentina' },
+    { name: 'Zuccardi Valle de Uco',region: 'Mendoza, Argentina' },
+  ],
+  'Zinfandel': [
+    { name: 'Ridge Vineyards',          region: 'California, USA' },
+    { name: 'Turley Wine Cellars',      region: 'California, USA' },
+    { name: 'Seghesio Family Vineyards',region: 'Sonoma, USA' },
+  ],
+  'Carménère': [
+    { name: 'Casa Lapostolle',region: 'Colchagua, Chile' },
+    { name: 'Concha y Toro',  region: 'Maipo Valley, Chile' },
+    { name: 'Montes',         region: 'Colchagua, Chile' },
+  ],
+  'Cabernet Franc': [
+    { name: 'Charles Joguet',  region: 'Chinon, France' },
+    { name: 'Domaine Filliatreau', region: 'Saumur-Champigny, France' },
+    { name: 'Clos de la Coulée de Serrant', region: 'Loire, France' },
+  ],
+  'Mourvèdre': [
+    { name: 'Domaine Tempier', region: 'Bandol, France' },
+    { name: 'Château Pibarnon',region: 'Bandol, France' },
+    { name: 'Tablas Creek',    region: 'Paso Robles, USA' },
+  ],
+  'Aglianico': [
+    { name: 'Mastroberardino',     region: 'Campania, Italy' },
+    { name: 'Feudi di San Gregorio',region: 'Campania, Italy' },
+    { name: 'D\'Angelo',           region: 'Basilicata, Italy' },
+  ],
+  'Nero d\'Avola': [
+    { name: 'Planeta',     region: 'Sicily, Italy' },
+    { name: 'Donnafugata', region: 'Sicily, Italy' },
+    { name: 'Corvo',       region: 'Sicily, Italy' },
+  ],
+  'Montepulciano': [
+    { name: 'Emidio Pepe',  region: 'Abruzzo, Italy' },
+    { name: 'Valentini',    region: 'Abruzzo, Italy' },
+    { name: 'Masciarelli',  region: 'Abruzzo, Italy' },
+  ],
+  'Touriga Nacional': [
+    { name: 'Quinta do Crasto',region: 'Douro Valley, Portugal' },
+    { name: 'Ramos Pinto',    region: 'Douro Valley, Portugal' },
+    { name: 'Niepoort',       region: 'Douro Valley, Portugal' },
+  ],
+  'Pinotage': [
+    { name: 'Kanonkop Wine Estate',region: 'Stellenbosch, South Africa' },
+    { name: 'Simonsig',            region: 'Stellenbosch, South Africa' },
+    { name: 'Lanzerac',            region: 'Stellenbosch, South Africa' },
+  ],
+  'Chardonnay': [
+    { name: 'Louis Jadot',    region: 'Burgundy, France' },
+    { name: 'Domaine Leflaive',region: 'Puligny-Montrachet, France' },
+    { name: 'William Fèvre',  region: 'Chablis, France' },
+  ],
+  'Sauvignon Blanc': [
+    { name: 'Florian Mollet',  region: 'Sancerre, France' },
+    { name: 'Henri Bourgeois', region: 'Sancerre, France' },
+    { name: 'Cloudy Bay',      region: 'Marlborough, New Zealand' },
+  ],
+  'Riesling': [
+    { name: 'Egon Müller', region: 'Saar, Germany' },
+    { name: 'J.J. Prüm',  region: 'Mosel, Germany' },
+    { name: 'Dr. Loosen', region: 'Mosel, Germany' },
+  ],
+  'Pinot Gris': [
+    { name: 'Hugel & Fils',    region: 'Alsace, France' },
+    { name: 'Zind-Humbrecht',  region: 'Alsace, France' },
+    { name: 'King Estate',     region: 'Oregon, USA' },
+  ],
+  'Pinot Grigio': [
+    { name: 'Santa Margherita',region: 'Alto Adige, Italy' },
+    { name: 'Jermann',         region: 'Friuli-Venezia Giulia, Italy' },
+    { name: 'Alois Lageder',   region: 'Alto Adige, Italy' },
+  ],
+  'Gewurztraminer': [
+    { name: 'Hugel & Fils',  region: 'Alsace, France' },
+    { name: 'Zind-Humbrecht',region: 'Alsace, France' },
+    { name: 'Trimbach',      region: 'Alsace, France' },
+  ],
+  'Chenin Blanc': [
+    { name: 'Domaine Huet',    region: 'Vouvray, France' },
+    { name: 'Nicolas Joly',    region: 'Savennières, France' },
+    { name: 'Ken Forrester',   region: 'Stellenbosch, South Africa' },
+  ],
+  'Viognier': [
+    { name: 'Yves Cuilleron',      region: 'Condrieu, France' },
+    { name: 'E. Guigal',           region: 'Condrieu, France' },
+    { name: 'Domaine Georges Vernay',region: 'Condrieu, France' },
+  ],
+  'Albariño': [
+    { name: 'Pazo de Señorans', region: 'Rías Baixas, Spain' },
+    { name: 'Martín Códax',     region: 'Rías Baixas, Spain' },
+    { name: 'Bodegas Terras Gauda',region: 'Rías Baixas, Spain' },
+  ],
+  'Grüner Veltliner': [
+    { name: 'Weingut Brundlmayer',region: 'Kamptal, Austria' },
+    { name: 'Franz Hirtzberger', region: 'Wachau, Austria' },
+    { name: 'Domäne Wachau',     region: 'Wachau, Austria' },
+  ],
+  'Torrontés': [
+    { name: 'Bodega Colomé',  region: 'Salta, Argentina' },
+    { name: 'Susana Balbo',   region: 'Mendoza, Argentina' },
+    { name: 'El Esteco',      region: 'Salta, Argentina' },
+  ],
+  'Muscat Blanc à Petits Grains': [
+    { name: 'Beaumes-de-Venise Coop',region: 'Rhône Valley, France' },
+    { name: 'Brown Brothers',        region: 'Victoria, Australia' },
+    { name: 'Domaine de la Rectorie',region: 'Banyuls, France' },
+  ],
+};
+
+function finderGetProducers(grapeName) {
+  return (PRODUCERS[grapeName] || []).slice(0, 3);
+}
+
 function finderScoreGrapes() {
   return GRAPES.map(grape => {
     let score = 0;
@@ -7229,6 +7408,14 @@ function showFinderResults() {
     grid.innerHTML = matches.map(({ grape }) => {
       const safeT = VALID_TYPES.has(grape.type) ? grape.type : 'red';
       const typeLabel = safeT === 'red' ? 'Red Wine' : 'White Wine';
+      const producers = finderGetProducers(grape.name);
+      const producerHtml = producers.length ? `
+        <div class="finder-producers">
+          <span class="finder-producers-label">Notable producers</span>
+          <div class="finder-producer-list">
+            ${producers.map(p => `<span class="finder-producer-chip"><span class="finder-producer-name">${escapeHtml(p.name)}</span><span class="finder-producer-region">· ${escapeHtml(p.region)}</span></span>`).join('')}
+          </div>
+        </div>` : '';
       return `
         <article class="finder-result-card" tabindex="0" role="button" aria-label="Learn about ${escapeHtml(grape.name)}" data-id="${escapeHtml(grape.id)}">
           <div class="grape-icon" style="background:${safeCssColor(grape.bgLight)};width:50px;height:50px;font-size:1.5rem;flex-shrink:0;">${grape.icon}</div>
@@ -7239,6 +7426,7 @@ function showFinderResults() {
             </div>
             <div style="font-size:.8rem;color:var(--muted);font-style:italic;margin-bottom:5px;">${escapeHtml(grape.alias)}</div>
             <div class="finder-match-note">${escapeHtml(finderGetNote(grape))}</div>
+            ${producerHtml}
           </div>
         </article>`;
     }).join('');
