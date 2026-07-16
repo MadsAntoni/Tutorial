@@ -1177,7 +1177,206 @@
     }
     .finder-producer-name { font-size: .8rem; font-weight: 600; color: var(--text); }
     .finder-producer-region { font-size: .72rem; color: var(--muted); }
+
+    /* ── Shared edu section layout ────────────────────────────────────────── */
+    .edu-container {
+      max-width: 900px;
+      margin: 36px auto 60px;
+      padding: 0 20px;
+    }
+    .edu-intro { margin-bottom: 32px; }
+    .edu-intro h2 { font-size: 1.5rem; color: var(--wine); margin-bottom: 6px; }
+    .edu-intro p  { color: var(--muted); font-style: italic; line-height: 1.6; }
+    .edu-section-title {
+      font-size: 1.15rem; font-weight: 700; color: var(--text);
+      margin: 40px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border);
+    }
+    .edu-section-intro { font-size: .88rem; color: var(--muted); line-height: 1.65; margin-bottom: 18px; }
+
+    /* ── Regions & Terroir ────────────────────────────────────────────────── */
+    .region-edu-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .region-edu-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px; transition: border-color .2s, box-shadow .2s;
+    }
+    .region-edu-card:hover { border-color: var(--wine); box-shadow: 0 4px 18px rgba(0,0,0,.1); }
+    .region-edu-head { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+    .region-edu-flag { font-size: 1.5rem; }
+    .region-edu-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .region-edu-country { font-size: .72rem; color: var(--muted); margin-top: 1px; }
+    .region-edu-tags { display: flex; flex-wrap: wrap; gap: 5px; margin-bottom: 10px; }
+    .region-edu-tag {
+      padding: 2px 9px; border-radius: 10px; font-size: .72rem; font-weight: 600;
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+    .tag-cool { background: #e0ecf8; color: #1a4a7a; }
+    .tag-warm { background: #f8ede0; color: #8a4010; }
+    .tag-med  { background: #f0f8e4; color: #386020; }
+    .tag-hot  { background: #f8e4e0; color: #8a2010; }
+    .tag-soil { background: rgba(123,45,66,.06); color: var(--wine); }
+    .region-edu-grapes { font-size: .77rem; color: var(--wine); font-weight: 600; margin-bottom: 8px; font-style: italic; }
+    .region-edu-desc { font-size: .81rem; color: var(--muted); line-height: 1.6; }
+
+    .terroir-pillars { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 14px; margin-bottom: 8px; }
+    .terroir-pillar { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; text-align: center; }
+    .terroir-pillar-icon { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+    .terroir-pillar-name { font-weight: 700; font-size: .88rem; color: var(--text); margin-bottom: 5px; }
+    .terroir-pillar-desc { font-size: .78rem; color: var(--muted); line-height: 1.55; }
+
+    /* ── Wine Styles ──────────────────────────────────────────────────────── */
+    .style-category-head {
+      display: flex; align-items: center; gap: 12px;
+      margin: 32px 0 14px; padding: 14px 18px;
+      background: rgba(123,45,66,.04); border-radius: var(--radius); border-left: 3px solid var(--wine);
+    }
+    .style-category-icon { font-size: 1.8rem; }
+    .style-category-name { font-weight: 700; font-size: 1.05rem; color: var(--wine); }
+    .style-category-desc { font-size: .82rem; color: var(--muted); margin-top: 2px; }
+    .style-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 14px; }
+    .style-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px;
+    }
+    .style-card-name { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: 5px; }
+    .style-card-origin { font-size: .75rem; color: var(--muted); margin-bottom: 8px; display: flex; align-items: center; gap: 4px; }
+    .style-card-method {
+      font-size: .75rem; font-weight: 700; text-transform: uppercase; letter-spacing: .05em;
+      padding: 2px 8px; border-radius: 8px; background: rgba(123,45,66,.06); color: var(--wine);
+      display: inline-block; margin-bottom: 9px;
+    }
+    .style-card-desc { font-size: .81rem; color: var(--muted); line-height: 1.6; }
+    .style-card-note { font-size: .77rem; color: var(--wine); margin-top: 7px; font-style: italic; }
+
+    /* ── Reading Labels ───────────────────────────────────────────────────── */
+    .label-compare { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
+    @media (max-width: 580px) { .label-compare { grid-template-columns: 1fr; } }
+    .label-world-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
+    }
+    .label-world-title { font-weight: 700; font-size: 1rem; color: var(--wine); margin-bottom: 4px; }
+    .label-world-sub { font-size: .78rem; color: var(--muted); margin-bottom: 14px; font-style: italic; }
+    .label-element { display: flex; gap: 10px; margin-bottom: 11px; align-items: flex-start; }
+    .label-dot {
+      width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center; font-size: .65rem;
+      font-weight: 800; font-family: system-ui, sans-serif; color: #fff; margin-top: 1px;
+    }
+    .label-element-text { flex: 1; }
+    .label-element-name { font-weight: 700; font-size: .85rem; color: var(--text); }
+    .label-element-desc { font-size: .78rem; color: var(--muted); line-height: 1.5; margin-top: 1px; }
+    .label-example-box {
+      background: #fdf8f2; border: 1px dashed rgba(123,45,66,.25); border-radius: 8px;
+      padding: 12px 14px; margin-top: 12px; font-family: Georgia, serif;
+    }
+    .label-example-title { font-size: .7rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 8px; }
+    .label-example-producer { font-size: 1.05rem; font-weight: 700; color: var(--text); }
+    .label-example-region { font-size: .85rem; color: var(--wine); }
+    .label-example-appellation { font-size: .72rem; color: var(--muted); font-style: italic; }
+
+    .classif-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 14px; }
+    .classif-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .classif-flag { font-size: 1.3rem; margin-bottom: 6px; display: block; }
+    .classif-country { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 8px; }
+    .classif-tier { display: flex; gap: 8px; align-items: center; margin-bottom: 7px; }
+    .classif-badge {
+      font-size: .68rem; font-weight: 700; padding: 2px 8px; border-radius: 8px;
+      white-space: nowrap; flex-shrink: 0; font-family: system-ui, sans-serif;
+    }
+    .tier-top    { background: #f8e0b4; color: #6a3800; }
+    .tier-second { background: #f0ecd4; color: #5a4800; }
+    .tier-third  { background: #e8f0e8; color: #2a5020; }
+    .tier-basic  { background: #f0f0f0; color: #505050; }
+    .classif-tier-desc { font-size: .76rem; color: var(--muted); }
+
+    /* ── Pairing Science ──────────────────────────────────────────────────── */
+    .pairing-sci-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 16px; }
+    .pairing-sci-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
+    }
+    .pairing-sci-icon { font-size: 1.6rem; display: block; margin-bottom: 8px; }
+    .pairing-sci-rule { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: 6px; }
+    .pairing-sci-why { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .pairing-sci-example {
+      margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--border);
+      font-size: .78rem; color: var(--wine); font-style: italic;
+    }
+    .pairing-clash-harmony {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 8px;
+    }
+    @media (max-width: 520px) { .pairing-clash-harmony { grid-template-columns: 1fr; } }
+    .harmony-card, .clash-card {
+      padding: 18px; border-radius: var(--radius); border: 1px solid;
+    }
+    .harmony-card { background: #f0f8f0; border-color: #a0c8a0; }
+    .clash-card   { background: #f8f0f0; border-color: #c8a0a0; }
+    .hc-title { font-weight: 700; font-size: .88rem; margin-bottom: 10px; }
+    .harmony-card .hc-title { color: #2a6020; }
+    .clash-card   .hc-title { color: #8a2020; }
+    .hc-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .hc-list li { font-size: .8rem; color: #2a3a2a; display: flex; gap: 6px; line-height: 1.4; }
+    .clash-card .hc-list li { color: #3a2a2a; }
+    .hc-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .harmony-card .hc-dot { background: #3a8040; }
+    .clash-card   .hc-dot { background: #a02020; }
+
+    /* ── Serving & Glassware ──────────────────────────────────────────────── */
+    .temp-table { width: 100%; border-collapse: collapse; font-size: .84rem; }
+    .temp-table th {
+      text-align: left; padding: 8px 12px; font-size: .72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em; color: var(--muted);
+      border-bottom: 2px solid var(--border); font-family: system-ui, sans-serif;
+    }
+    .temp-table td { padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: middle; }
+    .temp-table tr:last-child td { border-bottom: none; }
+    .temp-table tr:hover td { background: rgba(123,45,66,.02); }
+    .temp-bar-wrap { background: #ecdde8; border-radius: 4px; height: 8px; width: 100%; position: relative; }
+    .temp-bar { height: 100%; border-radius: 4px; background: linear-gradient(90deg, #a8d4f0, #e8704a); }
+    .temp-style { font-weight: 600; color: var(--text); }
+    .temp-range { font-weight: 700; color: var(--wine); font-family: system-ui, sans-serif; white-space: nowrap; }
+
+    .glass-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 16px; }
+    .glass-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 14px; text-align: center;
+    }
+    .glass-svg-wrap { height: 90px; display: flex; align-items: flex-end; justify-content: center; margin-bottom: 10px; }
+    .glass-name { font-weight: 700; font-size: .88rem; color: var(--text); margin-bottom: 5px; }
+    .glass-desc { font-size: .76rem; color: var(--muted); line-height: 1.5; }
+    .glass-used { font-size: .74rem; color: var(--wine); margin-top: 6px; font-style: italic; }
+
+    .decant-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 520px) { .decant-grid { grid-template-columns: 1fr; } }
+    .decant-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px; }
+    .decant-title { font-weight: 700; font-size: .9rem; color: var(--text); margin-bottom: 6px; }
+    .decant-sub { font-size: .8rem; color: var(--wine); margin-bottom: 8px; font-weight: 600; }
+    .decant-desc { font-size: .81rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Vintages ─────────────────────────────────────────────────────────── */
+    .vintage-chart-wrap { overflow-x: auto; }
+    .vintage-chart { border-collapse: collapse; font-size: .82rem; min-width: 500px; width: 100%; }
+    .vintage-chart th {
+      text-align: center; padding: 7px 10px; font-size: .7rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .05em; color: var(--muted); border-bottom: 2px solid var(--border);
+      font-family: system-ui, sans-serif;
+    }
+    .vintage-chart th:first-child { text-align: left; }
+    .vintage-chart td { padding: 8px 10px; border-bottom: 1px solid var(--border); text-align: center; }
+    .vintage-chart td:first-child { text-align: left; font-weight: 600; color: var(--text); }
+    .vintage-chart tr:last-child td { border-bottom: none; }
+    .vq { display: inline-block; width: 28px; height: 28px; border-radius: 50%; font-size: .72rem; font-weight: 800; line-height: 28px; font-family: system-ui, sans-serif; }
+    .vq-e { background: #2a6020; color: #fff; }
+    .vq-g { background: #6a9a30; color: #fff; }
+    .vq-a { background: #c8a030; color: #fff; }
+    .vq-c { background: #c85020; color: #fff; }
+    .vq-na { background: #e8e8e8; color: #888; font-size: .6rem; }
+    .vintage-legend { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 14px; align-items: center; }
+    .vintage-legend-item { display: flex; align-items: center; gap: 6px; font-size: .78rem; color: var(--muted); font-family: system-ui, sans-serif; }
+    .vintage-sci-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+    .vintage-sci-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 16px; }
+    .vintage-sci-icon { font-size: 1.5rem; display: block; margin-bottom: 6px; }
+    .vintage-sci-title { font-weight: 700; font-size: .88rem; color: var(--text); margin-bottom: 5px; }
+    .vintage-sci-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
   </style>
+
 </head>
 <body>
 
@@ -1329,6 +1528,30 @@
   <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">
     <svg width="15" height="13" viewBox="0 0 16 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><ellipse cx="8" cy="3.5" rx="6" ry="2.5"/><ellipse cx="8" cy="10.5" rx="6" ry="2.5"/><line x1="2" y1="3.5" x2="2" y2="10.5"/><line x1="14" y1="3.5" x2="14" y2="10.5"/><line x1="2" y1="7" x2="14" y2="7"/></svg>
     Ageing &amp; Vessels
+  </button>
+  <button class="tab-btn" data-tab="regions" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 1.5C8 1.5 5 5 5 8s3 6.5 3 6.5"/><path d="M8 1.5C8 1.5 11 5 11 8s-3 6.5-3 6.5"/><line x1="1.5" y1="8" x2="14.5" y2="8"/><path d="M2.5 5h11M2.5 11h11"/></svg>
+    Regions &amp; Terroir
+  </button>
+  <button class="tab-btn" data-tab="styles" role="tab" aria-selected="false">
+    <svg width="13" height="15" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M3 2h8v3l2 4v4H1V9l2-4V2z"/><line x1="1" y1="9" x2="13" y2="9"/></svg>
+    Wine Styles
+  </button>
+  <button class="tab-btn" data-tab="labels" role="tab" aria-selected="false">
+    <svg width="13" height="15" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="2" y="1.5" width="10" height="13" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7.5" y2="10"/></svg>
+    Reading Labels
+  </button>
+  <button class="tab-btn" data-tab="pairing-science" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="8" r="3.5"/><circle cx="11" cy="8" r="3.5"/><path d="M7.5 8h1"/></svg>
+    Pairing Science
+  </button>
+  <button class="tab-btn" data-tab="serving" role="tab" aria-selected="false">
+    <svg width="12" height="15" viewBox="0 0 13 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2h7l1 6H2L3 2z"/><line x1="6.5" y1="8" x2="6.5" y2="13"/><line x1="4" y1="13" x2="9" y2="13"/></svg>
+    Serving &amp; Glassware
+  </button>
+  <button class="tab-btn" data-tab="vintages" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="11" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/><line x1="5" y1="1.5" x2="5" y2="4.5"/><line x1="11" y1="1.5" x2="11" y2="4.5"/></svg>
+    Vintages
   </button>
 </nav>
 
@@ -2079,6 +2302,1099 @@
   </div><!-- /ageing-container -->
 </section>
 
+<!-- ── Regions & Terroir ──────────────────────────────────────────────────── -->
+<section id="tab-regions" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Regions &amp; Terroir</h2>
+      <p>Wine is, more than anything else, a product of place. The combination of climate, soil, topography, and tradition — what the French call <em>terroir</em> — gives each region its character.</p>
+    </div>
+
+    <div class="edu-section-title">The Four Pillars of Terroir</div>
+    <div class="terroir-pillars">
+      <div class="terroir-pillar">
+        <span class="terroir-pillar-icon">☀️</span>
+        <div class="terroir-pillar-name">Climate</div>
+        <div class="terroir-pillar-desc">Temperature, rainfall, and sunshine hours determine grape ripeness. Cool climates give higher acidity and lower alcohol; hot climates more sugar, alcohol, and ripe fruit.</div>
+      </div>
+      <div class="terroir-pillar">
+        <span class="terroir-pillar-icon">🪨</span>
+        <div class="terroir-pillar-name">Soil</div>
+        <div class="terroir-pillar-desc">Drainage, mineral composition, and heat retention shape the vine's stress and the wine's texture. Clay retains water; gravel drains fast; limestone reflects light and adds minerality.</div>
+      </div>
+      <div class="terroir-pillar">
+        <span class="terroir-pillar-icon">⛰️</span>
+        <div class="terroir-pillar-name">Topography</div>
+        <div class="terroir-pillar-desc">Altitude cools temperatures at a rate of ~0.6°C per 100m. Slope angle and aspect (facing south in the north, north in the south) control sun exposure and frost risk.</div>
+      </div>
+      <div class="terroir-pillar">
+        <span class="terroir-pillar-icon">👐</span>
+        <div class="terroir-pillar-name">Human Hand</div>
+        <div class="terroir-pillar-desc">Vine density, pruning, yield management, and winemaking traditions — these too are terroir. The same plot vinified differently produces different wines.</div>
+      </div>
+    </div>
+
+    <!-- Old World -->
+    <div class="edu-section-title">Old World Regions</div>
+    <p class="edu-section-intro">Europe's wine regions have centuries of tradition behind their styles. Wines are typically named after the place, not the grape.</p>
+    <div class="region-edu-grid">
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇫🇷</span>
+          <div>
+            <div class="region-edu-name">Bordeaux</div>
+            <div class="region-edu-country">South-West France</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Maritime</span>
+          <span class="region-edu-tag tag-soil">Gravel / Clay</span>
+        </div>
+        <div class="region-edu-grapes">Cabernet Sauvignon, Merlot, Cabernet Franc</div>
+        <div class="region-edu-desc">The world's most famous red wine region, split by the Gironde estuary. The Left Bank (Médoc, Graves) is Cabernet-dominant — structured and age-worthy. The Right Bank (Pomerol, Saint-Émilion) favours Merlot — plush and approachable. Classified in 1855, many estates have produced the same style for generations.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇫🇷</span>
+          <div>
+            <div class="region-edu-name">Burgundy (Bourgogne)</div>
+            <div class="region-edu-country">Eastern France</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-cool">Continental</span>
+          <span class="region-edu-tag tag-soil">Limestone / Clay</span>
+        </div>
+        <div class="region-edu-grapes">Pinot Noir, Chardonnay</div>
+        <div class="region-edu-desc">The benchmark for Pinot Noir and Chardonnay, nowhere else uses just two grapes to produce such a wide range of quality. The Côte d'Or — just 60km long — contains Grand Cru, Premier Cru, Village, and Regional appellations. The same geology can produce wines worth €20 or €2,000 depending on the precise plot.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇫🇷</span>
+          <div>
+            <div class="region-edu-name">Rhône Valley</div>
+            <div class="region-edu-country">South-East France</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Continental / Med.</span>
+          <span class="region-edu-tag tag-soil">Granite / Limestone</span>
+        </div>
+        <div class="region-edu-grapes">Syrah, Grenache, Viognier, Roussanne</div>
+        <div class="region-edu-desc">Two very different zones: the Northern Rhône (Hermitage, Côte-Rôtie) produces single-variety Syrah of immense concentration on steep granite hillsides. The Southern Rhône (Châteauneuf-du-Pape) blends up to 18 varieties, dominated by Grenache, producing rich, herb-scented, warming reds.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇫🇷</span>
+          <div>
+            <div class="region-edu-name">Champagne</div>
+            <div class="region-edu-country">North-East France</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-cool">Cool Continental</span>
+          <span class="region-edu-tag tag-soil">Chalk / Limestone</span>
+        </div>
+        <div class="region-edu-grapes">Chardonnay, Pinot Noir, Pinot Meunier</div>
+        <div class="region-edu-desc">The northernmost limit of successful grape growing in France produces a base wine so searingly acidic it demands transformation. The traditional method — secondary fermentation in bottle — creates the world's most celebrated sparkling wine. Chalky soils retain moisture and give the wine its electrifying mineral tension.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇮🇹</span>
+          <div>
+            <div class="region-edu-name">Tuscany</div>
+            <div class="region-edu-country">Central Italy</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Mediterranean</span>
+          <span class="region-edu-tag tag-soil">Galestro / Alberese</span>
+        </div>
+        <div class="region-edu-grapes">Sangiovese, Cabernet Sauvignon, Merlot</div>
+        <div class="region-edu-desc">Home of Chianti Classico, Brunello di Montalcino, and Vino Nobile di Montepulciano — all built on Sangiovese. High acidity and firm tannins make Tuscan reds natural food wines. The "Super Tuscans" of the 1970s (Sassicaia, Tignanello) broke appellation rules by using Cabernet and French oak, forcing Italy to rethink its classification system.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇮🇹</span>
+          <div>
+            <div class="region-edu-name">Piedmont</div>
+            <div class="region-edu-country">North-West Italy</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-cool">Continental</span>
+          <span class="region-edu-tag tag-soil">Limestone / Clay / Sand</span>
+        </div>
+        <div class="region-edu-grapes">Nebbiolo, Barbera, Dolcetto, Moscato</div>
+        <div class="region-edu-desc">Barolo and Barbaresco — both from Nebbiolo — are Italy's most age-worthy reds. Barolo is known as "the wine of kings and the king of wines." The grape is late-ripening with sky-high tannins and acidity in youth, transforming over decades into ethereal rose, tar, and truffle. Soil type (Serralunga clay vs Barolo sand) determines the house style — traditional or modern.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇪🇸</span>
+          <div>
+            <div class="region-edu-name">Rioja</div>
+            <div class="region-edu-country">Northern Spain</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Continental / Atlantic</span>
+          <span class="region-edu-tag tag-soil">Clay / Limestone / Alluvial</span>
+        </div>
+        <div class="region-edu-grapes">Tempranillo, Garnacha, Mazuelo</div>
+        <div class="region-edu-desc">Spain's most famous red region classifies wines by ageing time rather than vineyard quality: Joven (no oak), Crianza (1yr oak), Reserva (1yr oak + 1yr bottle), Gran Reserva (2yrs oak + 3yrs bottle). Tempranillo provides the backbone — strawberry, leather, dried herb. American oak historically gave Rioja its distinctive vanilla, dill, and coconut signature; French oak is increasingly used for modern styles.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇵🇹</span>
+          <div>
+            <div class="region-edu-name">Douro Valley</div>
+            <div class="region-edu-country">North-East Portugal</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-hot">Extreme Continental</span>
+          <span class="region-edu-tag tag-soil">Schist</span>
+        </div>
+        <div class="region-edu-grapes">Touriga Nacional, Touriga Franca, Tinta Roriz</div>
+        <div class="region-edu-desc">The dramatic, terraced hillsides of the Douro are the birthplace of Port wine — fortified with grape spirit to arrest fermentation, retaining natural grape sugar. Unfortified Douro table wines are increasingly impressive: deeply concentrated, floral, and with a distinctly mineral schist character. Summer temperatures can exceed 40°C in this rain-shadow valley.</div>
+      </div>
+
+    </div>
+
+    <!-- New World -->
+    <div class="edu-section-title">New World Regions</div>
+    <p class="edu-section-intro">The New World labels wines by grape variety. Freedom from tradition has enabled bold experimentation — and remarkable consistency.</p>
+    <div class="region-edu-grid">
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇺🇸</span>
+          <div>
+            <div class="region-edu-name">Napa Valley</div>
+            <div class="region-edu-country">California, USA</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Mediterranean</span>
+          <span class="region-edu-tag tag-soil">Volcanic / Alluvial</span>
+        </div>
+        <div class="region-edu-grapes">Cabernet Sauvignon, Chardonnay, Merlot</div>
+        <div class="region-edu-desc">California's most prestigious valley produces some of the world's most expensive Cabernet Sauvignons. Long, warm growing seasons with cool evening breezes from San Pablo Bay deliver ripe, concentrated fruit without excessive heat. The 16 sub-AVAs within Napa each have distinct characters — Stags Leap for elegance, Rutherford for dusty tannins, Howell Mountain for mountain intensity.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇺🇸</span>
+          <div>
+            <div class="region-edu-name">Willamette Valley</div>
+            <div class="region-edu-country">Oregon, USA</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-cool">Maritime / Continental</span>
+          <span class="region-edu-tag tag-soil">Jory / Willakenzie</span>
+        </div>
+        <div class="region-edu-grapes">Pinot Noir, Pinot Gris, Chardonnay</div>
+        <div class="region-edu-desc">Often called America's answer to Burgundy, Willamette Valley's cool, wet climate and volcanic Jory soils are ideal for Pinot Noir. The wines show red cherry, earth, and silky tannins — more restrained than California, closer in spirit to Côte de Nuits. Oregon pioneered Biodynamic farming in the US and is a leader in sustainable viticulture.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇦🇺</span>
+          <div>
+            <div class="region-edu-name">Barossa Valley</div>
+            <div class="region-edu-country">South Australia</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-hot">Warm Continental</span>
+          <span class="region-edu-tag tag-soil">Sandy / Clay / Loam</span>
+        </div>
+        <div class="region-edu-grapes">Shiraz, Grenache, Mataro (Mourvèdre)</div>
+        <div class="region-edu-desc">Home to some of the world's oldest Shiraz vines — "old vine" status from pre-phylloxera plantings dating to the 1840s. Barossa Shiraz is the archetype of warm-climate, full-bodied red: dark plum, licorice, dark chocolate, and sometimes game or meat. Penfolds Grange, made here, is Australia's most iconic wine. Altitude in the Eden Valley subregion provides cooler conditions for elegant styles.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇦🇺</span>
+          <div>
+            <div class="region-edu-name">Margaret River</div>
+            <div class="region-edu-country">Western Australia</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-med">Maritime</span>
+          <span class="region-edu-tag tag-soil">Gravel / Sandy Loam</span>
+        </div>
+        <div class="region-edu-grapes">Cabernet Sauvignon, Chardonnay, Semillon</div>
+        <div class="region-edu-desc">A narrow strip of land surrounded by ocean on three sides gives Margaret River a strikingly Bordeaux-like climate — dry summers, mild winters. The gravelly soils and cool sea breezes produce some of Australia's most elegant Cabernets and Chardonnays: precise, structured, and long-lived. The Semillon–Sauvignon Blanc blend is a regional signature.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇳🇿</span>
+          <div>
+            <div class="region-edu-name">Marlborough</div>
+            <div class="region-edu-country">South Island, New Zealand</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-cool">Maritime</span>
+          <span class="region-edu-tag tag-soil">Stony / Silty</span>
+        </div>
+        <div class="region-edu-grapes">Sauvignon Blanc, Pinot Noir, Pinot Gris</div>
+        <div class="region-edu-desc">Marlborough Sauvignon Blanc redefined the grape's international identity in the 1980s. Intense UV light, cool nights, and free-draining stony soils produce wines of extraordinary aromatic intensity: passion fruit, fresh cut grass, gooseberry, and a distinctive "Marlborough marker" of fresh capsicum. Cloudy Bay's debut in 1985 launched New Zealand onto the world stage.</div>
+      </div>
+
+      <div class="region-edu-card">
+        <div class="region-edu-head">
+          <span class="region-edu-flag">🇿🇦</span>
+          <div>
+            <div class="region-edu-name">Stellenbosch</div>
+            <div class="region-edu-country">Western Cape, South Africa</div>
+          </div>
+        </div>
+        <div class="region-edu-tags">
+          <span class="region-edu-tag tag-warm">Mediterranean</span>
+          <span class="region-edu-tag tag-soil">Granite / Sandstone</span>
+        </div>
+        <div class="region-edu-grapes">Cabernet Sauvignon, Pinotage, Chenin Blanc</div>
+        <div class="region-edu-desc">The heart of South African fine wine, Stellenbosch sits in a beautiful mountain-framed valley 50km from Cape Town. Granite soils on mountain slopes produce structured, mineral Cabernet Sauvignon. Pinotage — South Africa's crossing of Pinot Noir and Cinsault, bred here in 1925 — is a point of national pride, ranging from earthy and smoky to plush and modern-styled.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Wine Styles ─────────────────────────────────────────────────────────── -->
+<section id="tab-styles" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Wine Styles</h2>
+      <p>Beyond still table wine, three great traditions have evolved over centuries: sparkling wines, fortified wines, and dessert wines. Each uses a different technique to achieve a different purpose.</p>
+    </div>
+
+    <!-- Sparkling -->
+    <div class="style-category-head">
+      <span class="style-category-icon">🥂</span>
+      <div>
+        <div class="style-category-name">Sparkling Wines</div>
+        <div class="style-category-desc">Bubbles are produced by trapping CO₂ during a secondary fermentation — the method determines the bubble quality and the flavour profile.</div>
+      </div>
+    </div>
+    <div class="style-cards-grid">
+
+      <div class="style-card">
+        <div class="style-card-name">Champagne</div>
+        <div class="style-card-origin">🇫🇷 Champagne, France</div>
+        <div class="style-card-method">Traditional Method</div>
+        <div class="style-card-desc">Secondary fermentation happens <em>in the bottle</em>. After ageing on the spent yeast (lees) — minimum 15 months for NV, 3 years for vintage — the sediment is frozen and expelled (disgorgement). The result: fine, persistent bubbles, creamy texture, and complex yeast-derived flavours of brioche, toast, and almond alongside the fruit. Grape varieties: Chardonnay (Blanc de Blancs), Pinot Noir and Meunier (Blanc de Noirs), or blends.</div>
+        <div class="style-card-note">Key terms: Non-Vintage (NV), Brut Nature (bone dry), Extra Brut, Brut, Extra Dry, Demi-Sec</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Cava</div>
+        <div class="style-card-origin">🇪🇸 Catalonia, Spain</div>
+        <div class="style-card-method">Traditional Method</div>
+        <div class="style-card-desc">Produced by the same Traditional Method as Champagne but using native Spanish grapes: Macabeo, Xarel-lo, and Parellada. Cava tends to be earthier, with appley and citrus fruit, and a slight rustic minerality. Gran Reserva Cava (30+ months on lees) offers real complexity at a fraction of Champagne's price. Penedès near Barcelona is the epicentre.</div>
+        <div class="style-card-note">Cava de Paraje Calificado = single-vineyard, highest quality tier</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Prosecco</div>
+        <div class="style-card-origin">🇮🇹 Veneto &amp; Friuli, Italy</div>
+        <div class="style-card-method">Tank Method (Charmat)</div>
+        <div class="style-card-desc">The secondary fermentation takes place in a large pressurised tank, not bottle. This is faster, cheaper, and — crucially — preserves the primary fruit aromas of the Glera grape. Prosecco is meant to be drunk young and fresh: green apple, pear, white peach, and light floral notes. The bubbles are softer and larger than Champagne. DOCG zones Conegliano-Valdobbiadene produce the finest examples.</div>
+        <div class="style-card-note">Cartizze = small, prestigious DOCG sub-zone; Rive = single-village wines</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Crémant</div>
+        <div class="style-card-origin">🇫🇷 Multiple regions, France</div>
+        <div class="style-card-method">Traditional Method</div>
+        <div class="style-card-desc">Traditional Method sparkling wines from regions outside Champagne: Crémant d'Alsace (Pinot Blanc, Auxerrois), Crémant de Loire (Chenin Blanc, Cabernet Franc), Crémant de Bourgogne (Chardonnay, Pinot Noir), Crémant de Limoux (Mauzac, oldest sparkling wine tradition in France). All offer genuine complexity at accessible prices, often aged longer than the minimum.</div>
+        <div class="style-card-note">Look for vintaged Crémant from specific producers for the best quality</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Pétillant Naturel</div>
+        <div class="style-card-origin">Worldwide</div>
+        <div class="style-card-method">Ancestral Method</div>
+        <div class="style-card-desc">The oldest method: the wine is bottled before fermentation is complete, trapping natural CO₂ with no added dosage or sulphur. The result is gently fizzy, slightly cloudy, and often funky — sometimes with a few grams of residual sweetness. "Pét-nat" has become the calling card of natural wine producers worldwide. Unpredictable, lively, and polarising — nothing else quite like it.</div>
+        <div class="style-card-note">No disgorgement — sediment stays in the bottle; can be cloudy and rustic</div>
+      </div>
+
+    </div>
+
+    <!-- Fortified -->
+    <div class="style-category-head">
+      <span class="style-category-icon">🍷</span>
+      <div>
+        <div class="style-category-name">Fortified Wines</div>
+        <div class="style-category-desc">Grape spirit (brandy) is added during or after fermentation to raise alcohol to 15–22% — originally to preserve wine for long sea voyages.</div>
+      </div>
+    </div>
+    <div class="style-cards-grid">
+
+      <div class="style-card">
+        <div class="style-card-name">Port</div>
+        <div class="style-card-origin">🇵🇹 Douro Valley, Portugal</div>
+        <div class="style-card-method">Fortified during fermentation</div>
+        <div class="style-card-desc">Spirit is added mid-fermentation, killing the yeast and retaining natural grape sugar — hence Port is always sweet. The styles are wide: Ruby Port (young, fruit-forward, cheap); Tawny Port (aged in small casks, oxidative, nutty, dried fruit); LBV — Late Bottled Vintage (single year, aged 4–6 years); Vintage Port (from the finest years only, aged 20+ years in bottle, the pinnacle of the category).</div>
+        <div class="style-card-note">Touriga Nacional gives Port its structure, violet aroma, and age-worthiness</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Sherry</div>
+        <div class="style-card-origin">🇪🇸 Jerez, Spain</div>
+        <div class="style-card-method">Fortified after fermentation</div>
+        <div class="style-card-desc">Fermented completely dry, then fortified — creating a base wine that is aged in the solera system (a fractional blending across multiple vintages). Fino and Manzanilla are bone-dry, delicate, and protected by a layer of <em>flor</em> yeast. Amontillado and Palo Cortado are aged first under flor, then exposed to air — developing nutty, amber complexity. Oloroso is fully oxidised: walnut, tobacco, dark fruit. Pedro Ximénez (PX) is intensely sweet from sun-dried Palomino grapes.</div>
+        <div class="style-card-note">The most misunderstood wine in the world — Fino Sherry is one of the finest food wines</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Madeira</div>
+        <div class="style-card-origin">🇵🇹 Madeira Island, Portugal</div>
+        <div class="style-card-method">Fortified + heated (estufagem)</div>
+        <div class="style-card-desc">Perhaps the world's most indestructible wine. Madeira is deliberately oxidised and heated — either by passing through warm tanks (estufagem) or slow ageing in hot lofts (canteiro, the finest method). This produces a wine of astonishing longevity: bottles from the 1800s are still drinkable. Styles range from dry (Sercial) to rich (Malmsey/Malvasia). Notes of dried fruit, coffee, salted caramel, and a distinctive rancio quality.</div>
+        <div class="style-card-note">Once opened, a bottle of Madeira keeps for months — it is already oxidised</div>
+      </div>
+
+    </div>
+
+    <!-- Dessert -->
+    <div class="style-category-head">
+      <span class="style-category-icon">🍯</span>
+      <div>
+        <div class="style-category-name">Dessert &amp; Sweet Wines</div>
+        <div class="style-category-desc">Natural sugar is concentrated — by botrytis, freezing, or drying — to produce wines of extraordinary richness and complexity.</div>
+      </div>
+    </div>
+    <div class="style-cards-grid">
+
+      <div class="style-card">
+        <div class="style-card-name">Sauternes</div>
+        <div class="style-card-origin">🇫🇷 Bordeaux, France</div>
+        <div class="style-card-method">Noble Rot (Botrytis)</div>
+        <div class="style-card-desc">In autumn, the Ciron river creates misty mornings and warm afternoons — the perfect conditions for <em>Botrytis cinerea</em>, "noble rot." The fungus pierces grape skins, allowing water to evaporate and sugar to concentrate. Grapes are harvested in multiple passes (tries), selecting only botrytised berries. The result: golden, honeyed wines with apricot, orange peel, ginger, and crème brûlée — balanced by Sémillon's waxy acidity. Château d'Yquem is the only Premier Grand Cru Supérieur.</div>
+        <div class="style-card-note">A glass of Sauternes with foie gras or Roquefort is one of the world's great pairings</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Eiswein / Ice Wine</div>
+        <div class="style-card-origin">🇩🇪 Germany / 🇨🇦 Canada</div>
+        <div class="style-card-method">Frozen grapes</div>
+        <div class="style-card-desc">Grapes are left on the vine until temperatures fall below −8°C, then pressed while frozen. Because water freezes first, only intensely concentrated sugary juice is extracted. German Eiswein is made from Riesling or occasionally other varieties in exceptional years — delicate and needle-sharp with acidity. Canadian Icewine (often Vidal) is a more reliable product due to reliably cold winters, and is richer and more tropical in character.</div>
+        <div class="style-card-note">Production is tiny — grapes must be hand-picked before dawn in sub-zero temperatures</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Amarone della Valpolicella</div>
+        <div class="style-card-origin">🇮🇹 Veneto, Italy</div>
+        <div class="style-card-method">Appassimento (grape drying)</div>
+        <div class="style-card-desc">Corvina, Rondinella, and Molinara grapes are dried on bamboo racks (<em>arele</em>) for 90–120 days, losing up to 40% of their weight. The concentrated juice ferments fully dry, producing a wine of 15–17% alcohol with an extraordinary density of dried cherry, chocolate, fig, spice, and bitter finish. The drying is done in well-ventilated <em>fruttai</em> lofts. Recioto della Valpolicella is the sweet version — fermentation arrested before dryness.</div>
+        <div class="style-card-note">Ripasso wines are made by re-fermenting Valpolicella on Amarone grape skins — a "halfway house"</div>
+      </div>
+
+      <div class="style-card">
+        <div class="style-card-name">Vin Santo</div>
+        <div class="style-card-origin">🇮🇹 Tuscany, Italy</div>
+        <div class="style-card-method">Appassimento + barrel oxidation</div>
+        <div class="style-card-desc">Trebbiano and Malvasia grapes are dried on mats or hung from rafters until Christmas, then pressed and sealed into small barrels (<em>caratelli</em>) for 3–10 years. The wine ferments and oxidises slowly, developing flavours of walnut, dried orange, honey, hazelnut, and toffee. The "holy wine" of Tuscany is traditionally served with almond biscotti (cantucci), which are dipped into the wine. Colour ranges from amber to deep mahogany.</div>
+        <div class="style-card-note">The "Occhio di Pernice" style uses Sangiovese for a darker, even more complex version</div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Reading Labels ──────────────────────────────────────────────────────── -->
+<section id="tab-labels" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Reading a Wine Label</h2>
+      <p>A wine label tells you everything — if you know what to look for. The key divide is between Old World (place-centric) and New World (grape-centric) labelling conventions.</p>
+    </div>
+
+    <div class="edu-section-title">Old World vs New World</div>
+    <div class="label-compare">
+
+      <div class="label-world-card">
+        <div class="label-world-title">Old World Label</div>
+        <div class="label-world-sub">Place first. The grape is implied by tradition.</div>
+
+        <div class="label-element">
+          <div class="label-dot" style="background:#7b2d42;">1</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Producer / Estate</div>
+            <div class="label-element-desc">The family or château name. May or may not be prominent — some Old World labels are dominated by the appellation instead.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#b8953d;">2</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Appellation</div>
+            <div class="label-element-desc">The geographic origin — and the most important information on the label. "Pommard" tells you it's Pinot Noir from Burgundy. "Barolo" tells you it's Nebbiolo from Piedmont. You must know the regional conventions.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#4a7a3a;">3</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Classification / Quality Level</div>
+            <div class="label-element-desc">Grand Cru, Premier Cru, Reserva, DOCG — signals where in the regional quality hierarchy this wine sits.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#3a6a9a;">4</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Vintage</div>
+            <div class="label-element-desc">The year the grapes were harvested. In Old World regions, this matters greatly — weather varies significantly between years.</div>
+          </div>
+        </div>
+
+        <div class="label-example-box">
+          <div class="label-example-title">Example — Old World</div>
+          <div class="label-example-producer">Domaine de la Romanée-Conti</div>
+          <div class="label-example-region">Échézeaux Grand Cru</div>
+          <div class="label-example-appellation">Appellation Échézeaux Contrôlée · 2019</div>
+        </div>
+      </div>
+
+      <div class="label-world-card">
+        <div class="label-world-title">New World Label</div>
+        <div class="label-world-sub">Grape variety first. The place adds context.</div>
+
+        <div class="label-element">
+          <div class="label-dot" style="background:#7b2d42;">1</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Producer Brand</div>
+            <div class="label-element-desc">Often prominent. The winery name is the primary identity — many consumers buy by brand rather than region.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#b8953d;">2</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Grape Variety</div>
+            <div class="label-element-desc">Stated explicitly: "Cabernet Sauvignon," "Sauvignon Blanc." This is the defining information — no regional knowledge required to understand what the wine is.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#4a7a3a;">3</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Region / AVA / GI</div>
+            <div class="label-element-desc">More specific origin gives context: "Napa Valley" vs "California." The more specific, the stricter the grape and yield requirements.</div>
+          </div>
+        </div>
+        <div class="label-element">
+          <div class="label-dot" style="background:#3a6a9a;">4</div>
+          <div class="label-element-text">
+            <div class="label-element-name">Reserve / Special Tier</div>
+            <div class="label-element-desc">Terms like "Reserve," "Estate," "Single Vineyard" signal higher quality — but are largely unregulated in many New World countries. Evaluate on price and reputation rather than label claim alone.</div>
+          </div>
+        </div>
+
+        <div class="label-example-box">
+          <div class="label-example-title">Example — New World</div>
+          <div class="label-example-producer">Opus One</div>
+          <div class="label-example-region">Cabernet Sauvignon</div>
+          <div class="label-example-appellation">Napa Valley · 2019</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="edu-section-title">Classification Systems at a Glance</div>
+    <p class="edu-section-intro">Each major wine country has its own quality hierarchy. Understanding these ladders tells you what you're paying for.</p>
+    <div class="classif-grid">
+
+      <div class="classif-card">
+        <span class="classif-flag">🇫🇷</span>
+        <div class="classif-country">France (Burgundy)</div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-top">Grand Cru</span>
+          <span class="classif-tier-desc">Named vineyard, highest quality — 1.5% of all Burgundy</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-second">Premier Cru</span>
+          <span class="classif-tier-desc">Named vineyard, excellent quality — 10% of production</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-third">Village</span>
+          <span class="classif-tier-desc">Named village appellation (e.g. Gevrey-Chambertin)</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-basic">Regional</span>
+          <span class="classif-tier-desc">Bourgogne AC — entire region</span>
+        </div>
+      </div>
+
+      <div class="classif-card">
+        <span class="classif-flag">🇫🇷</span>
+        <div class="classif-country">France (Bordeaux)</div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-top">1er Grand Cru</span>
+          <span class="classif-tier-desc">5 châteaux — Latour, Lafite, Margaux, Mouton, Haut-Brion</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-second">Cru Classé</span>
+          <span class="classif-tier-desc">61 châteaux classified in the 1855 Classification (2nd–5th)</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-third">Cru Bourgeois</span>
+          <span class="classif-tier-desc">Médoc quality tier below Classified Growth — excellent value</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-basic">AOC / AOP</span>
+          <span class="classif-tier-desc">Appellation d'Origine Contrôlée — basic appellation rules</span>
+        </div>
+      </div>
+
+      <div class="classif-card">
+        <span class="classif-flag">🇮🇹</span>
+        <div class="classif-country">Italy</div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-top">DOCG</span>
+          <span class="classif-tier-desc">Denominazione di Origine Controllata e Garantita — tasted before bottling</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-second">DOC</span>
+          <span class="classif-tier-desc">Denominazione di Origine Controllata — regional rules</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-third">IGT</span>
+          <span class="classif-tier-desc">Indicazione Geografica Tipica — flexible; home of Super Tuscans</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-basic">Vino d'Italia</span>
+          <span class="classif-tier-desc">Basic table wine, no geographic claims</span>
+        </div>
+      </div>
+
+      <div class="classif-card">
+        <span class="classif-flag">🇪🇸</span>
+        <div class="classif-country">Spain</div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-top">Gran Reserva</span>
+          <span class="classif-tier-desc">Minimum 5 years ageing (2 years oak for reds)</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-second">Reserva</span>
+          <span class="classif-tier-desc">Minimum 3 years ageing (1 year oak)</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-third">Crianza</span>
+          <span class="classif-tier-desc">Minimum 2 years ageing (6 months oak)</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-basic">Joven</span>
+          <span class="classif-tier-desc">Young wine, no ageing requirements</span>
+        </div>
+      </div>
+
+      <div class="classif-card">
+        <span class="classif-flag">🇩🇪</span>
+        <div class="classif-country">Germany (Prädikats)</div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-top">TBA / Eiswein</span>
+          <span class="classif-tier-desc">Trockenbeerenauslese or Ice Wine — the rarest and most intense</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-second">Beerenauslese</span>
+          <span class="classif-tier-desc">Individually selected botrytised berries — luscious sweetness</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-third">Auslese / Spätlese</span>
+          <span class="classif-tier-desc">Late-harvested; ranges from off-dry to sweet</span>
+        </div>
+        <div class="classif-tier">
+          <span class="classif-badge tier-basic">Kabinett</span>
+          <span class="classif-tier-desc">Lightest, most delicate style; often off-dry</span>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Pairing Science ─────────────────────────────────────────────────────── -->
+<section id="tab-pairing-science" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>The Science of Pairing</h2>
+      <p>Great pairing is not magic — it is chemistry. Understanding why certain combinations work (and others clash) lets you build pairings with confidence, not just memorise rules.</p>
+    </div>
+
+    <div class="edu-section-title">Core Principles</div>
+    <div class="pairing-sci-grid">
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">💪</span>
+        <div class="pairing-sci-rule">Tannins Need Fat or Protein</div>
+        <div class="pairing-sci-why">Tannins are polyphenols that bond with salivary proteins, creating a drying, astringent sensation. When fat or protein is present in food, the tannins bind to <em>those</em> molecules instead, softening dramatically and releasing flavour. This is why lean, tannic red wine tastes harsh and metallic with fish — there is no fat to neutralise the tannin. A Barolo with a rich Florentine steak, though? The tannins collapse into silk.</div>
+        <div class="pairing-sci-example">Try: Barolo + T-bone steak · Avoid: Cabernet Sauvignon + sea bass</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">⚡</span>
+        <div class="pairing-sci-rule">Acidity Cuts Through Richness</div>
+        <div class="pairing-sci-why">High-acid wines act like a squeeze of lemon — they stimulate salivation, cleanse the palate, and reset it for the next bite. A rich, fatty dish (lobster with butter, pasta carbonara, fried food) paired with a low-acid wine feels heavy and monotonous after the first few bites. High-acid Chablis with oysters or creamy pasta is refreshing precisely because the acid cuts through the fat and restores freshness.</div>
+        <div class="pairing-sci-example">Try: Riesling + pork belly · Chablis + oysters · Champagne + fried chicken</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">⚖️</span>
+        <div class="pairing-sci-rule">Match Weight to Weight</div>
+        <div class="pairing-sci-why">A powerful, full-bodied wine overwhelms a delicate dish, and vice versa. The body of a wine (light, medium, full) should mirror the richness and intensity of the food. A light Burgundy Pinot Noir alongside a simple roast chicken allows both to express themselves. The same chicken alongside Amarone disappears under the wine's intensity — you taste only the wine.</div>
+        <div class="pairing-sci-example">Light dishes → Pinot Noir, Pinot Grigio · Rich dishes → Barossa Shiraz, Barolo</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">🍰</span>
+        <div class="pairing-sci-rule">Wine Must Be Sweeter Than the Dish</div>
+        <div class="pairing-sci-why">If a dish is sweeter than the wine, the wine tastes dry, thin, and acidic by comparison — even if it is technically off-dry. This is why dry table wine with dessert usually fails. The wine needs at least as much sweetness as the food, and ideally more. A bone-dry Brut Champagne served with a cream cake will taste harsh and sour. Demi-Sec Champagne or a Sauternes will harmonise beautifully with the same dish.</div>
+        <div class="pairing-sci-example">Try: Sauternes + crème brûlée · Avoid: Brut Champagne + chocolate mousse</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">🧂</span>
+        <div class="pairing-sci-rule">Salt Softens Tannin &amp; Bitterness</div>
+        <div class="pairing-sci-why">Salt suppresses bitterness perception — this is basic taste science, the same reason salt balances coffee. In wine pairing, this means salty foods make tannic wines taste softer and more approachable. Salty cheeses like Roquefort or Parmesan pair beautifully with Cabernet or Barolo. It also explains why Fino Sherry — high-acid, bone-dry — works brilliantly with salty cured ham (jamón ibérico).</div>
+        <div class="pairing-sci-example">Try: Barolo + aged Parmesan · Fino Sherry + jamón ibérico</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">🍄</span>
+        <div class="pairing-sci-rule">Umami Amplifies Bitterness</div>
+        <div class="pairing-sci-why">Umami (glutamate) in food amplifies the bitter and astringent qualities in wine. This is why highly umami-rich foods — anchovies, sun-dried tomatoes, mushrooms, aged cheeses — can make tannic reds taste even more bitter. The solution is either to choose a lower-tannin wine, a richer wine where the tannins are already resolved by oak ageing, or to add fat and salt to the dish to counterbalance.</div>
+        <div class="pairing-sci-example">Richly umami dishes: use aged wines with softer tannins (e.g. Reserva Rioja)</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">🌍</span>
+        <div class="pairing-sci-rule">Local Food, Local Wine</div>
+        <div class="pairing-sci-why">Centuries of co-evolution mean that the regional food and wine of any given place have grown up together — each shaping the other. Chianti's high acidity was shaped to cut through the olive oil and tomato in Tuscan cuisine. Alsatian Riesling's off-dry style balances the richness of choucroute and pork. Manzanilla Sherry's salinity echoes the ocean air of Sanlúcar. When in doubt, this principle alone will rarely steer you wrong.</div>
+        <div class="pairing-sci-example">Riesling + Alsatian tarte flambée · Chianti + pasta al ragù · Txakoli + grilled fish</div>
+      </div>
+
+      <div class="pairing-sci-card">
+        <span class="pairing-sci-icon">🪞</span>
+        <div class="pairing-sci-rule">Mirror or Contrast</div>
+        <div class="pairing-sci-why">There are two valid pairing strategies. <strong>Mirror</strong>: match like with like — rich Chardonnay with creamy sauce, earthy Pinot with earthy mushrooms, sweet Sauternes with sweet custard. <strong>Contrast</strong>: use opposites to create tension — crisp, high-acid wine against rich food, or sweet wine with salty cheese. Both work. The failure state is ignoring both strategies — choosing a wine at random without considering the dominant qualities of the food.</div>
+        <div class="pairing-sci-example">Mirror: Viognier + apricot chicken · Contrast: Sauternes + Roquefort</div>
+      </div>
+
+    </div>
+
+    <div class="edu-section-title">At a Glance: Harmony vs Clash</div>
+    <div class="pairing-clash-harmony">
+      <div class="harmony-card">
+        <div class="hc-title">Classic Harmonies</div>
+        <ul class="hc-list">
+          <li><span class="hc-dot"></span>Champagne + oysters (acid + salinity + umami)</li>
+          <li><span class="hc-dot"></span>Sauternes + foie gras (sweetness mirrors richness)</li>
+          <li><span class="hc-dot"></span>Barolo + truffle pasta (tannin + fat + earthiness)</li>
+          <li><span class="hc-dot"></span>Riesling + spicy Thai (acidity + sweetness cools heat)</li>
+          <li><span class="hc-dot"></span>Chablis + shellfish (mineral acidity mirrors the sea)</li>
+          <li><span class="hc-dot"></span>Fino Sherry + Iberian ham (salinity + oxidative nuttiness)</li>
+          <li><span class="hc-dot"></span>Pinot Noir + salmon (lighter tannins + omega-3 fat)</li>
+        </ul>
+      </div>
+      <div class="clash-card">
+        <div class="hc-title">Common Clashes</div>
+        <ul class="hc-list">
+          <li><span class="hc-dot"></span>Tannic red + oily fish (metallic, bitter result)</li>
+          <li><span class="hc-dot"></span>Dry red + sweet dessert (wine tastes acidic &amp; harsh)</li>
+          <li><span class="hc-dot"></span>Heavy Shiraz + delicate sole (wine overwhelms food)</li>
+          <li><span class="hc-dot"></span>Oaky Chardonnay + artichoke (tannin from oak + cynarin = bitter)</li>
+          <li><span class="hc-dot"></span>Brut Champagne + chocolate (acidity vs sweetness)</li>
+          <li><span class="hc-dot"></span>High-alcohol red + very spicy food (alcohol amplifies heat)</li>
+          <li><span class="hc-dot"></span>Sweet wine + sour dish (clashing flavour profiles)</li>
+        </ul>
+      </div>
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Serving & Glassware ─────────────────────────────────────────────────── -->
+<section id="tab-serving" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Serving &amp; Glassware</h2>
+      <p>How you serve a wine can be as important as which wine you choose. Temperature affects aroma and structure; glass shape directs wine to the right part of your palate; decanting transforms young tannic reds — or rescues old ones.</p>
+    </div>
+
+    <div class="edu-section-title">Serving Temperatures</div>
+    <p class="edu-section-intro">Most wines are served too warm (reds) or too cold (whites). Even 2–3°C makes a significant difference to how a wine smells, tastes, and feels.</p>
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;">
+      <table class="temp-table">
+        <thead>
+          <tr>
+            <th>Style</th>
+            <th>Temperature</th>
+            <th>Why</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><span class="temp-style">Sparkling &amp; Champagne</span></td>
+            <td><span class="temp-range">6–8°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Coldest. Preserves bubbles, keeps acidity crisp. Too warm = flat and flabby.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Sweet &amp; Dessert Whites</span></td>
+            <td><span class="temp-range">8–10°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Cold highlights freshness and keeps sweetness from feeling heavy or cloying.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Light, Crisp Whites</span></td>
+            <td><span class="temp-range">8–10°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Pinot Grigio, Albariño, Muscadet — delicate aromatics at their best chilled.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Full-bodied, Oaked Whites</span></td>
+            <td><span class="temp-range">12–14°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Burgundy Chardonnay, oaked Rioja Blanco — complexity unfolds with slight warmth.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Rosé</span></td>
+            <td><span class="temp-range">10–12°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Provence rosé at 10°C is crisp and refreshing; slightly warmer to reveal fruit.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Light Reds</span></td>
+            <td><span class="temp-range">12–14°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Beaujolais, light Pinot Noir — even 30 min in the fridge opens them up beautifully.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Medium Reds</span></td>
+            <td><span class="temp-range">15–17°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Rioja Crianza, Côtes du Rhône — fruit shines without alcohol feeling harsh.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Full-bodied, Tannic Reds</span></td>
+            <td><span class="temp-range">17–19°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Barolo, Napa Cab — warmer allows tannins and aromatics to open. Over 20°C tastes flat and alcoholic.</td>
+          </tr>
+          <tr>
+            <td><span class="temp-style">Vintage Port &amp; Fortified</span></td>
+            <td><span class="temp-range">16–18°C</span></td>
+            <td style="font-size:.78rem;color:var(--muted);">Warm enough to reveal complexity; too cold suppresses the dried fruit and spice.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="edu-section-title">Glass Shape</div>
+    <p class="edu-section-intro">Glass shape is not marketing. The rim diameter, bowl depth, and taper direct wine to specific taste zones and concentrate or disperse aromas. The right glass makes a measurable difference.</p>
+    <div class="glass-grid">
+
+      <div class="glass-card">
+        <div class="glass-svg-wrap">
+          <svg width="38" height="84" viewBox="0 0 38 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4 Q4 28 11 46 Q16 58 19 60 L19 78 M19 60 Q22 58 27 46 Q34 28 30 4 Z" stroke="#7b2d42" stroke-width="1.6" fill="rgba(123,45,66,.08)" stroke-linejoin="round"/>
+            <line x1="12" y1="78" x2="26" y2="78" stroke="#7b2d42" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-name">Bordeaux Glass</div>
+        <div class="glass-desc">Tall, straight-sided bowl. Directs wine to the back of the palate for a long finish and allows tannins time to resolve before hitting taste buds.</div>
+        <div class="glass-used">Cabernet, Merlot, Syrah, Malbec</div>
+      </div>
+
+      <div class="glass-card">
+        <div class="glass-svg-wrap">
+          <svg width="52" height="84" viewBox="0 0 52 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 4 Q2 22 8 44 Q14 60 26 64 L26 78 M26 64 Q38 60 44 44 Q50 22 40 4 Z" stroke="#7b2d42" stroke-width="1.6" fill="rgba(123,45,66,.08)" stroke-linejoin="round"/>
+            <line x1="18" y1="78" x2="34" y2="78" stroke="#7b2d42" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-name">Burgundy Glass</div>
+        <div class="glass-desc">Wide, balloon bowl maximises surface area. Concentrates delicate Pinot Noir aromatics while directing wine to the tip of the tongue where sweetness is perceived first.</div>
+        <div class="glass-used">Pinot Noir, Nebbiolo, aged reds</div>
+      </div>
+
+      <div class="glass-card">
+        <div class="glass-svg-wrap">
+          <svg width="34" height="84" viewBox="0 0 34 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M8 4 Q2 20 8 36 Q12 50 17 52 L17 78 M17 52 Q22 50 26 36 Q32 20 26 4 Z" stroke="#b8953d" stroke-width="1.6" fill="rgba(184,149,61,.10)" stroke-linejoin="round"/>
+            <line x1="11" y1="78" x2="23" y2="78" stroke="#b8953d" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-name">White Wine Glass</div>
+        <div class="glass-desc">Smaller, slightly narrowed bowl preserves cool temperature and focuses delicate fruit and floral aromatics. Less exposure to air than a red wine glass.</div>
+        <div class="glass-used">Chardonnay, Riesling, Sauvignon Blanc</div>
+      </div>
+
+      <div class="glass-card">
+        <div class="glass-svg-wrap">
+          <svg width="22" height="84" viewBox="0 0 22 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M4 4 Q2 24 4 44 Q6 58 11 60 L11 78 M11 60 Q16 58 18 44 Q20 24 18 4 Z" stroke="#5a8ab0" stroke-width="1.6" fill="rgba(90,138,176,.10)" stroke-linejoin="round"/>
+            <line x1="7" y1="78" x2="15" y2="78" stroke="#5a8ab0" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-name">Champagne Flute</div>
+        <div class="glass-desc">Tall, narrow shape slows the release of bubbles and preserves effervescence. However, the coupe (flat-bowled alternative) allows better aroma development at the cost of faster bubble loss.</div>
+        <div class="glass-used">Champagne, Cava, Crémant</div>
+      </div>
+
+      <div class="glass-card">
+        <div class="glass-svg-wrap">
+          <svg width="30" height="84" viewBox="0 0 30 84" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M6 8 Q2 18 6 30 Q10 42 15 44 L15 72 M15 44 Q20 42 24 30 Q28 18 24 8 Z" stroke="#8a6020" stroke-width="1.6" fill="rgba(138,96,32,.10)" stroke-linejoin="round"/>
+            <line x1="10" y1="72" x2="20" y2="72" stroke="#8a6020" stroke-width="1.6" stroke-linecap="round"/>
+          </svg>
+        </div>
+        <div class="glass-name">Sherry Copita</div>
+        <div class="glass-desc">Small, tulip-shaped copita traps the complex oxidative aromas of Sherry or fortified wines. The taper concentrates the nutty, saline aromas and prevents them dissipating into the room.</div>
+        <div class="glass-used">Sherry, Madeira, old Tawny Port</div>
+      </div>
+
+    </div>
+
+    <div class="edu-section-title">Decanting</div>
+    <p class="edu-section-intro">Decanting serves two completely different purposes depending on the wine's age. The technique differs accordingly.</p>
+    <div class="decant-grid">
+
+      <div class="decant-card">
+        <div class="decant-title">Young Tannic Reds</div>
+        <div class="decant-sub">Purpose: Aeration — open it up</div>
+        <div class="decant-desc">Young Barolo, Napa Cabernet, Hermitage, or northern Rhône Syrah can be harsh, closed, and reductive when first opened. Decanting exposes the wine to oxygen, allowing volatile sulphur compounds to dissipate and encouraging tannins to begin softening. Pour slowly and deliberately into a wide-bellied decanter. Ideal time: 1–4 hours before serving. The more tannic and younger, the longer the decant. For very robust young wines, you can decant and then pour back into the bottle (double decanting).</div>
+      </div>
+
+      <div class="decant-card">
+        <div class="decant-title">Old, Aged Reds</div>
+        <div class="decant-sub">Purpose: Separation — remove sediment</div>
+        <div class="decant-desc">Wines aged 10+ years in bottle develop sediment from the precipitation of tannins and tartrate crystals. This is natural and harmless but gritty and unpleasant. Stand the bottle upright for 24 hours to allow sediment to fall to the bottom. Decant slowly and steadily, with a light or candle behind the bottle neck — stop pouring the moment you see sediment approaching the neck. Old wines are fragile: once decanted, serve within 30–60 minutes before oxygen degrades the wine.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Vintages ────────────────────────────────────────────────────────────── -->
+<section id="tab-vintages" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Vintages</h2>
+      <p>The year on a bottle tells you when the grapes were harvested — and in regions where weather varies significantly between years, it can be the single most important piece of information on the label.</p>
+    </div>
+
+    <div class="edu-section-title">Why the Year Matters</div>
+    <div class="vintage-sci-cards">
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🌦️</span>
+        <div class="vintage-sci-title">Growing Season Weather</div>
+        <div class="vintage-sci-desc">The entire growing cycle — from bud break in spring to harvest in autumn — is shaped by rainfall, temperature, sunshine hours, and timing. A warm, dry summer builds ripeness. Rain at harvest dilutes flavour and risks rot. Frost in spring destroys young shoots. No two years are alike.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🍇</span>
+        <div class="vintage-sci-title">Ripeness &amp; Phenolics</div>
+        <div class="vintage-sci-desc">A warm year ripens tannins fully (ripe, round) and boosts sugar (higher alcohol). A cool year gives higher acidity, lower alcohol, and sometimes underripe green tannins. Neither is automatically "better" — context determines which is more desirable.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🗺️</span>
+        <div class="vintage-sci-title">Regional Variation</div>
+        <div class="vintage-sci-desc">The same year that was catastrophic in one region may have been outstanding 200km away. Burgundy 2012 was difficult (frost, hail); Barolo 2012 was exceptional. Always check vintage assessments region by region, not as a global judgement.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🏖️</span>
+        <div class="vintage-sci-title">New World Consistency</div>
+        <div class="vintage-sci-desc">New World regions (Napa, Barossa, Marlborough) have more reliable, predictable climates — fewer vintage disasters. Old World regions (Burgundy, Bordeaux, Germany, northern Italy) are more variable, which is why vintage knowledge matters far more when buying European wine.</div>
+      </div>
+
+    </div>
+
+    <div class="edu-section-title">Vintage Quality at a Glance</div>
+    <p class="edu-section-intro">An approximate reference — conditions vary by appellation and producer within each region. Use as a guide, not a verdict.</p>
+    <div class="vintage-chart-wrap">
+      <table class="vintage-chart">
+        <thead>
+          <tr>
+            <th>Region</th>
+            <th>2015</th>
+            <th>2016</th>
+            <th>2017</th>
+            <th>2018</th>
+            <th>2019</th>
+            <th>2020</th>
+            <th>2021</th>
+            <th>2022</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bordeaux (Red)</td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>Burgundy (Red)</td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+          </tr>
+          <tr>
+            <td>Rhône (Red)</td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>Barolo (Piedmont)</td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>Rioja (Spain)</td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+          </tr>
+          <tr>
+            <td>Douro / Port</td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-c" title="Challenging">C</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>Champagne</td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-a" title="Average">A</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>German Riesling</td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+          </tr>
+          <tr>
+            <td>Napa Valley</td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+          </tr>
+          <tr>
+            <td>Barossa Valley</td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-e" title="Exceptional">E</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+            <td><span class="vq vq-g" title="Good">G</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="vintage-legend">
+      <span class="vintage-legend-item"><span class="vq vq-e" style="width:22px;height:22px;line-height:22px;font-size:.65rem;">E</span> Exceptional</span>
+      <span class="vintage-legend-item"><span class="vq vq-g" style="width:22px;height:22px;line-height:22px;font-size:.65rem;">G</span> Good</span>
+      <span class="vintage-legend-item"><span class="vq vq-a" style="width:22px;height:22px;line-height:22px;font-size:.65rem;">A</span> Average</span>
+      <span class="vintage-legend-item"><span class="vq vq-c" style="width:22px;height:22px;line-height:22px;font-size:.65rem;">C</span> Challenging</span>
+    </div>
+
+    <div class="edu-section-title">How to Use Vintage Information</div>
+    <div class="vintage-sci-cards">
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">💡</span>
+        <div class="vintage-sci-title">Buy Smart</div>
+        <div class="vintage-sci-desc">In great vintage years, even lower-tier wines benefit from excellent raw material. In challenging years, only the best producers have the skill and resources to produce good wine — so buy at the top end or look to other regions.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">⏳</span>
+        <div class="vintage-sci-title">Age-Worthiness</div>
+        <div class="vintage-sci-desc">Great vintages tend to produce wines with more tannin and acidity — the preservatives that allow long ageing. An exceptional Bordeaux from 2015 or 2016 should peak in 20+ years. An average vintage's wines are typically for earlier drinking.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🔄</span>
+        <div class="vintage-sci-title">Challenging Isn't Worthless</div>
+        <div class="vintage-sci-desc">Difficult years often produce elegant, lighter-styled wines that can be more approachable young. And they are always cheaper at auction. A 2013 Burgundy — a generally difficult year — from a skilled producer can be beautiful precisely because lower ripeness produced fine, precise wines.</div>
+      </div>
+
+      <div class="vintage-sci-card">
+        <span class="vintage-sci-icon">🍾</span>
+        <div class="vintage-sci-title">Non-Vintage Wines</div>
+        <div class="vintage-sci-desc">Champagne NV, Sherry, Tawny Port, and many other wines carry no vintage on the label because they blend multiple years. The solera or blending process is designed to create consistency across vintages — the winemaker's skill, not the year's weather, determines the quality.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
 <section id="tab-finder" class="tab-panel" role="tabpanel">
   <div class="finder-container">
 
@@ -2223,7 +3539,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'finder']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'finder']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 const GRAPES = [
