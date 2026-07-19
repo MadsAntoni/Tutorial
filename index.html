@@ -1375,6 +1375,111 @@
     .vintage-sci-icon { font-size: 1.5rem; display: block; margin-bottom: 6px; }
     .vintage-sci-title { font-weight: 700; font-size: .88rem; color: var(--text); margin-bottom: 5px; }
     .vintage-sci-desc { font-size: .8rem; color: var(--muted); line-height: 1.6; }
+
+    /* ── Wine Faults ──────────────────────────────────────────────────────── */
+    .fault-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+    .fault-card {
+      background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius); padding: 20px;
+      border-left: 3px solid transparent; transition: border-color .2s, box-shadow .2s;
+    }
+    .fault-card.severity-minor    { border-left-color: #c8a030; }
+    .fault-card.severity-reject   { border-left-color: #c83020; }
+    .fault-card.severity-variable { border-left-color: #4a7a3a; }
+    .fault-card:hover { box-shadow: 0 4px 18px rgba(0,0,0,.1); }
+    .fault-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; margin-bottom: 10px; }
+    .fault-name { font-weight: 700; font-size: .95rem; color: var(--text); }
+    .fault-aka  { font-size: .74rem; color: var(--muted); font-style: italic; margin-top: 2px; }
+    .fault-severity {
+      font-size: .66rem; font-weight: 800; text-transform: uppercase; letter-spacing: .06em;
+      padding: 2px 8px; border-radius: 8px; white-space: nowrap; flex-shrink: 0;
+      font-family: system-ui, sans-serif;
+    }
+    .sev-minor    { background: #f8ede0; color: #8a4010; }
+    .sev-reject   { background: #f8e0e0; color: #8a1010; }
+    .sev-variable { background: #e0f0e0; color: #206020; }
+    .fault-smell { font-size: .82rem; color: var(--text); margin-bottom: 8px; line-height: 1.55; }
+    .fault-smell strong { color: var(--wine); }
+    .fault-cause { font-size: .79rem; color: var(--muted); line-height: 1.55; margin-bottom: 8px; }
+    .fault-action {
+      font-size: .77rem; color: #2a5a2a; background: #f0f8f0; border-radius: 6px;
+      padding: 6px 10px; border-left: 2px solid #6aaa6a; line-height: 1.5;
+    }
+    .fault-intro-box {
+      background: rgba(123,45,66,.04); border: 1px solid var(--border); border-radius: var(--radius);
+      padding: 18px 20px; margin-bottom: 24px; font-size: .86rem; color: var(--muted); line-height: 1.65;
+    }
+    .fault-intro-box strong { color: var(--text); }
+
+    /* ── Winemaking Process ───────────────────────────────────────────────── */
+    .winemaking-path { display: flex; flex-direction: column; gap: 0; position: relative; }
+    .winemaking-step {
+      display: grid; grid-template-columns: 44px 1fr; gap: 16px; align-items: flex-start;
+      padding: 0 0 28px 0; position: relative;
+    }
+    .winemaking-step:last-child { padding-bottom: 0; }
+    .winemaking-step-left { display: flex; flex-direction: column; align-items: center; }
+    .winemaking-step-num {
+      width: 36px; height: 36px; border-radius: 50%; background: var(--wine); color: #fff;
+      font-size: .85rem; font-weight: 800; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-family: system-ui, sans-serif; position: relative; z-index: 1;
+    }
+    .winemaking-step-line {
+      width: 2px; flex: 1; background: var(--border); margin-top: 4px; min-height: 20px;
+    }
+    .winemaking-step:last-child .winemaking-step-line { display: none; }
+    .winemaking-step-body { padding-top: 6px; }
+    .winemaking-step-title { font-weight: 700; font-size: .95rem; color: var(--text); margin-bottom: 5px; }
+    .winemaking-step-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .winemaking-split {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px;
+    }
+    @media (max-width: 540px) { .winemaking-split { grid-template-columns: 1fr; } }
+    .winemaking-path-box {
+      padding: 12px 14px; border-radius: 8px; border: 1px solid;
+    }
+    .winemaking-path-box.red-path  { background: #fdf0f2; border-color: rgba(123,45,66,.2); }
+    .winemaking-path-box.white-path { background: #fdf8e8; border-color: rgba(184,149,61,.2); }
+    .winemaking-path-label { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; margin-bottom: 5px; font-family: system-ui, sans-serif; }
+    .red-path   .winemaking-path-label { color: var(--wine); }
+    .white-path .winemaking-path-label { color: #8a6010; }
+    .winemaking-path-text { font-size: .8rem; color: var(--muted); line-height: 1.55; }
+    .winemaking-tag-row { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 8px; }
+    .winemaking-tag { background: rgba(123,45,66,.06); border-radius: 10px; padding: 2px 9px; font-size: .73rem; color: var(--wine); font-weight: 600; font-family: system-ui, sans-serif; }
+
+    /* ── Glossary ─────────────────────────────────────────────────────────── */
+    .glossary-search-wrap { position: sticky; top: 0; background: var(--cream); padding: 12px 0 16px; z-index: 10; }
+    .glossary-search {
+      width: 100%; padding: 10px 16px; border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: .9rem; font-family: system-ui, sans-serif; background: var(--card-bg);
+      color: var(--text); outline: none; transition: border-color .18s;
+    }
+    .glossary-search:focus { border-color: var(--wine); }
+    .glossary-count { font-size: .78rem; color: var(--muted); margin-top: 6px; font-family: system-ui, sans-serif; }
+    .glossary-list { display: flex; flex-direction: column; gap: 2px; }
+    .glossary-item {
+      display: grid; grid-template-columns: 180px 1fr; gap: 16px; align-items: baseline;
+      padding: 11px 14px; border-radius: 8px; border: 1px solid transparent;
+      transition: background .15s, border-color .15s;
+    }
+    .glossary-item:hover { background: rgba(123,45,66,.03); border-color: var(--border); }
+    .glossary-term { font-weight: 700; font-size: .88rem; color: var(--wine); }
+    .glossary-def  { font-size: .82rem; color: var(--muted); line-height: 1.55; }
+    .glossary-def em { color: var(--text); font-style: normal; font-weight: 600; }
+    .glossary-letter-divider {
+      font-size: .72rem; font-weight: 800; text-transform: uppercase; letter-spacing: .1em;
+      color: var(--muted); padding: 16px 14px 6px; border-bottom: 1px solid var(--border); margin-bottom: 4px;
+      font-family: system-ui, sans-serif;
+    }
+    @media (max-width: 540px) {
+      .glossary-item { grid-template-columns: 1fr; gap: 3px; }
+      .glossary-term { font-size: .85rem; }
+    }
+
+    /* ── Sub-nav group labels ─────────────────────────────────────────────── */
+    .subnav-divider {
+      width: 1px; height: 24px; background: var(--border); flex-shrink: 0; align-self: center;
+      margin: 0 4px;
+    }
   </style>
 
 </head>
@@ -1513,9 +1618,10 @@
 </nav>
 
 <nav class="tab-nav" id="learn-subnav" role="tablist" aria-label="Learning sections">
+  <!-- Essentials group -->
   <button class="tab-btn active" data-tab="explorer" role="tab" aria-selected="true">
     <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><circle cx="5" cy="5.5" r="2.3"/><circle cx="11" cy="5.5" r="2.3"/><circle cx="8" cy="10.5" r="2.3"/><path d="M9 3.5C9.6 2.2 11.5 2 11.5 3.5" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/></svg>
-    Grape Explorer
+    Grapes
   </button>
   <button class="tab-btn" data-tab="pairing" role="tab" aria-selected="false">
     <svg width="14" height="14" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 2v4.5C4 7.8 5 8.5 5 8.5V14"/><path d="M9 2v12"/><path d="M7 2v4C7 7.5 8.5 8.5 9 8.5"/></svg>
@@ -1525,21 +1631,37 @@
     <svg width="13" height="15" viewBox="0 0 13 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M1.5 2h10L9 9.5C8.5 11 7.8 11.5 6.5 11.5S4.5 11 4 9.5L1.5 2z"/><line x1="6.5" y1="11.5" x2="6.5" y2="14.5"/><line x1="4" y1="14.5" x2="9" y2="14.5"/></svg>
     How to Taste
   </button>
-  <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">
-    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><ellipse cx="8" cy="3.5" rx="6" ry="2.5"/><ellipse cx="8" cy="10.5" rx="6" ry="2.5"/><line x1="2" y1="3.5" x2="2" y2="10.5"/><line x1="14" y1="3.5" x2="14" y2="10.5"/><line x1="2" y1="7" x2="14" y2="7"/></svg>
-    Ageing &amp; Vessels
+  <button class="tab-btn" data-tab="faults" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><line x1="8" y1="5" x2="8" y2="8.5"/><circle cx="8" cy="11" r=".7" fill="currentColor" stroke="none"/></svg>
+    Wine Faults
   </button>
+
+  <span class="subnav-divider" aria-hidden="true"></span>
+
+  <!-- Deep dive group -->
   <button class="tab-btn" data-tab="regions" role="tab" aria-selected="false">
-    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 1.5C8 1.5 5 5 5 8s3 6.5 3 6.5"/><path d="M8 1.5C8 1.5 11 5 11 8s-3 6.5-3 6.5"/><line x1="1.5" y1="8" x2="14.5" y2="8"/><path d="M2.5 5h11M2.5 11h11"/></svg>
-    Regions &amp; Terroir
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="8" r="6.5"/><path d="M8 1.5C8 1.5 5 5 5 8s3 6.5 3 6.5"/><path d="M8 1.5C8 1.5 11 5 11 8s-3 6.5-3 6.5"/><line x1="1.5" y1="8" x2="14.5" y2="8"/></svg>
+    Regions
   </button>
   <button class="tab-btn" data-tab="styles" role="tab" aria-selected="false">
     <svg width="13" height="15" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M3 2h8v3l2 4v4H1V9l2-4V2z"/><line x1="1" y1="9" x2="13" y2="9"/></svg>
     Wine Styles
   </button>
+  <button class="tab-btn" data-tab="winemaking" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M4 2h8v3c0 4-2 6-4 7C6 11 4 9 4 5V2z"/><line x1="8" y1="12" x2="8" y2="15"/><line x1="5" y1="15" x2="11" y2="15"/></svg>
+    Winemaking
+  </button>
+  <button class="tab-btn" data-tab="ageing" role="tab" aria-selected="false">
+    <svg width="15" height="13" viewBox="0 0 16 14" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><ellipse cx="8" cy="3.5" rx="6" ry="2.5"/><ellipse cx="8" cy="10.5" rx="6" ry="2.5"/><line x1="2" y1="3.5" x2="2" y2="10.5"/><line x1="14" y1="3.5" x2="14" y2="10.5"/><line x1="2" y1="7" x2="14" y2="7"/></svg>
+    Ageing
+  </button>
+
+  <span class="subnav-divider" aria-hidden="true"></span>
+
+  <!-- Reference group -->
   <button class="tab-btn" data-tab="labels" role="tab" aria-selected="false">
     <svg width="13" height="15" viewBox="0 0 14 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="2" y="1.5" width="10" height="13" rx="1.5"/><line x1="4.5" y1="5" x2="9.5" y2="5"/><line x1="4.5" y1="7.5" x2="9.5" y2="7.5"/><line x1="4.5" y1="10" x2="7.5" y2="10"/></svg>
-    Reading Labels
+    Labels
   </button>
   <button class="tab-btn" data-tab="pairing-science" role="tab" aria-selected="false">
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><circle cx="5" cy="8" r="3.5"/><circle cx="11" cy="8" r="3.5"/><path d="M7.5 8h1"/></svg>
@@ -1547,11 +1669,15 @@
   </button>
   <button class="tab-btn" data-tab="serving" role="tab" aria-selected="false">
     <svg width="12" height="15" viewBox="0 0 13 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 2h7l1 6H2L3 2z"/><line x1="6.5" y1="8" x2="6.5" y2="13"/><line x1="4" y1="13" x2="9" y2="13"/></svg>
-    Serving &amp; Glassware
+    Serving
   </button>
   <button class="tab-btn" data-tab="vintages" role="tab" aria-selected="false">
     <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="11" rx="1.5"/><line x1="1.5" y1="7" x2="14.5" y2="7"/><line x1="5" y1="1.5" x2="5" y2="4.5"/><line x1="11" y1="1.5" x2="11" y2="4.5"/></svg>
     Vintages
+  </button>
+  <button class="tab-btn" data-tab="glossary" role="tab" aria-selected="false">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" aria-hidden="true"><path d="M2 2h7l3 3v9H2z"/><line x1="5" y1="7" x2="10" y2="7"/><line x1="5" y1="9.5" x2="10" y2="9.5"/><line x1="5" y1="12" x2="8" y2="12"/></svg>
+    Glossary
   </button>
 </nav>
 
@@ -2300,6 +2426,323 @@
     </div>
 
   </div><!-- /ageing-container -->
+</section>
+
+<!-- ── Wine Faults ────────────────────────────────────────────────────────── -->
+<section id="tab-faults" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Wine Faults</h2>
+      <p>Knowing what a flawed wine smells and tastes like is as important as knowing what a great one does. Most faults are detectable within seconds of opening a bottle — and sending one back, or setting it aside, is not snobbery. It is knowledge.</p>
+    </div>
+
+    <div class="fault-intro-box">
+      <strong>How to use this guide:</strong> When you open a bottle and something seems off, work through these faults from the top. Cork taint and oxidation account for the majority of faulty bottles you will encounter. Trust your instincts — if a wine smells wrong, it probably is.
+    </div>
+
+    <div class="fault-grid">
+
+      <div class="fault-card severity-reject">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Cork Taint (TCA)</div>
+            <div class="fault-aka">Also known as "corked"</div>
+          </div>
+          <span class="fault-severity sev-reject">Return it</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>wet cardboard, damp cellar, musty newspaper, mouldy cork.</strong> Suppresses all fruit aroma — the wine smells flat and lifeless beneath the must.</div>
+        <div class="fault-cause">Caused by: 2,4,6-Trichloroanisole (TCA), a compound formed when chlorine-based compounds interact with naturally occurring moulds in cork. Affects 1–3% of cork-sealed bottles.</div>
+        <div class="fault-action">What to do: Return it to the restaurant or retailer — a corked bottle is always replaceable. No remedy exists. Switching to screwcaps eliminates the fault entirely.</div>
+      </div>
+
+      <div class="fault-card severity-reject">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Oxidation</div>
+            <div class="fault-aka">Also: maderised, flat, tired</div>
+          </div>
+          <span class="fault-severity sev-reject">Return it</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>sherry (on a wine not meant to be sherry), bruised apple, vinegar, flat stewed fruit.</strong> Red wines turn brick-brown at the rim; whites go deep amber.</div>
+        <div class="fault-cause">Caused by: excessive oxygen contact — a leaking cork, too-warm storage, or a bottle that has been open too long. Also caused by poor winemaking with insufficient sulphur dioxide.</div>
+        <div class="fault-action">What to do: Return it if newly purchased. An oxidised wine cannot be recovered. Prevent it at home by refrigerating open bottles and using a vacuum stopper or inert gas.</div>
+      </div>
+
+      <div class="fault-card severity-reject">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Volatile Acidity (VA)</div>
+            <div class="fault-aka">Also: vinegar taint, acetification</div>
+          </div>
+          <span class="fault-severity sev-reject">Return it</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>vinegar, nail polish remover (ethyl acetate), balsamic.</strong> Often prickles in the nose and throat. A small amount of VA is normal; at high levels it is a fault.</div>
+        <div class="fault-cause">Caused by: acetic acid bacteria (Acetobacter) converting ethanol to acetic acid, typically due to oxygen exposure during winemaking or storage. More common in wines low in sulphur dioxide.</div>
+        <div class="fault-action">What to do: Return it. High VA is a winemaking fault. Note: some winemakers intentionally produce wines with elevated VA as a stylistic choice — always consider the context.</div>
+      </div>
+
+      <div class="fault-card severity-variable">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Reduction</div>
+            <div class="fault-aka">Also: sulphurous, reductive notes</div>
+          </div>
+          <span class="fault-severity sev-variable">Often fixable</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>struck match, rubber, rotten egg, burnt garlic.</strong> The wine smells closed, sulphurous, or like a just-lit match. Intensity ranges from faint (often resolves) to extreme (fault).</div>
+        <div class="fault-cause">Caused by: excess hydrogen sulphide or mercaptans formed when yeast is stressed during fermentation, or from excessive sulphur dioxide use. Common in screwcap wines due to reductive ageing.</div>
+        <div class="fault-action">What to do: Decant vigorously and let it breathe for 30–60 minutes. Swirl hard in the glass. Mild reduction often dissipates completely; severe cases do not. A copper coin stirred in the wine (an old trick) can help.</div>
+      </div>
+
+      <div class="fault-card severity-variable">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Brettanomyces (Brett)</div>
+            <div class="fault-aka">Also: barnyard, "Brett character"</div>
+          </div>
+          <span class="fault-severity sev-variable">Subjective</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>barnyard, horse sweat, leather, Band-Aid, smoked meat, cloves.</strong> At low levels some find it complex and earthy. At high levels it overwhelms all other character.</div>
+        <div class="fault-cause">Caused by: Brettanomyces yeast, which thrives in poorly sanitised barrels and wineries. Historically common in Rhône Valley and some Bordeaux. Controversial: traditional winemakers tolerate or embrace low levels; modernists eliminate it completely.</div>
+        <div class="fault-action">What to do: At low levels — enjoy it if you do, set it aside if you don't. High Brett is a fault; return it. There is genuine debate among wine professionals about acceptable levels.</div>
+      </div>
+
+      <div class="fault-card severity-reject">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Heat Damage</div>
+            <div class="fault-aka">Also: maderised, cooked, heat struck</div>
+          </div>
+          <span class="fault-severity sev-reject">Return it</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>stewed jam, prune juice, raisins, flat cooked fruit.</strong> The wine tastes dull, jammy, and lifeless — as if the fresh fruit has been cooked away.</div>
+        <div class="fault-cause">Caused by: exposure to heat above 25–30°C, often during shipping or storage. The cork may push slightly out of the bottle — a tell-tale sign. The fault is irreversible and does not improve with time.</div>
+        <div class="fault-action">What to do: Return it, especially if newly purchased. Check the cork — if it protrudes above the capsule, heat damage is the likely culprit. Store wines away from direct sunlight and radiators.</div>
+      </div>
+
+      <div class="fault-card severity-minor">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Excess Sulphur Dioxide (SO₂)</div>
+            <div class="fault-aka">Also: sulphured, SO2 hit</div>
+          </div>
+          <span class="fault-severity sev-minor">Usually harmless</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>burnt match, swimming pool, sharp chemical sting.</strong> More often felt than smelled — an irritating sensation at the back of the nose or throat when you first sniff.</div>
+        <div class="fault-cause">Caused by: over-use of sulphur dioxide, the wine industry's most common preservative. Common in cheaper, mass-produced wines. Unlike cork taint, SO₂ dissipates with oxygen.</div>
+        <div class="fault-action">What to do: Swirl vigorously for a minute and leave the glass. In most cases the sulphur note blows off within 5–10 minutes. If it persists after 30 minutes, the level is excessive.</div>
+      </div>
+
+      <div class="fault-card severity-minor">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Refermentation in Bottle</div>
+            <div class="fault-aka">Also: prickly, unexpected fizz</div>
+          </div>
+          <span class="fault-severity sev-minor">Usually harmless</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>yeast, fresh bread, slight cidery quality.</strong> The wine has unexpected bubbles — a slightly prickly or fizzy sensation in a wine that should be still.</div>
+        <div class="fault-cause">Caused by: a small amount of residual sugar remaining in a supposedly finished wine, which then re-ferments in bottle. More common in cheap wines bottled at lower alcohol. May also occur in Pétillant Naturel intentionally.</div>
+        <div class="fault-action">What to do: If minimal and the wine otherwise smells good — drink it. If the wine smells yeasty and tastes sweet-sour (malolactic bacteria at work), set it aside. Rarely worth returning unless severe.</div>
+      </div>
+
+      <div class="fault-card severity-variable">
+        <div class="fault-head">
+          <div>
+            <div class="fault-name">Mouse Cage (Mousiness)</div>
+            <div class="fault-aka">Also: mousy taint</div>
+          </div>
+          <span class="fault-severity sev-variable">Context-dependent</span>
+        </div>
+        <div class="fault-smell">Smells of: <strong>mouse cage, popcorn, slightly rancid grain.</strong> Unusual: the taint is often not apparent on nosing — it emerges on the palate, as the saliva raises the pH and reveals the volatile compounds.</div>
+        <div class="fault-cause">Caused by: certain lactic acid bacteria or Brettanomyces producing tetrahydropyridine compounds. More common in natural and low-sulphur wines. Considered a definite fault by most; some natural wine producers treat it as acceptable.</div>
+        <div class="fault-action">What to do: Set it aside or return it if newly purchased. Mousiness does not resolve with aeration. If tasting a wine and it seems fine on the nose but leaves an unpleasant cereal aftertaste — this is likely the culprit.</div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Winemaking Process ──────────────────────────────────────────────────── -->
+<section id="tab-winemaking" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>From Vine to Bottle</h2>
+      <p>Understanding how wine is made transforms how you taste it. Every decision in the cellar — when to pick, how long to macerate, which vessel to use — leaves a fingerprint in the glass.</p>
+    </div>
+
+    <div class="edu-section-title">The Winemaking Journey</div>
+
+    <div class="winemaking-path">
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">1</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Harvest — Timing is Everything</div>
+          <div class="winemaking-step-desc">The single most consequential decision in winemaking: when to pick. Early picking preserves acidity and freshness but risks underripe tannins and green flavours. Late picking maximises sugar and phenolic ripeness but risks overripe, jammy fruit and potential rot. In classic regions, a committee may set the date by law; in progressive wineries, winemakers taste daily and decide themselves. Harvest can be mechanical (efficient, 24-hour operation) or by hand (selective, preserves fruit integrity, essential for top estates).</div>
+          <div class="winemaking-tag-row">
+            <span class="winemaking-tag">Sugar = alcohol</span>
+            <span class="winemaking-tag">Acid = freshness</span>
+            <span class="winemaking-tag">Phenolic ripeness = smooth tannin</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">2</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Sorting &amp; Destemming</div>
+          <div class="winemaking-step-desc">Harvested grapes arrive at the winery and are spread onto a sorting table — either by hand or by optical sorting machine. The goal is to remove leaves, unripe berries, damaged or rotten fruit, and any debris. Whole-bunch fermentation (retaining the stems) is an option for winemakers seeking additional tannin, structure, and spicy complexity — particularly in Burgundy and the Rhône. For most wines, stems are removed before the next step.</div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">3</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Crushing &amp; Pressing — Red vs White Split</div>
+          <div class="winemaking-step-desc">Here is where red and white winemaking fundamentally diverge. The skins of red grapes contain tannin and colour — so red wines need time with their skins. White grapes are pressed immediately to separate the juice from the skins before fermentation.</div>
+          <div class="winemaking-split">
+            <div class="winemaking-path-box red-path">
+              <div class="winemaking-path-label">Red Wine</div>
+              <div class="winemaking-path-text">Grapes are crushed (or left whole) and transferred to a fermentation vessel — skins, seeds, and juice together. Fermentation happens in contact with the skins. Colour, tannin, and flavour compounds are extracted during this maceration period.</div>
+            </div>
+            <div class="winemaking-path-box white-path">
+              <div class="winemaking-path-label">White Wine</div>
+              <div class="winemaking-path-text">Grapes are pressed gently and the clear juice (must) is separated from the skins immediately. Some producers use cold settling to clarify the juice before fermentation. "Orange wines" (skin-contact whites) break this rule intentionally — skins are left in contact for hours to weeks.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">4</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Alcoholic Fermentation</div>
+          <div class="winemaking-step-desc">Yeast converts grape sugars into alcohol and CO₂. The winemaker chooses between commercial yeasts (reliable, predictable, consistent from year to year) or ambient "wild" yeasts from the vineyard and winery environment (less predictable, often more complex and terroir-expressive). Fermentation temperature matters: cool fermentation (8–15°C) for whites preserves delicate aromatics; warm fermentation (20–30°C) for reds extracts more colour and tannin. Fermentation typically lasts 5–14 days for reds, 2–4 weeks for whites.</div>
+          <div class="winemaking-split">
+            <div class="winemaking-path-box red-path">
+              <div class="winemaking-path-label">Red: Maceration Techniques</div>
+              <div class="winemaking-path-text">Punching down the cap (pigeage), pumping over (remontage), or whole-bunch carbonic maceration (Beaujolais) — each extracts tannin and colour at a different rate. More extraction = more structure and ageability.</div>
+            </div>
+            <div class="winemaking-path-box white-path">
+              <div class="winemaking-path-label">White: Temperature Control</div>
+              <div class="winemaking-path-text">Stainless steel tanks with temperature-controlled jackets keep fermentation cool and aromatic. Oak fermentation (Burgundy Chardonnay) adds texture and allows micro-oxygenation, but reduces the intense fruit aromas of cool-tank whites.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">5</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Malolactic Fermentation (MLF)</div>
+          <div class="winemaking-step-desc">After alcoholic fermentation, a secondary bacterial conversion can occur — or be deliberately triggered. Lactic acid bacteria convert harsh malic acid (green apple) into softer lactic acid (milk), reducing overall acidity and adding a creamy, rounded texture. Almost all red wines undergo MLF — it softens tannins and stabilises the wine. For whites, it is a stylistic choice: full MLF gives a rich, buttery Chardonnay; no MLF gives a crisp, acidic Chablis or Sauvignon Blanc.</div>
+          <div class="winemaking-tag-row">
+            <span class="winemaking-tag">MLF on = creamy, round, lower acid</span>
+            <span class="winemaking-tag">MLF off = crisp, fresh, higher acid</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">6</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Ageing — Vessel &amp; Time</div>
+          <div class="winemaking-step-desc">After fermentation and MLF, the wine moves into an ageing vessel. The choice of vessel profoundly shapes the final wine. This is covered in full in the Ageing &amp; Vessels tab — but the key question is always: how much oxygen exposure does this wine need? French oak barriques (225L) give the most controlled micro-oxygenation and subtlest oak flavour. Stainless steel tanks are fully reductive. Concrete eggs and large neutral oak give intermediate results without adding oak flavour.</div>
+          <div class="winemaking-tag-row">
+            <span class="winemaking-tag">New oak = oak flavour + micro-oxygen</span>
+            <span class="winemaking-tag">Stainless = pure fruit</span>
+            <span class="winemaking-tag">Old oak = texture, no oak flavour</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">7</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Blending</div>
+          <div class="winemaking-step-desc">Most wines in the world are blends — either of different grape varieties (Cabernet + Merlot in Bordeaux), different vineyard plots (Grand Cru blended across several parcels), or different batches/vessels of the same grape. Blending is an art: winemakers taste dozens of components and assemble the final wine to achieve complexity, balance, and consistency. Single-varietal, single-vineyard wines ("monopole") are a minority. Even Champagne's non-vintage blends up to 40+ different reserve wines from multiple years.</div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">8</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Fining &amp; Filtration</div>
+          <div class="winemaking-step-desc">Before bottling, most wines are clarified. Fining uses a substance (egg whites, bentonite clay, isinglass from fish bladders) that attracts and precipitates proteins, tannins, or other unstable compounds. Filtration passes the wine through a membrane to remove micro-organisms. Both processes stabilise the wine and improve clarity, but may strip some texture and complexity. "Unfiltered" and "unfined" wines are increasingly common — particularly among natural producers — and often display more depth but also require careful handling.</div>
+          <div class="winemaking-tag-row">
+            <span class="winemaking-tag">Egg whites = vegan concern</span>
+            <span class="winemaking-tag">Bentonite = vegan-friendly fining</span>
+            <span class="winemaking-tag">Unfiltered = sediment possible</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="winemaking-step">
+        <div class="winemaking-step-left">
+          <div class="winemaking-step-num">9</div>
+          <div class="winemaking-step-line"></div>
+        </div>
+        <div class="winemaking-step-body">
+          <div class="winemaking-step-title">Bottling &amp; Closure</div>
+          <div class="winemaking-step-desc">The final step — and another significant decision. Cork (natural or composite) allows slow micro-oxygenation and is traditional for age-worthy wines. Screwcap (ROTE, Stelvin) provides a perfectly reductive seal with no TCA risk — preferred in New Zealand and Australia. Glass stoppers and synthetic corks sit between the two. The closure does not determine quality, but it influences how a wine evolves over time. A wine sealed under screwcap will age differently from the same wine under cork — typically more slowly and more reductively.</div>
+          <div class="winemaking-tag-row">
+            <span class="winemaking-tag">Cork = traditional + TCA risk</span>
+            <span class="winemaking-tag">Screwcap = no TCA, reductive ageing</span>
+            <span class="winemaking-tag">DIAM = technical cork, very reliable</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div><!-- /edu-container -->
+</section>
+
+<!-- ── Glossary ────────────────────────────────────────────────────────────── -->
+<section id="tab-glossary" class="tab-panel" role="tabpanel">
+  <div class="edu-container">
+
+    <div class="edu-intro">
+      <h2>Wine Glossary</h2>
+      <p>Every term you need to navigate a wine list, read a label, or follow a sommelier's explanation — defined plainly.</p>
+    </div>
+
+    <div class="glossary-search-wrap">
+      <input class="glossary-search" type="search" id="glossary-search-input" placeholder="Search terms…" aria-label="Search glossary" oninput="glossaryFilter(this.value)" />
+      <div class="glossary-count" id="glossary-count"></div>
+    </div>
+
+    <div class="glossary-list" id="glossary-list" role="list"></div>
+
+  </div><!-- /edu-container -->
 </section>
 
 <!-- ── Regions & Terroir ──────────────────────────────────────────────────── -->
@@ -3432,7 +3875,7 @@
       <!-- Progress -->
       <div class="quiz-progress-wrap">
         <div class="quiz-progress-top">
-          <span class="quiz-step-text" id="finder-step-text">Step 1 of 4</span>
+          <span class="quiz-step-text" id="finder-step-text">Step 1 of 6</span>
         </div>
         <div class="quiz-bar"><div class="quiz-bar-fill" id="finder-bar" style="width:0%"></div></div>
       </div>
@@ -3500,8 +3943,69 @@
         </div>
       </div>
 
-      <!-- Q4: Region -->
+      <!-- Q4: Tannin / texture preference -->
       <div class="quiz-question" id="finder-q4" hidden>
+        <div class="quiz-q-title">How do you feel about tannins?</div>
+        <div class="quiz-q-hint">Tannins are the drying sensation in red wines — like strong tea</div>
+        <div class="quiz-choices">
+          <button class="quiz-choice-btn" data-fq="tannin" data-fv="soft" onclick="finderSelectTannin('soft')">
+            <span class="qcb-icon">🍑</span>
+            <span class="qcb-label">Soft &amp; Smooth</span>
+            <span class="qcb-sub">No grip, silky texture, easy drinking</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="tannin" data-fv="medium" onclick="finderSelectTannin('medium')">
+            <span class="qcb-icon">🍒</span>
+            <span class="qcb-label">Some Structure</span>
+            <span class="qcb-sub">A little grip is fine — food-friendly</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="tannin" data-fv="bold" onclick="finderSelectTannin('bold')">
+            <span class="qcb-icon">💪</span>
+            <span class="qcb-label">Bold &amp; Grippy</span>
+            <span class="qcb-sub">I love a structured, age-worthy red</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="tannin" data-fv="none" onclick="finderSelectTannin('none')">
+            <span class="qcb-icon">🥂</span>
+            <span class="qcb-label">No tannins please</span>
+            <span class="qcb-sub">I prefer white, sparkling, or very light reds</span>
+          </button>
+        </div>
+        <div class="quiz-nav" style="margin-top:8px;">
+          <button class="quiz-nav-btn quiz-back-btn" onclick="finderGo(3)">← Back</button>
+        </div>
+      </div>
+
+      <!-- Q5: Occasion -->
+      <div class="quiz-question" id="finder-q5" hidden>
+        <div class="quiz-q-title">What's the occasion?</div>
+        <div class="quiz-choices">
+          <button class="quiz-choice-btn" data-fq="occasion" data-fv="food" onclick="finderSelectOccasion('food')">
+            <span class="qcb-icon">🍽️</span>
+            <span class="qcb-label">With a meal</span>
+            <span class="qcb-sub">Pairing with food</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="occasion" data-fv="aperitif" onclick="finderSelectOccasion('aperitif')">
+            <span class="qcb-icon">🥂</span>
+            <span class="qcb-label">Aperitif / Pre-dinner</span>
+            <span class="qcb-sub">Light, refreshing, appetite-opening</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="occasion" data-fv="sipping" onclick="finderSelectOccasion('sipping')">
+            <span class="qcb-icon">🛋️</span>
+            <span class="qcb-label">Relaxed sipping</span>
+            <span class="qcb-sub">On its own, no food</span>
+          </button>
+          <button class="quiz-choice-btn" data-fq="occasion" data-fv="celebration" onclick="finderSelectOccasion('celebration')">
+            <span class="qcb-icon">🎉</span>
+            <span class="qcb-label">Celebration</span>
+            <span class="qcb-sub">A special occasion, something memorable</span>
+          </button>
+        </div>
+        <div class="quiz-nav" style="margin-top:8px;">
+          <button class="quiz-nav-btn quiz-back-btn" onclick="finderGo(4)">← Back</button>
+        </div>
+      </div>
+
+      <!-- Q6: Region -->
+      <div class="quiz-question" id="finder-q6" hidden>
         <div class="quiz-q-title">Any favourite wine region?</div>
         <div class="quiz-q-hint">Pick one, or choose "No preference" to see the best matches globally</div>
         <div class="quiz-regions">
@@ -3515,7 +4019,7 @@
           <button class="quiz-region-btn" data-fq="region" data-fv="any" onclick="finderSelectRegion('any')">🌐 No preference</button>
         </div>
         <div class="quiz-nav" style="margin-top:24px;">
-          <button class="quiz-nav-btn quiz-back-btn" onclick="finderGo(3)">← Back</button>
+          <button class="quiz-nav-btn quiz-back-btn" onclick="finderGo(5)">← Back</button>
         </div>
       </div>
 
@@ -3563,7 +4067,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'finder']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'faults', 'winemaking', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'glossary', 'finder']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 const GRAPES = [
@@ -8469,12 +8973,12 @@ const FLAVOUR_KWS = {
 };
 
 let finderStep = 1;
-const finderAnswers = { type: null, body: null, flavours: new Set(), region: null };
+const finderAnswers = { type: null, body: null, flavours: new Set(), tannin: null, occasion: null, region: null };
 
 function finderUpdateProgress(step) {
-  const pct = ((step - 1) / 4) * 100;
+  const pct = ((step - 1) / 6) * 100;
   document.getElementById('finder-bar').style.width = pct + '%';
-  document.getElementById('finder-step-text').textContent = 'Step ' + step + ' of 4';
+  document.getElementById('finder-step-text').textContent = 'Step ' + step + ' of 6';
 }
 
 function finderGo(step) {
@@ -8496,6 +9000,18 @@ function finderSelectBody(val) {
   setTimeout(() => finderGo(3), 280);
 }
 
+function finderSelectTannin(val) {
+  finderAnswers.tannin = val;
+  document.querySelectorAll('[data-fq="tannin"]').forEach(b => b.classList.toggle('selected', b.dataset.fv === val));
+  setTimeout(() => finderGo(5), 280);
+}
+
+function finderSelectOccasion(val) {
+  finderAnswers.occasion = val;
+  document.querySelectorAll('[data-fq="occasion"]').forEach(b => b.classList.toggle('selected', b.dataset.fv === val));
+  setTimeout(() => finderGo(6), 280);
+}
+
 function finderToggleFlavour(val, btn) {
   if (finderAnswers.flavours.has(val)) {
     finderAnswers.flavours.delete(val);
@@ -8510,7 +9026,7 @@ function finderToggleFlavour(val, btn) {
 function finderSelectRegion(val) {
   finderAnswers.region = val;
   document.querySelectorAll('[data-fq="region"]').forEach(b => b.classList.toggle('selected', b.dataset.fv === val));
-  finderUpdateProgress(4);
+  finderUpdateProgress(6);
   setTimeout(() => showFinderResults(), 280);
 }
 
@@ -8676,6 +9192,143 @@ function finderGetProducers(grapeName) {
   return (PRODUCERS[grapeName] || []).slice(0, 3);
 }
 
+/* ── Glossary ─────────────────────────────────────────────────────────────── */
+const GLOSSARY = [
+  { term: 'Acidity', def: 'The tartness and freshness in wine, coming from natural grape acids (tartaric, malic, citric). High acidity makes a wine feel crisp and food-friendly; low acidity feels soft or flat.' },
+  { term: 'Aeration', def: 'Exposing wine to oxygen, usually by decanting or swirling. Helps open up aromas in young tannic wines and disperses reductive off-notes.' },
+  { term: 'Albariño', def: 'Aromatic white grape from Galicia (Spain) and Vinho Verde (Portugal, where it is called Alvarinho). Known for peach, lemon zest, saline minerality, and high acidity.' },
+  { term: 'Alcohol (ABV)', def: 'Alcohol By Volume — the percentage of ethanol in the wine. Table wines typically range from 11–15%. Higher alcohol comes from riper grapes; cooler climates produce lower ABV.' },
+  { term: 'Appellation', def: 'A legally defined geographic area whose name appears on wine labels. Appellation rules typically govern permitted grape varieties, yield limits, and winemaking methods.' },
+  { term: 'Appassimento', def: 'Italian technique of drying harvested grapes on racks (arele) to concentrate sugars, flavour, and alcohol before fermentation. Used for Amarone, Recioto, and Passito wines.' },
+  { term: 'AOC / AOP', def: 'Appellation d\'Origine Contrôlée / Protégée — France\'s main geographic quality classification. Governs origin, grape varieties, yield, and production methods.' },
+  { term: 'Assemblage', def: 'French term for blending — the art of combining different grape varieties, vineyard parcels, or barrel lots to create a final wine greater than any individual component.' },
+  { term: 'Austere', def: 'A tasting term for a wine that is lean, firm, and high in acidity or tannin, with minimal fruit sweetness. Often a quality of young age-worthy wines that need time to open.' },
+  { term: 'Autolysis', def: 'The breakdown of dead yeast cells (lees) in a wine, adding texture, breadth, and biscuit or brioche-like flavours. Essential to traditional-method sparkling wines aged sur lie.' },
+  { term: 'Balance', def: 'The harmony between a wine\'s key components — alcohol, acidity, tannin, fruit, and sweetness. A balanced wine has no single element dominating or overwhelming the others.' },
+  { term: 'Barrique', def: 'A standard 225-litre oak barrel, originally from Bordeaux. The most common barrel size in fine wine production. New barriques impart strong oak flavour; old ones are neutral.' },
+  { term: 'Biodynamic', def: 'A holistic farming approach treating the vineyard as a self-sustaining ecosystem, guided by lunar and cosmic rhythms. Pioneered by Rudolf Steiner. Prohibits synthetic chemicals.' },
+  { term: 'Blanc de Blancs', def: 'Champagne (or sparkling wine) made exclusively from white grapes — in Champagne, this means 100% Chardonnay. Typically the most delicate, mineral, and citrus-driven style.' },
+  { term: 'Blanc de Noirs', def: 'White sparkling wine made from red-skinned grapes (Pinot Noir and/or Pinot Meunier). The skins are removed immediately after pressing to keep the wine pale. Fuller and more structured than Blanc de Blancs.' },
+  { term: 'Botrytis', def: 'Botrytis cinerea — "noble rot" — a beneficial fungus that dehydrates grapes in the right conditions, concentrating sugar and developing complex honey, apricot, and ginger flavours. Essential for Sauternes and German TBA.' },
+  { term: 'Brettanomyces (Brett)', def: 'A spoilage yeast that produces barnyard, leather, or Band-Aid aromas. Controversial — at low levels some find it complex; at high levels it is a fault. Common in poorly sanitised barrels.' },
+  { term: 'Brut', def: 'The most common style of Champagne and sparkling wine — bone dry to very dry. Brut contains less than 12g/L residual sugar. Brut Nature / Zero Dosage has none at all.' },
+  { term: 'Cap', def: 'The layer of grape skins, seeds, and pulp that floats to the top of a fermenting red wine vat. Must be regularly broken up and submerged (punch down / pigeage or pump over / remontage) to extract colour and tannin.' },
+  { term: 'Carbonic Maceration', def: 'Fermentation of whole uncrushed grapes in a CO₂-rich environment, producing fruity, low-tannin, vibrant wines. The signature technique of Beaujolais Nouveau. Results in juicy, banana-and-cherry character.' },
+  { term: 'Cépage', def: 'French word for grape variety. A wine labeled by cépage identifies the grape(s) used rather than the geographical appellation.' },
+  { term: 'Chaptalization', def: 'Adding sugar to grape must before fermentation to raise the potential alcohol of the finished wine. Legal in cool climates (Burgundy, Germany) in difficult vintages; illegal in warm regions.' },
+  { term: 'Claret', def: 'Traditional British term for red Bordeaux wine. Historically the most important wine imported into Britain for centuries.' },
+  { term: 'Climate (Micro/Meso/Macro)', def: 'Macro = regional climate; Meso = local conditions in a valley or hillside; Micro = the immediate environment around individual vines. Each scale influences vine growth and fruit character.' },
+  { term: 'Clos', def: 'French term for a vineyard enclosed by walls — historically significant in Burgundy. A Clos is often a single, defined plot with its own particular terroir character.' },
+  { term: 'Coopérative', def: 'A winery owned collectively by multiple grape growers who pool their fruit. Cooperatives produce a large proportion of French and European wine, particularly in regions like Alsace, Champagne, and the Rhône.' },
+  { term: 'Cork Taint (TCA)', def: 'A wine fault caused by 2,4,6-Trichloroanisole (TCA) in cork. Smells of wet cardboard, damp cellar, or musty newspaper. Affects 1–3% of cork-sealed wines. The bottle must be returned.' },
+  { term: 'Cru', def: 'French term for "growth" — a specific vineyard or estate classified for quality. Grand Cru = highest quality; Premier Cru = second tier. The classification varies by region.' },
+  { term: 'Cuvée', def: 'A specific blend, batch, or selection of wine from a producer. In Champagne, the cuvée is the first and finest pressing of juice. Elsewhere it often refers to a premium or special selection.' },
+  { term: 'Decanting', def: 'Pouring wine from its bottle into a carafe (decanter). Done either to aerate young tannic wines or to separate old wines from their sediment.' },
+  { term: 'Disgorgement', def: 'A step in traditional-method sparkling wine production: the frozen plug of yeast sediment (collected in the neck during riddling) is expelled from the bottle before dosage and corking.' },
+  { term: 'DOC / DOCG', def: 'Italian quality classifications. DOC = Denominazione di Origine Controllata (controlled origin). DOCG adds Garantita — wines are tasted by a tasting panel before bottling. DOCG is the highest tier.' },
+  { term: 'Dosage', def: 'A small addition of wine and sugar (liqueur d\'expédition) added to a sparkling wine after disgorgement to set the final sweetness level — from Brut Nature (zero) to Doux (very sweet).' },
+  { term: 'Dried Fruit', def: 'A tasting note indicating raisin, prune, fig, or date character — associated with ripe, warm-climate wines or wines made from dried grapes (appassimento). Can be a positive complexity note or a sign of overripeness.' },
+  { term: 'Élevage', def: 'French term covering the entire maturation period of a wine from fermentation to bottling — the care and ageing decisions made in the cellar. Oak barrel type, duration, and racking frequency are all part of élevage.' },
+  { term: 'En Primeur', def: 'Wine sold as a "future" before it is bottled — the Bordeaux system of selling the new vintage as barrel samples in spring following the harvest. Buyers receive the wine 18–24 months later.' },
+  { term: 'Estate Bottled', def: 'A wine grown, produced, and bottled by the same property — equivalent to Mis en Bouteille au Château/Domaine. Indicates that the producer controls the entire winemaking process.' },
+  { term: 'Fermentation', def: 'The conversion of grape sugars into alcohol and CO₂ by yeast. Alcoholic fermentation typically takes 5–14 days for reds, 2–4 weeks for whites. Temperature control is critical.' },
+  { term: 'Filtration', def: 'Passing wine through a membrane or medium to remove micro-organisms and solid particles before bottling. Produces a stable, clear wine but may strip texture. Many top estates avoid heavy filtration.' },
+  { term: 'Fining', def: 'Adding a clarifying agent (egg whites, bentonite, isinglass) to remove unwanted proteins and tannins before bottling. Not all fining agents are vegan — bentonite clay is.' },
+  { term: 'Finish', def: 'The flavour and sensation that lingers after swallowing wine. A long finish (30+ seconds) is a hallmark of great wine. The flavours on the finish often differ from the nose and mid-palate.' },
+  { term: 'Flor', def: 'A film of protective yeast that grows on the surface of Fino and Manzanilla Sherry during ageing in partially filled barrels. Flor prevents oxidation and adds its characteristic saline, almond, and yeasty character.' },
+  { term: 'Fortified Wine', def: 'Wine to which grape spirit has been added, raising alcohol to 15–22%. Port is fortified during fermentation (retaining sweetness); Sherry after fermentation (remains dry until sweetened).' },
+  { term: 'Frizzante', def: 'Italian term for gently sparkling wine — more bubbles than still wine but less than spumante (fully sparkling). Moscato d\'Asti and some Lambrusco are frizzante.' },
+  { term: 'Grand Cru', def: 'The highest classification level in Burgundy — a specific named vineyard of exceptional quality. In Champagne, Grand Cru refers to villages rated 100% in the Échelle des Crus. Usage varies by region.' },
+  { term: 'Grower Champagne', def: 'Champagne produced by the grower who grew the grapes — as opposed to the major houses (négociants) who blend grapes from across the region. Identified by RM (Récoltant-Manipulant) on the label.' },
+  { term: 'Harvest', def: 'The picking of grapes — the climax of the winemaking year. Timing is everything: early harvest gives higher acidity, lower alcohol; late harvest gives more sugar, riper tannins, and higher ABV.' },
+  { term: 'Horizontal Tasting', def: 'Tasting multiple wines from the same vintage — for example, several 2018 Bordeaux châteaux. Reveals regional vintage character and producer variation within the same conditions.' },
+  { term: 'Jeroboam', def: 'A large-format bottle. In Bordeaux = 3L (4 standard bottles); in Champagne = 3L. Large formats age wine more slowly and evenly — prized for long-term cellaring.' },
+  { term: 'Lees', def: 'The sediment of dead yeast cells and other particles that settle after fermentation. Wines aged "sur lie" (on the lees) gain texture, complexity, and yeasty breadth. Stirring the lees (bâtonnage) increases extraction.' },
+  { term: 'Legs', def: 'The rivulets of wine that run down the inside of a glass after swirling. Often cited as a quality indicator, but actually indicate alcohol or sugar content, not quality. An unreliable assessment tool.' },
+  { term: 'Maceration', def: 'The contact between grape juice and skins during (or sometimes before/after) fermentation. Extracts colour, tannin, and flavour compounds. Longer maceration = more extraction. Cold soak = maceration before fermentation begins.' },
+  { term: 'Magnum', def: 'A 1.5L bottle — twice the standard size. Generally considered the ideal format for ageing fine wine, as the wine develops more slowly and evenly than in a standard bottle.' },
+  { term: 'Malolactic Fermentation (MLF)', def: 'A bacterial conversion of sharp malic acid (green apple) to softer lactic acid (milk) in wine. Reduces acidity, adds a creamy texture. Standard for reds; stylistically optional for whites (full = buttery Chardonnay; absent = crisp Chablis).' },
+  { term: 'Méthode Champenoise', def: 'The Traditional Method — secondary fermentation in the bottle creates bubbles. Used for Champagne, Cava, Franciacorta, Crémant. The most labour-intensive and quality-oriented sparkling wine method.' },
+  { term: 'Micro-oxygenation', def: 'Controlled, tiny exposure to oxygen during winemaking or ageing — either through barrel staves or deliberately introduced micro-bubbles. Softens tannins and stabilises colour, mimicking natural barrel ageing.' },
+  { term: 'Minerality', def: 'A tasting term for a non-fruit, non-oak sensation — often described as wet stone, flint, chalk, or saline. Contested: scientists debate whether soil minerals are actually detectable in wine. Generally a quality indicator.' },
+  { term: 'Monopole', def: 'A vineyard owned entirely by one producer, giving them exclusive rights to use that vineyard\'s name. Famous examples: Romanée-Conti (DRC), La Tâche (DRC), Clos des Mouches (Drouhin).' },
+  { term: 'Moelleux', def: 'French term for a style of wine with noticeable residual sugar — typically applied to Loire Valley Chenin Blanc from Vouvray, Montlouis, and Quarts de Chaume. Sweeter than demi-sec, drier than liquoreux.' },
+  { term: 'Must', def: 'Grape juice (including skins, seeds, and stems) before or during fermentation. For whites, must usually refers to the clear pressed juice only.' },
+  { term: 'Négociant', def: 'A wine merchant or producer who buys grapes or wine from growers, blends it, and sells it under their own label. The big Champagne houses (Moët, Bollinger, Krug) are all négociants.' },
+  { term: 'New World', def: 'Wine-producing countries outside Europe and the Middle East: USA, Australia, New Zealand, Chile, Argentina, South Africa, etc. Generally characterised by riper fruit, more generous alcohol, and grape-variety labelling.' },
+  { term: 'Nose', def: 'The aroma of a wine — what you perceive when you smell the glass. The nose can be assessed in three parts: primary (grape/fermentation aromas), secondary (winemaking — oak, lees), tertiary (ageing aromas — earth, leather, truffle).' },
+  { term: 'Oak', def: 'Barrels made from oak wood used to age wine. Oak contributes flavour (vanilla, spice, toast, coconut), texture (tannin, roundness), and controlled oxygen exposure. French oak = subtle; American oak = bold.' },
+  { term: 'Old Vine', def: 'Grapes from older vines — typically 25–100+ years old. Old vines have deep root systems, lower yields, and concentrated flavour. No legal definition exists, but producers often use "Vieilles Vignes" (French) on labels.' },
+  { term: 'Old World', def: 'The traditional wine-producing regions of Europe and the Middle East — France, Italy, Spain, Germany, Portugal, etc. Characterised by place-focused labelling, restraint in style, and centuries of winemaking tradition.' },
+  { term: 'Oxidation', def: 'Excessive exposure of wine to oxygen, causing deterioration: flat aromas, browning colour, and a sherry-like or vinegary smell. A fault in most wines, but intentional in Sherry, Madeira, and Tawny Port.' },
+  { term: 'Palate', def: 'The sensory experience of wine in the mouth — taste, texture, weight, tannin, acidity, and finish combined. Tasting notes refer to front-palate (first impression), mid-palate, and finish.' },
+  { term: 'Pétillant Naturel', def: 'A gently sparkling wine made by the ancestral method — bottled before fermentation completes, trapping natural CO₂. No added dosage or sulphur. Often cloudy and yeasty. Abbreviated "pét-nat."' },
+  { term: 'Phenolics', def: 'A broad category of chemical compounds in wine — including tannins, anthocyanins (colour), and flavonoids. "Phenolic ripeness" means the tannins are mature and smooth, not green and harsh.' },
+  { term: 'Phylloxera', def: 'A root louse (Daktulosphaira vitifoliae) that devastated European vineyards in the 19th century. The solution: grafting European vines onto phylloxera-resistant American rootstocks, still standard practice worldwide.' },
+  { term: 'Pigeage', def: 'French term for "punch down" — breaking up and submerging the cap of grape skins that floats on fermenting red wine. Extracts colour and tannin, and prevents bacterial spoilage of the dry cap.' },
+  { term: 'Premier Cru', def: 'Second-highest classification in Burgundy, below Grand Cru. In Bordeaux, the term is used differently — the 1855 Classification\'s top châteaux are called Premier Grand Cru Classé.' },
+  { term: 'Prestige Cuvée', def: 'The top wine in a Champagne house\'s range — e.g. Krug Grande Cuvée, Dom Pérignon, Cristal. Usually vintage-dated, from the finest plots, aged longer on lees.' },
+  { term: 'Primary Aromas', def: 'Aromas that come directly from the grape — fresh fruit, floral, and some herbal notes. Young wines are dominated by primary aromas; ageing develops secondary and tertiary complexity.' },
+  { term: 'Racking', def: 'Transferring wine from one vessel to another, leaving sediment behind. Clarifies the wine, introduces a small amount of oxygen, and helps develop complexity during élevage.' },
+  { term: 'Rancio', def: 'A distinctive oxidative, nutty, dried-fruit flavour found in aged fortified wines (Tawny Port, Madeira, Banyuls) and some oxidatively aged spirits. Considered a mark of quality and complexity.' },
+  { term: 'Reduction', def: 'A winemaking fault (or stylistic feature in low-sulphur wines) where insufficient oxygen exposure produces sulphur-based off-aromas: struck match, rubber, or rotten egg. Often resolves with aeration.' },
+  { term: 'Remontage', def: 'French term for "pump over" — pumping fermenting red wine from the bottom of the tank and spraying it over the cap. Extracts colour and tannin; gentler than pigeage (punch down).' },
+  { term: 'Residual Sugar (RS)', def: 'The natural grape sugar remaining in a wine after fermentation. Dry wines: 0–4g/L; off-dry: 4–12g/L; medium-sweet: 12–45g/L; sweet: 45g/L+. High acidity can mask residual sugar.' },
+  { term: 'Riddling (Remuage)', def: 'A step in traditional-method sparkling wine: bottles are gradually tilted and rotated so yeast sediment collects in the neck, ready for disgorgement. Done by hand (sur pupitre) or by gyropalette machine.' },
+  { term: 'Skin Contact', def: 'Allowing white grape juice to remain in contact with the grape skins after pressing, extracting tannin, colour (orange/amber), and phenolic structure. "Orange wine" is produced by extended skin contact on white grapes.' },
+  { term: 'Solera', def: 'The fractional blending system used in Sherry production. Wine is held in a series of barrels at different stages of ageing; a portion is drawn from the oldest barrels, topped up from younger wine. No vintage is ever fully removed.' },
+  { term: 'Sommelier', def: 'A trained wine professional, typically working in a restaurant. Responsible for the wine list, wine service, food and wine pairing, and cellar management. The Court of Master Sommeliers sets the highest professional standard.' },
+  { term: 'Structure', def: 'The framework of a wine — acidity, tannin, alcohol, and sweetness in balance. A wine with good structure feels purposeful and food-friendly; poor structure feels thin, flat, or unbalanced.' },
+  { term: 'Sur Lie', def: 'French for "on the lees." Wine aged in contact with its dead yeast cells after fermentation, gaining texture, richness, and yeasty complexity. Standard for Muscadet and high-quality Champagne.' },
+  { term: 'Tannin', def: 'Polyphenolic compounds from grape skins, seeds, and stalks (also from oak barrels) that create a drying, gripping sensation in the mouth. Essential for red wine structure and age-worthiness. Softened by food protein and fat.' },
+  { term: 'Terroir', def: 'The complete natural environment of a vineyard — soil, climate, topography, and (arguably) the human hand — that gives wine its sense of place. A wine that expresses terroir is said to be terroir-driven.' },
+  { term: 'Varietal', def: 'A wine named after the single grape variety used to make it: "Sauvignon Blanc," "Pinot Noir." The opposite of a place-named Old World wine. Most New World wines are labeled varietally.' },
+  { term: 'Vertical Tasting', def: 'Tasting multiple vintages of the same wine from the same producer — for example, a Châteauneuf-du-Pape across 10 successive years. Reveals how the wine evolves with age and responds to vintage variation.' },
+  { term: 'Vieilles Vignes', def: 'French for "old vines." No legal minimum age exists, but wines labeled vieilles vignes are expected to show more concentration and complexity than younger vines of the same variety and origin.' },
+  { term: 'Volatile Acidity (VA)', def: 'The measure of acetic acid (vinegar) and other volatile acids in wine. At low levels, VA adds complexity; at high levels, it is a fault producing a sharp vinegar or nail-polish aroma.' },
+  { term: 'Whole Bunch', def: 'Fermenting red grapes without destemming — leaving the grape clusters intact with their stems. Adds tannin, spice, and freshness. Used selectively in Burgundy and the Rhône by traditional producers.' },
+  { term: 'Yield', def: 'The quantity of fruit produced per hectare of vineyard, measured in hectolitres per hectare (hl/ha) or tonnes per acre. Lower yields generally mean more concentrated, flavourful wine. Maximum yields are often regulated by appellation rules.' },
+];
+
+function glossaryFilter(query) {
+  const q = query.trim().toLowerCase();
+  const items = document.querySelectorAll('.glossary-item');
+  const letters = document.querySelectorAll('.glossary-letter-divider');
+  let visible = 0;
+  items.forEach(el => {
+    const match = !q || el.dataset.term.includes(q) || el.dataset.def.includes(q);
+    el.hidden = !match;
+    if (match) visible++;
+  });
+  letters.forEach(el => { el.hidden = !!q; });
+  document.getElementById('glossary-count').textContent = q
+    ? visible + ' term' + (visible !== 1 ? 's' : '') + ' matching "' + query.trim() + '"'
+    : visible + ' terms';
+}
+
+function glossaryRender() {
+  const list = document.getElementById('glossary-list');
+  if (!list) return;
+  const sorted = [...GLOSSARY].sort((a, b) => a.term.localeCompare(b.term));
+  let lastLetter = '';
+  let html = '';
+  sorted.forEach(item => {
+    const letter = item.term[0].toUpperCase();
+    if (letter !== lastLetter) {
+      html += `<div class="glossary-letter-divider" aria-hidden="true">${escapeHtml(letter)}</div>`;
+      lastLetter = letter;
+    }
+    html += `<div class="glossary-item" role="listitem" data-term="${escapeHtml(item.term.toLowerCase())}" data-def="${escapeHtml(item.def.toLowerCase())}">
+      <span class="glossary-term">${escapeHtml(item.term)}</span>
+      <span class="glossary-def">${escapeHtml(item.def)}</span>
+    </div>`;
+  });
+  list.innerHTML = html;
+  document.getElementById('glossary-count').textContent = sorted.length + ' terms';
+}
+
+document.addEventListener('DOMContentLoaded', glossaryRender);
+
 function finderScoreGrapes() {
   return GRAPES.map(grape => {
     let score = 0;
@@ -8701,6 +9354,37 @@ function finderScoreGrapes() {
       const hits = (FLAVOUR_KWS[fl] || []).filter(kw => allText.includes(kw)).length;
       score += hits * 2;
     });
+
+    // Tannin preference
+    if (finderAnswers.tannin) {
+      const sumT = grape.summary.toLowerCase();
+      const highTannin = /\b(tannin|tannic|structured|grip|firm|age.worth|powerful|robust|dense)\b/.test(sumT);
+      const lowTannin  = /\b(delicate|light|silky|soft|low.tannin|gentle|refreshing|thin.skin)\b/.test(sumT);
+      if (finderAnswers.tannin === 'bold')   { score += highTannin ? 4 : (lowTannin ? -2 : 0); }
+      if (finderAnswers.tannin === 'soft')   { score += lowTannin  ? 4 : (highTannin ? -3 : 0); }
+      if (finderAnswers.tannin === 'medium') { score += (!highTannin && !lowTannin) ? 3 : 1; }
+      if (finderAnswers.tannin === 'none')   {
+        if (grape.type === 'red' && highTannin) return { grape, score: -99 };
+        if (grape.type === 'white') score += 3;
+      }
+    }
+
+    // Occasion
+    if (finderAnswers.occasion) {
+      const sumO = grape.summary.toLowerCase();
+      if (finderAnswers.occasion === 'aperitif') {
+        const isAperitif = /\b(refreshing|crisp|light|delicate|sparkling|citrus|dry|aperitif|light.bod)\b/.test(sumO);
+        score += isAperitif ? 3 : 0;
+      }
+      if (finderAnswers.occasion === 'celebration') {
+        const isCelebration = /\b(complex|prestigious|age.worth|great|finest|classic|grand|exceptional|world.class)\b/.test(sumO);
+        score += isCelebration ? 3 : 0;
+      }
+      if (finderAnswers.occasion === 'sipping') {
+        const isSipping = /\b(aromatic|fragrant|floral|elegant|silky|smooth|easy|delicious|sensual)\b/.test(sumO);
+        score += isSipping ? 2 : 0;
+      }
+    }
 
     // Region
     if (finderAnswers.region && finderAnswers.region !== 'any') {
@@ -8787,12 +9471,14 @@ function resetFinder() {
   finderAnswers.type = null;
   finderAnswers.body = null;
   finderAnswers.flavours.clear();
+  finderAnswers.tannin = null;
+  finderAnswers.occasion = null;
   finderAnswers.region = null;
 
   document.querySelectorAll('[data-fq], .quiz-multi-btn').forEach(b => b.classList.remove('selected'));
   document.getElementById('finder-flavour-next').disabled = true;
 
-  for (let i = 2; i <= 4; i++) document.getElementById('finder-q' + i).hidden = true;
+  for (let i = 2; i <= 6; i++) document.getElementById('finder-q' + i).hidden = true;
   document.getElementById('finder-q1').hidden = false;
   finderUpdateProgress(1);
 
