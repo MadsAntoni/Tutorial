@@ -1478,10 +1478,283 @@
       width: 1px; height: 24px; background: var(--border); flex-shrink: 0; align-self: center;
       margin: 0 4px;
     }
+
+    /* ── Login Screen ─────────────────────────────────────────────────────── */
+    #login-screen {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: linear-gradient(155deg, #080005 0%, #160310 25%, #270818 55%, #160010 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      transition: opacity .5s ease;
+    }
+    #login-screen.fade-out { opacity: 0; pointer-events: none; }
+    .login-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(201,168,76,0.28);
+      border-radius: 16px;
+      padding: 36px 32px;
+      width: 100%;
+      max-width: 380px;
+      backdrop-filter: blur(10px);
+    }
+    .login-brand {
+      text-align: center;
+      margin-bottom: 28px;
+    }
+    .login-brand-name {
+      font-family: Georgia, 'Times New Roman', serif;
+      font-size: 1.7rem;
+      font-weight: 700;
+      color: #f0ebe3;
+    }
+    .login-brand-name span { color: #c9a84c; }
+    .login-brand-sub {
+      font-size: .8rem;
+      color: rgba(240,235,227,.5);
+      margin-top: 4px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+    .login-tabs {
+      display: flex;
+      border-radius: 8px;
+      background: rgba(0,0,0,.25);
+      padding: 3px;
+      margin-bottom: 22px;
+      gap: 2px;
+    }
+    .login-tab {
+      flex: 1;
+      padding: 8px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: .875rem;
+      color: rgba(240,235,227,.55);
+      transition: all .15s;
+    }
+    .login-tab.active {
+      background: rgba(201,168,76,0.2);
+      color: #c9a84c;
+    }
+    .login-panel { display: block; }
+    .login-panel[hidden] { display: none; }
+    .login-field { margin-bottom: 14px; }
+    .login-field label {
+      display: block;
+      font-size: .75rem;
+      color: rgba(240,235,227,.55);
+      margin-bottom: 5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+    }
+    .login-field input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 8px;
+      font-size: .95rem;
+      background: rgba(0,0,0,.3);
+      color: #f0ebe3;
+      box-sizing: border-box;
+      outline: none;
+      transition: border-color .15s;
+    }
+    .login-field input::placeholder { color: rgba(240,235,227,.3); }
+    .login-field input:focus { border-color: rgba(201,168,76,.6); }
+    .login-err {
+      font-size: .83rem;
+      color: #e07070;
+      margin-bottom: 10px;
+      min-height: 18px;
+    }
+    .login-submit {
+      width: 100%;
+      padding: 11px;
+      background: var(--wine);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: .95rem;
+      cursor: pointer;
+      font-weight: 600;
+      margin-top: 2px;
+      transition: opacity .15s;
+    }
+    .login-submit:hover { opacity: .88; }
+    .login-divider {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 16px 0;
+      color: rgba(240,235,227,.3);
+      font-size: .8rem;
+    }
+    .login-divider::before, .login-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: rgba(201,168,76,.15);
+    }
+    .login-guest {
+      width: 100%;
+      padding: 9px;
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 8px;
+      background: transparent;
+      color: rgba(240,235,227,.6);
+      font-size: .875rem;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .login-guest:hover { border-color: rgba(201,168,76,.5); color: #c9a84c; }
+    .login-note {
+      text-align: center;
+      font-size: .73rem;
+      color: rgba(240,235,227,.3);
+      margin-top: 14px;
+    }
+
+    /* ── Header user badge ────────────────────────────────────────────────── */
+    header { position: relative; }
+    .user-badge {
+      position: absolute;
+      top: 12px;
+      right: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .user-avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--wine);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: .8rem;
+      flex-shrink: 0;
+    }
+    .user-name {
+      font-size: .82rem;
+      color: var(--muted);
+      font-weight: 500;
+    }
+    .signout-btn {
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .75rem;
+      padding: 3px 8px;
+      border-radius: 4px;
+      transition: all .15s;
+    }
+    .signout-btn:hover { border-color: var(--wine); color: var(--wine); }
+    @media (max-width: 480px) {
+      .user-name { display: none; }
+      .user-badge { top: 8px; right: 10px; }
+    }
+
+    /* ── Bookmark button on grape cards ───────────────────────────────────── */
+    .card-header { position: relative; }
+    .bm-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background: none;
+      border: none;
+      font-size: 1.1rem;
+      cursor: pointer;
+      line-height: 1;
+      padding: 2px 4px;
+      color: var(--border);
+      transition: color .15s, transform .1s;
+      border-radius: 4px;
+    }
+    .bm-btn:hover { color: var(--wine); transform: scale(1.15); }
+    .bm-btn.saved { color: var(--wine); }
+    .bm-btn[hidden] { display: none; }
+
+    /* ── My Wines panel ───────────────────────────────────────────────────── */
+    #tab-my-wines .page-header { margin-bottom: 20px; }
+    .my-wines-empty {
+      text-align: center;
+      padding: 48px 24px;
+      color: var(--muted);
+    }
+    .my-wines-empty p { margin: 6px 0; }
+    .my-wines-empty .goto-link {
+      background: none;
+      border: none;
+      color: var(--wine);
+      cursor: pointer;
+      font-size: 1rem;
+      text-decoration: underline;
+      padding: 0;
+    }
   </style>
 
 </head>
 <body>
+
+<!-- ── Login Screen ────────────────────────────────────────────────────────── -->
+<div id="login-screen" role="dialog" aria-label="Sign in to Vine &amp; Terroir" aria-modal="true">
+  <div class="login-card">
+    <div class="login-brand">
+      <div class="login-brand-name">Vine <span>&amp;</span> Terroir</div>
+      <div class="login-brand-sub">Wine Education</div>
+    </div>
+
+    <div class="login-tabs" role="tablist">
+      <button class="login-tab active" data-lt="signin" role="tab" aria-selected="true">Sign In</button>
+      <button class="login-tab" data-lt="register" role="tab" aria-selected="false">Create Account</button>
+    </div>
+
+    <div id="lt-signin-panel" class="login-panel">
+      <div class="login-field">
+        <label for="li-username">Username</label>
+        <input type="text" id="li-username" autocomplete="username" placeholder="Your username">
+      </div>
+      <div class="login-field">
+        <label for="li-password">Password</label>
+        <input type="password" id="li-password" autocomplete="current-password" placeholder="Your password">
+      </div>
+      <p class="login-err" id="li-err" aria-live="polite"></p>
+      <button class="login-submit" id="li-submit">Sign In</button>
+    </div>
+
+    <div id="lt-register-panel" class="login-panel" hidden>
+      <div class="login-field">
+        <label for="reg-username">Username</label>
+        <input type="text" id="reg-username" autocomplete="username" placeholder="Choose a username (min 2 chars)">
+      </div>
+      <div class="login-field">
+        <label for="reg-password">Password</label>
+        <input type="password" id="reg-password" autocomplete="new-password" placeholder="At least 6 characters">
+      </div>
+      <div class="login-field">
+        <label for="reg-confirm">Confirm Password</label>
+        <input type="password" id="reg-confirm" autocomplete="new-password" placeholder="Repeat password">
+      </div>
+      <p class="login-err" id="reg-err" aria-live="polite"></p>
+      <button class="login-submit" id="reg-submit">Create Account</button>
+    </div>
+
+    <div class="login-divider"><span>or</span></div>
+    <button class="login-guest" id="login-guest-btn">Continue as Guest</button>
+    <p class="login-note">Accounts are stored in your browser only &mdash; no server, no tracking.</p>
+  </div>
+</div>
 
 <!-- ── Landing Page ───────────────────────────────────────────────────────── -->
 <div id="landing-page" role="dialog" aria-label="Welcome to Vine &amp; Terroir" aria-modal="true">
@@ -1595,13 +1868,18 @@
     <button class="enter-btn" id="landing-enter" aria-label="Enter Vine and Terroir">
       Begin Exploring <span class="arrow" aria-hidden="true">→</span>
     </button>
-    <p class="landing-footer-stats">Free · No account · No tracking</p>
+    <p class="landing-footer-stats">Free · Local accounts only · No external tracking</p>
   </div>
 </div>
 
 <header>
   <h1>Vine <span>&</span> Terroir</h1>
   <p>Discover wine grapes, their tasting notes, and how the world shapes their flavour</p>
+  <div class="user-badge" id="user-badge" hidden>
+    <div class="user-avatar" id="user-avatar" aria-hidden="true">?</div>
+    <span class="user-name" id="user-name-display"></span>
+    <button class="signout-btn" id="signout-btn">Sign out</button>
+  </div>
 </header>
 
 <nav class="primary-nav" role="navigation" aria-label="Main sections">
@@ -1612,6 +1890,10 @@
   <button class="primary-btn" data-group="find" aria-expanded="false">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="7.5" cy="7.5" r="5.5"/><line x1="11.5" y1="11.5" x2="16.5" y2="16.5"/></svg>
     Find your Wine
+  </button>
+  <button class="primary-btn" data-group="my-wines" aria-expanded="false">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14.5s-6-3.5-6-7.5a4 4 0 0 1 6-3.46A4 4 0 0 1 15 7c0 4-6 7.5-6 7.5z"/></svg>
+    My Wines
   </button>
 </nav>
 
@@ -4035,6 +4317,14 @@
   </div><!-- /finder-container -->
 </section>
 
+<section id="tab-my-wines" class="tab-panel" role="tabpanel">
+  <div class="page-header">
+    <h2>My Wines</h2>
+    <p>Your bookmarked grape varieties</p>
+  </div>
+  <div id="my-wines-grid" class="card-grid"></div>
+</section>
+
 <!-- Modal -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
   <div class="modal" id="modal">
@@ -4046,8 +4336,69 @@
 <script>
 (function () {
 'use strict';
-function enterApp() {
+// ── Auth (localStorage-based) ─────────────────────────────────────────────
+function _djb2(s) {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) { h = ((h << 5) + h) + s.charCodeAt(i); h |= 0; }
+  return (h >>> 0).toString(16);
+}
+
+const AUTH = (() => {
+  const UK = 'vt_users', SK = 'vt_session';
+  const load = () => { try { return JSON.parse(localStorage.getItem(UK) || '{}'); } catch(e) { return {}; } };
+  const save = u => { try { localStorage.setItem(UK, JSON.stringify(u)); } catch(e) {} };
+  return {
+    register(name, pass) {
+      name = name.trim();
+      if (name.length < 2) return { ok: false, msg: 'Username must be at least 2 characters' };
+      if (pass.length < 6) return { ok: false, msg: 'Password must be at least 6 characters' };
+      const users = load();
+      if (users[name]) return { ok: false, msg: 'Username already taken' };
+      users[name] = { hash: _djb2(pass), bookmarks: [] };
+      save(users);
+      localStorage.setItem(SK, name);
+      return { ok: true };
+    },
+    login(name, pass) {
+      name = name.trim();
+      const users = load();
+      if (!users[name]) return { ok: false, msg: 'Username not found' };
+      if (users[name].hash !== _djb2(pass)) return { ok: false, msg: 'Incorrect password' };
+      localStorage.setItem(SK, name);
+      return { ok: true };
+    },
+    logout() { try { localStorage.removeItem(SK); } catch(e) {} },
+    user()   { try { return localStorage.getItem(SK); } catch(e) { return null; } },
+    isGuest(){ return this.user() === '__guest__'; },
+    guest()  { try { localStorage.setItem(SK, '__guest__'); } catch(e) {} },
+    getBookmarks() {
+      const u = this.user();
+      if (!u || u === '__guest__') return [];
+      return load()[u]?.bookmarks || [];
+    },
+    toggleBookmark(id) {
+      const u = this.user();
+      if (!u || u === '__guest__') return false;
+      const users = load();
+      if (!users[u]) return false;
+      const bm = users[u].bookmarks || [];
+      const idx = bm.indexOf(id);
+      if (idx > -1) bm.splice(idx, 1); else bm.push(id);
+      users[u].bookmarks = bm;
+      save(users);
+      return idx === -1;
+    },
+    isBookmarked(id) { return this.getBookmarks().includes(id); }
+  };
+})();
+
+function enterApp(skipLanding) {
   const landing = document.getElementById('landing-page');
+  if (!landing) return;
+  if (skipLanding) {
+    landing.remove();
+    return;
+  }
   landing.classList.add('leaving');
   setTimeout(() => { landing.remove(); }, 680);
 }
@@ -4067,7 +4418,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'faults', 'winemaking', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'glossary', 'finder']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'faults', 'winemaking', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'glossary', 'finder', 'my-wines']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 function debounce(fn, ms) {
@@ -8731,16 +9082,19 @@ const GRAPES = [
 ];
 
 // ── Render cards ─────────────────────────────────────────────────────────────
-function renderCards(grapes) {
-  const grid  = document.getElementById('grape-grid');
-  const count = document.getElementById('results-count');
+function renderCards(grapes, targetGrid) {
+  const grid  = targetGrid || document.getElementById('grape-grid');
+  const isMain = !targetGrid;
   grid.innerHTML = '';
 
-  const total = GRAPES.length;
-  if (grapes.length === total) {
-    count.innerHTML = `Showing all <span>${total}</span> grape varieties`;
-  } else {
-    count.innerHTML = `Showing <span>${grapes.length}</span> of ${total} grape varieties`;
+  if (isMain) {
+    const count = document.getElementById('results-count');
+    const total = GRAPES.length;
+    if (grapes.length === total) {
+      count.innerHTML = `Showing all <span>${total}</span> grape varieties`;
+    } else {
+      count.innerHTML = `Showing <span>${grapes.length}</span> of ${total} grape varieties`;
+    }
   }
 
   if (!grapes.length) {
@@ -8748,6 +9102,7 @@ function renderCards(grapes) {
     return;
   }
 
+  const isLoggedIn = AUTH.user() && !AUTH.isGuest();
   const frag = document.createDocumentFragment();
   grapes.forEach(grape => {
     const card = document.createElement('article');
@@ -8759,6 +9114,7 @@ function renderCards(grapes) {
     const topRegions = grape.regions.slice(0, 3).map(r => `${r.flag} ${escapeHtml(r.name.split(',')[0])}`).join(' · ');
     const safeT      = VALID_TYPES.has(grape.type) ? grape.type : 'red';
     const typeLabel  = safeT === 'red' ? 'Red Wine' : 'White Wine';
+    const saved      = isLoggedIn && AUTH.isBookmarked(grape.id);
 
     card.innerHTML = `
       <div class="card-header">
@@ -8768,6 +9124,7 @@ function renderCards(grapes) {
           <div class="alias">${escapeHtml(grape.alias)}</div>
           <span class="type-badge ${safeT}">${typeLabel}</span>
         </div>
+        <button class="bm-btn ${saved ? 'saved' : ''}" data-bm="${escapeHtml(grape.id)}" aria-label="${saved ? 'Remove from My Wines' : 'Save to My Wines'}" title="${saved ? 'Remove from My Wines' : 'Save to My Wines'}"${isLoggedIn ? '' : ' hidden'}>♥</button>
       </div>
       <p class="card-notes">${escapeHtml(grape.summary)}</p>
       <div class="taste-pills">
@@ -8779,7 +9136,10 @@ function renderCards(grapes) {
       </div>
     `;
 
-    card.addEventListener('click', () => openModal(grape));
+    card.addEventListener('click', e => {
+      if (e.target.closest('.bm-btn')) return;
+      openModal(grape);
+    });
     card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') openModal(grape); });
     frag.appendChild(card);
   });
@@ -8931,6 +9291,33 @@ document.querySelectorAll('.region-btn').forEach(btn => {
 // Initial render
 renderCards(GRAPES);
 
+// ── My Wines ──────────────────────────────────────────────────────────────
+function renderMyWines() {
+  const grid = document.getElementById('my-wines-grid');
+  if (!grid) return;
+  const isLoggedIn = AUTH.user() && !AUTH.isGuest();
+  if (!isLoggedIn) {
+    grid.innerHTML = '<div class="my-wines-empty"><p>Sign in to save your favourite grapes.</p></div>';
+    return;
+  }
+  const bm = AUTH.getBookmarks();
+  if (!bm.length) {
+    grid.innerHTML = '<div class="my-wines-empty"><p>No grapes saved yet.</p><p>Browse the <button class="goto-link" data-goto="explorer">Grape Explorer</button> and tap ♥ on a card to save it here.</p></div>';
+    const gotoBtn = grid.querySelector('.goto-link');
+    if (gotoBtn) {
+      gotoBtn.addEventListener('click', () => {
+        const learnBtn = document.querySelector('.primary-btn[data-group="learn"]');
+        if (learnBtn) learnBtn.click();
+        const expBtn = document.querySelector('.tab-btn[data-tab="explorer"]');
+        if (expBtn) expBtn.click();
+      });
+    }
+    return;
+  }
+  const saved = GRAPES.filter(g => bm.includes(g.id));
+  renderCards(saved, grid);
+}
+
 // ── Two-level navigation ──────────────────────────────────────────────────
 let lastLearnTab = 'explorer';
 
@@ -8949,6 +9336,10 @@ document.querySelectorAll('.primary-btn').forEach(btn => {
     if (group === 'find') {
       subnav.hidden = true;
       document.getElementById('tab-finder').classList.add('active');
+    } else if (group === 'my-wines') {
+      subnav.hidden = true;
+      document.getElementById('tab-my-wines').classList.add('active');
+      renderMyWines();
     } else {
       subnav.hidden = false;
       const lastBtn = document.querySelector(`.tab-btn[data-tab="${lastLearnTab}"]`);
