@@ -9882,8 +9882,115 @@ function resetFinder() {
   document.getElementById('finder-quiz-wrap').hidden = false;
 }
 
+// ── Bookmark event delegation ─────────────────────────────────────────────
+document.getElementById('grape-grid').addEventListener('click', e => {
+  const btn = e.target.closest('.bm-btn');
+  if (!btn) return;
+  e.stopPropagation();
+  const id = btn.dataset.bm;
+  if (!id) return;
+  const added = AUTH.toggleBookmark(id);
+  btn.classList.toggle('saved', added);
+  btn.setAttribute('aria-label', added ? 'Remove from My Wines' : 'Save to My Wines');
+  btn.title = added ? 'Remove from My Wines' : 'Save to My Wines';
+});
+
+// ── Login screen JS ───────────────────────────────────────────────────────
+(function () {
+  const screen   = document.getElementById('login-screen');
+  const landing  = document.getElementById('landing-page');
+
+  function dismissLogin(showLanding) {
+    screen.classList.add('fade-out');
+    setTimeout(() => { screen.remove(); }, 520);
+    updateUserBadge();
+    if (!showLanding && landing) enterApp(true);
+  }
+
+  function updateUserBadge() {
+    const u    = AUTH.user();
+    const badge = document.getElementById('user-badge');
+    if (!u || u === '__guest__') {
+      if (badge) badge.hidden = true;
+      return;
+    }
+    if (badge) {
+      badge.hidden = false;
+      const av = document.getElementById('user-avatar');
+      const nm = document.getElementById('user-name-display');
+      if (av) av.textContent = u.charAt(0).toUpperCase();
+      if (nm) nm.textContent = u;
+    }
+  }
+
+  // If already logged in, skip login and landing screens
+  if (AUTH.user()) {
+    screen.remove();
+    updateUserBadge();
+    if (landing) enterApp(true);
+    return;
+  }
+
+  // Login tab toggle
+  screen.querySelectorAll('.login-tab').forEach(t => {
+    t.addEventListener('click', () => {
+      screen.querySelectorAll('.login-tab').forEach(x => { x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      const lt = t.dataset.lt;
+      document.getElementById('lt-signin-panel').hidden   = (lt !== 'signin');
+      document.getElementById('lt-register-panel').hidden = (lt !== 'register');
+    });
+  });
+
+  // Sign In
+  function doSignIn() {
+    const name = document.getElementById('li-username').value;
+    const pass = document.getElementById('li-password').value;
+    const err  = document.getElementById('li-err');
+    const res  = AUTH.login(name, pass);
+    if (!res.ok) { err.textContent = res.msg; return; }
+    err.textContent = '';
+    dismissLogin(false);
+  }
+  document.getElementById('li-submit').addEventListener('click', doSignIn);
+  document.getElementById('li-password').addEventListener('keydown', e => { if (e.key === 'Enter') doSignIn(); });
+
+  // Register
+  function doRegister() {
+    const name  = document.getElementById('reg-username').value;
+    const pass  = document.getElementById('reg-password').value;
+    const conf  = document.getElementById('reg-confirm').value;
+    const err   = document.getElementById('reg-err');
+    if (pass !== conf) { err.textContent = 'Passwords do not match'; return; }
+    const res = AUTH.register(name, pass);
+    if (!res.ok) { err.textContent = res.msg; return; }
+    err.textContent = '';
+    dismissLogin(true); // show landing page for new users
+  }
+  document.getElementById('reg-submit').addEventListener('click', doRegister);
+  document.getElementById('reg-confirm').addEventListener('keydown', e => { if (e.key === 'Enter') doRegister(); });
+
+  // Guest
+  document.getElementById('login-guest-btn').addEventListener('click', () => {
+    AUTH.guest();
+    dismissLogin(true); // show landing page for guests
+  });
+
+  // Sign out
+  const signoutBtn = document.getElementById('signout-btn');
+  if (signoutBtn) {
+    signoutBtn.addEventListener('click', () => {
+      AUTH.logout();
+      // Rebuild login screen (reload page)
+      location.reload();
+    });
+  }
+
+  updateUserBadge();
+})();
+
 // ── Finder event delegation ──────────────────────────────────────────────
-document.getElementById('landing-enter').addEventListener('click', enterApp);
+document.getElementById('landing-enter').addEventListener('click', () => enterApp(false));
 
 document.getElementById('finder-quiz-wrap').addEventListener('click', e => {
   const btn = e.target.closest('button');
