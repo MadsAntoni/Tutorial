@@ -1702,6 +1702,104 @@
       text-decoration: underline;
       padding: 0;
     }
+
+    /* ── Wine Menus ───────────────────────────────────────────────────────── */
+    .pairing-mode-toggle {
+      display: flex;
+      border-radius: 8px;
+      background: var(--bg);
+      padding: 3px;
+      gap: 2px;
+      width: fit-content;
+      margin: 16px 0 24px;
+    }
+    .pm-btn {
+      padding: 7px 18px;
+      border: none;
+      background: transparent;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: .875rem;
+      color: var(--muted);
+      transition: all .15s;
+    }
+    .pm-btn.active {
+      background: var(--card-bg);
+      color: var(--text);
+      box-shadow: 0 1px 4px rgba(0,0,0,.1);
+    }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .menu-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      cursor: pointer;
+      transition: box-shadow .15s;
+    }
+    .menu-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,.1); }
+    .menu-card-icon { font-size: 2rem; margin-bottom: 10px; }
+    .menu-card-name { font-size: 1.05rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .menu-card-occasion { font-size: .8rem; color: var(--muted); margin-bottom: 10px; }
+    .menu-card-preview { font-size: .82rem; color: var(--muted); line-height: 1.5; }
+    .menu-detail { display: none; }
+    .menu-detail.active { display: block; }
+    .menu-detail-back {
+      background: none;
+      border: none;
+      color: var(--wine);
+      cursor: pointer;
+      font-size: .9rem;
+      padding: 0;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .menu-detail-header { margin-bottom: 24px; }
+    .menu-detail-icon { font-size: 2.5rem; margin-bottom: 8px; }
+    .menu-detail-name { font-size: 1.4rem; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .menu-detail-occasion { font-size: .85rem; color: var(--muted); margin-bottom: 10px; }
+    .menu-detail-intro { font-size: .92rem; color: var(--muted); line-height: 1.6; }
+    .course-list { display: flex; flex-direction: column; gap: 12px; }
+    .course-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 18px;
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    @media (max-width: 540px) {
+      .course-item { grid-template-columns: 1fr; }
+    }
+    .course-label {
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--wine);
+      padding-top: 2px;
+    }
+    .course-dish { font-weight: 600; color: var(--text); margin-bottom: 6px; font-size: .95rem; }
+    .course-wine { font-size: .88rem; color: var(--gold, #c9a84c); font-weight: 600; margin-bottom: 6px; }
+    .course-why { font-size: .82rem; color: var(--muted); line-height: 1.55; margin-bottom: 8px; }
+    .course-meta { display: flex; gap: 12px; flex-wrap: wrap; }
+    .course-meta-tag {
+      font-size: .73rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 2px 7px;
+    }
   </style>
 
 </head>
@@ -1995,11 +2093,21 @@
   <div class="pairing-container">
     <div class="pairing-intro">
       <h2>Find your perfect match</h2>
-      <p>Choose a dish or ingredient and we'll recommend wines from our collection that will elevate the meal.</p>
+      <p>Choose a dish and discover the wines that elevate it — or browse our curated multi-course wine menus.</p>
     </div>
-    <div class="category-grid" id="category-grid"></div>
-    <div id="dish-section" class="dish-section" hidden></div>
-    <div id="pairing-results" class="pairing-results" hidden></div>
+    <div class="pairing-mode-toggle" role="tablist">
+      <button class="pm-btn active" id="pm-dish" role="tab" aria-selected="true">By Dish</button>
+      <button class="pm-btn" id="pm-menu" role="tab" aria-selected="false">Wine Menus</button>
+    </div>
+    <div id="dish-mode">
+      <div class="category-grid" id="category-grid"></div>
+      <div id="dish-section" class="dish-section" hidden></div>
+      <div id="pairing-results" class="pairing-results" hidden></div>
+    </div>
+    <div id="menu-mode" hidden>
+      <div class="menu-grid" id="menu-grid"></div>
+      <div class="menu-detail" id="menu-detail"></div>
+    </div>
   </div>
 </section>
 
@@ -10027,6 +10135,11 @@ const CATEGORIES = [
   { id: 'japanese',       icon: '🍱',  name: 'Japanese',           desc: 'Sushi, ramen & yakitori' },
   { id: 'indian',         icon: '🍛',  name: 'Indian Spice',       desc: 'Curries, biryani & tandoori' },
   { id: 'american-bbq',   icon: '🔥',  name: 'American BBQ',       desc: 'Brisket, ribs & pulled pork' },
+  { id: 'chinese',    icon: '🥢', name: 'Chinese Kitchen', desc: 'Dim sum, Peking duck & Sichuan spice' },
+  { id: 'korean',     icon: '🇰🇷', name: 'Korean Table',    desc: 'Bulgogi, bibimbap & kimchi stew' },
+  { id: 'vietnamese', icon: '🇻🇳', name: 'Vietnamese',      desc: 'Phở, bánh mì & fresh spring rolls' },
+  { id: 'portuguese', icon: '🇵🇹', name: 'Portuguese',      desc: 'Bacalhau, cataplana & pastéis de nata' },
+  { id: 'brunch',     icon: '🍳', name: 'Brunch & Eggs',   desc: 'Eggs Benedict, shakshuka & charcuterie' },
 ];
 
 const DISHES = {
@@ -10048,6 +10161,11 @@ const DISHES = {
   thai:             [ {id:'pad-thai',name:'Pad Thai'}, {id:'green-curry',name:'Green Curry'}, {id:'som-tum',name:'Som Tum'}, {id:'massaman-curry',name:'Massaman Curry'}, {id:'tom-yum',name:'Tom Yum'}, {id:'larb',name:'Larb'}, {id:'satay',name:'Satay'}, {id:'mango-sticky-rice',name:'Mango Sticky Rice'} ],
   japanese:         [ {id:'sushi-sashimi',name:'Sushi & Sashimi'}, {id:'ramen',name:'Ramen'}, {id:'yakitori',name:'Yakitori'}, {id:'tempura',name:'Tempura'}, {id:'tonkatsu',name:'Tonkatsu'}, {id:'sukiyaki',name:'Sukiyaki'}, {id:'teriyaki-salmon',name:'Teriyaki Salmon'}, {id:'mochi-dessert',name:'Mochi'} ],
   indian:           [ {id:'chicken-tikka-masala',name:'Chicken Tikka Masala'}, {id:'lamb-biryani',name:'Lamb Biryani'}, {id:'butter-chicken',name:'Butter Chicken'}, {id:'dal-tadka',name:'Dal Tadka'}, {id:'palak-paneer',name:'Palak Paneer'}, {id:'tandoori-chicken',name:'Tandoori Chicken'}, {id:'samosas',name:'Samosas'}, {id:'gulab-jamun',name:'Gulab Jamun'} ],
+  'chinese': [ {id:'peking-duck',name:'Peking Duck'}, {id:'dim-sum',name:'Dim Sum'}, {id:'mapo-tofu',name:'Mapo Tofu'}, {id:'kung-pao-chicken',name:'Kung Pao Chicken'}, {id:'sichuan-hot-pot',name:'Sichuan Hot Pot'}, {id:'char-siu',name:'Char Siu BBQ Pork'}, {id:'xiaolongbao',name:'Xiaolongbao'}, {id:'congee',name:'Congee'} ],
+  'korean': [ {id:'bulgogi',name:'Bulgogi'}, {id:'galbi',name:'Galbi Short Ribs'}, {id:'bibimbap',name:'Bibimbap'}, {id:'kimchi-jjigae',name:'Kimchi Jjigae'}, {id:'japchae',name:'Japchae'}, {id:'haemul-pajeon',name:'Haemul Pajeon'}, {id:'tteokbokki',name:'Tteokbokki'}, {id:'samgyeopsal',name:'Samgyeopsal'} ],
+  'vietnamese': [ {id:'pho-bo',name:'Phở Bò'}, {id:'banh-mi',name:'Bánh Mì'}, {id:'fresh-spring-rolls',name:'Fresh Spring Rolls'}, {id:'bun-bo-hue',name:'Bún Bò Huế'}, {id:'ca-kho-to',name:'Cá Kho Tộ'}, {id:'bo-luc-lac',name:'Bò Lúc Lắc'}, {id:'banh-xeo',name:'Bánh Xèo'}, {id:'che-ba-ba',name:'Chè Bà Ba'} ],
+  'portuguese': [ {id:'bacalhau-bras',name:'Bacalhau à Brás'}, {id:'caldo-verde',name:'Caldo Verde'}, {id:'leitao',name:'Leitão Assado'}, {id:'arroz-marisco',name:'Arroz de Marisco'}, {id:'cataplana',name:'Cataplana de Peixe'}, {id:'pica-pau',name:'Pica Pau'}, {id:'pastel-nata',name:'Pastéis de Nata'}, {id:'alheira',name:'Alheira'} ],
+  'brunch': [ {id:'eggs-benedict',name:'Eggs Benedict'}, {id:'shakshuka',name:'Shakshuka'}, {id:'smoked-salmon-bagel',name:'Smoked Salmon Bagel'}, {id:'french-toast',name:'French Toast'}, {id:'avocado-toast',name:'Avocado Toast'}, {id:'croque-monsieur',name:'Croque Monsieur'}, {id:'pain-perdu',name:'Pain Perdu'}, {id:'brunch-charcuterie',name:'Charcuterie Platter'} ],
   'american-bbq':   [ {id:'smoked-brisket',name:'Smoked Brisket'}, {id:'pulled-pork',name:'Pulled Pork'}, {id:'bbq-ribs',name:'BBQ Ribs'}, {id:'smoked-chicken',name:'Smoked Chicken'}, {id:'burnt-ends',name:'Burnt Ends'}, {id:'bbq-shrimp',name:'BBQ Shrimp'}, {id:'bbq-mac-cheese',name:'Mac & Cheese'}, {id:'peach-cobbler',name:'Peach Cobbler'} ],
 };
 
@@ -10202,9 +10320,299 @@ const PAIRINGS = {
   'bbq-shrimp':         [ {id:'riesling',why:"A dry Riesling with New Orleans BBQ shrimp — butter, Worcestershire, and pepper sauce — is a revelation: its citrus cuts the butter, its mineral echo echoes the shrimp's sweetness, and its freshness refreshes the heat."}, {id:'chardonnay',why:"A lightly oaked Chardonnay with BBQ shrimp adds buttery richness and stone-fruit depth alongside the butter-and-Worcestershire sauce — the wine's texture in harmony with the sauce."}, {id:'viognier',why:"Viognier's peach, apricot, and floral richness add aromatic depth alongside BBQ shrimp's butter sauce and Cajun spice — its weight matching the sauce while its fragrance lifts the dish."}, {id:'grenache-blanc',why:"Grenache Blanc's full, rounded, herb-and-stone-fruit character is a Mediterranean-inspired match for BBQ shrimp — its body handling the butter sauce while its fruit complements the spice."}, {id:'albarino',why:"Albariño's saline freshness and citrus zest cut through BBQ shrimp's butter and garlic richness while its coastal salinity echoes the shrimp's sweetness with Atlantic precision."}, {id:'chenin-blanc',why:"A dry Chenin Blanc's apple, mineral, and waxy texture work with BBQ shrimp's butter-and-pepper sauce — its acidity cutting the fat while its weight handles the richness."} ],
   'bbq-mac-cheese':     [ {id:'chardonnay',why:"A lightly oaked Chardonnay with BBQ mac and cheese is the obvious-but-correct pairing — its butterscotch, stone fruit, and rounded acidity echo the béchamel, cheese, and cream with comfortable richness."}, {id:'riesling',why:"An off-dry Riesling cuts through mac and cheese's cream and cheddar richness with citrus acidity while its sweetness brings out the cheese's caramelised, golden-crust depth."}, {id:'grenache-blanc',why:"Grenache Blanc's full, rounded, lightly herbal character is a satisfying match for mac and cheese — its weight handling the cream sauce while its freshness prevents the pairing from becoming heavy."}, {id:'viognier',why:"Viognier's peach, apricot, and floral richness add aromatic depth alongside mac and cheese's cream and melted cheddar — the wine's texture in harmony with the sauce's richness."}, {id:'pinot-gris',why:"Alsace Pinot Gris's off-dry stone-fruit weight and spiced character are well matched to mac and cheese — sweet enough to echo the cheddar's caramelised depth, full enough for the cream."}, {id:'chenin-blanc',why:"A Vouvray demi-sec Chenin Blanc's honey, apple, and mineral tension cut through mac and cheese's richness while its fruit echoes the béchamel's sweet, buttery depth."} ],
   'peach-cobbler':      [ {id:'riesling',why:"A German Spätlese or Auslese Riesling with peach cobbler is a pairing of profound resonance — the wine's concentrated peach, apricot, and citrus-honey sweetness mirrors the cobbler's fruit with breathtaking precision."}, {id:'muscat-blanc',why:"A sweet Muscat Blanc's grapey, floral sweetness and peachy aromatics echo peach cobbler's warm, syrupy fruit with fragrant Southern charm."}, {id:'gewurztraminer',why:"A late-harvest Gewürztraminer's lychee, peach, and exotic sweetness complement peach cobbler's warm, buttery biscuit and sweet peach filling — the wine's exoticism elevating a simple dessert."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine's concentrated peach, apricot, and tropical sweetness with balancing acidity is a luxury pairing for peach cobbler — the wine's concentrated fruit echoing the cobbler's with intensity."}, {id:'chenin-blanc',why:"A Coteaux du Layon Chenin Blanc's peach, quince, honey, and mineral tension is a Loire Valley luxury alongside Southern peach cobbler — the wine's elegance meeting the dessert's warmth."}, {id:'viognier',why:"A late-harvest Viognier's concentrated peach, apricot, and floral sweetness is the most harmonious aromatic match for peach cobbler — the grape's signature fruit echoing the dessert's defining flavour."} ],
+'peking-duck':        [ {id:'riesling',why:"Off-dry German Riesling is the definitive Peking duck wine — sweetness tames the hoisin, acidity cuts through rendered fat, and aromatics echo the five-spice lacquer beautifully."}, {id:'pinot-gris',why:"Alsace Pinot Gris's stone-fruit body and spice match the caramelised lacquered skin — particularly Vendange Tardive, whose richness echoes the honey glaze."}, {id:'gewurztraminer',why:"Gewürztraminer's rose and lychee have extraordinary affinity with Peking duck's five-spice glaze — two aromatics in perfect conversation."}, {id:'pinot-noir',why:"A delicate, earthy Pinot Noir from Burgundy is one of the few reds that works brilliantly with Peking duck — red fruit and forest floor without heavy tannin."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus cut through duck fat cleanly while complementing the spring onion and hoisin accompaniments with mineral precision."}, {id:'gamay',why:"Chilled Beaujolais (Fleurie or Moulin-à-Vent) has a surprising affinity with Peking duck — cherry freshness and low tannin suit the delicate skin without competing."} ],
+  'dim-sum':            [ {id:'riesling',why:"Dry or off-dry Riesling is the benchmark dim sum wine — it handles steamed, fried, and marinated dishes with equal versatility, echoing ginger and soy alike."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus make it an ideal companion for the full range of dim sum — from delicate har gow to char siu bao."}, {id:'champagne',why:"Champagne with dim sum is a luxury brunch pairing — autolytic biscuit notes echo the steamed wrapper, acidity cleansing between each bite."}, {id:'albarino',why:"Albariño's saline citrus freshness is excellent with seafood dim sum — har gow, scallop dumplings — Atlantic freshness for Pacific shellfish."}, {id:'pinot-gris',why:"Alsace Pinot Gris handles the richer dim sum dishes — barbecue pork buns, egg tarts — with body and spiced stone-fruit warmth."}, {id:'gewurztraminer',why:"Gewürztraminer's aromatic intensity complements ginger, sesame, and soy seasoning in steamed dumplings with genuine elegance."} ],
+  'mapo-tofu':          [ {id:'riesling',why:"Off-dry Riesling is the classic answer to Sichuan málà heat — residual sugar tames the numbing spice, high acidity refreshes, and aromatics echo the fermented bean paste."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper creates genuine resonance with Sichuan pepper's tingling numbing heat — a cross-cultural spice dialogue of great sophistication."}, {id:'gewurztraminer',why:"Gewürztraminer's lychee, rose, and ginger match the aromatic complexity of doubanjiang and Sichuan pepper — aromatic wine for an aromatic powerhouse."}, {id:'viognier',why:"Viognier's peach-apricot richness and moderate acidity suit tofu's silky texture and the sauce's intensity — particularly a Condrieu with some age."}, {id:'pinot-gris',why:"Off-dry Pinot Gris's body and mild sweetness provide a protective buffer against the málà heat while its stone-fruit richness echoes the slow-cooked pork."}, {id:'chenin-blanc',why:"Off-dry Vouvray Chenin Blanc handles Sichuan spice elegantly — honeyed sweetness counteracts the heat while acidity keeps the palate refreshed."} ],
+  'kung-pao-chicken':   [ {id:'riesling',why:"Off-dry Riesling and Kung Pao chicken is a textbook match — sweetness tames the peanut-chilli combination, acidity cuts through the oil, and aromatics echo the Sichuan spice."}, {id:'gewurztraminer',why:"Gewürztraminer's exotic character and gentle sweetness are ideal with Kung Pao's chilli, dried peanuts, and ginger — aromatic meeting aromatic."}, {id:'zinfandel',why:"Zinfandel's jammy, peppery richness is a bold American answer — fruity intensity and spice stand up to the wok-tossed chilli heat without being overwhelmed."}, {id:'viognier',why:"Viognier's apricot and floral character with moderate acidity is a pleasant match for Kung Pao's sweetness and the numbing character of the spice."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper adds to rather than fights the Sichuan pepper complexity — a mineral, fresh wine that creates genuine spice dialogue."}, {id:'grenache',why:"Warm, rounded Grenache from the southern Rhône is generous enough to pair with Kung Pao's heat and rendered oil — roundness softens the chilli."} ],
+  'sichuan-hot-pot':    [ {id:'riesling',why:"Dry Riesling is the wine that survives Sichuan hot pot's relentless heat — mineral, high-acid, low-alcohol, and endlessly refreshing between courses of numbing broth."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral citrus create genuine resonance with Sichuan pepper's numbing character — one of the few wines that plays the spice, not against it."}, {id:'gewurztraminer',why:"Gewürztraminer's exotic, aromatic power is built for Sichuan spice complexity — rose, lychee, and ginger echoing the chilli oil, fermented black bean, and pepper."}, {id:'champagne',why:"Off-dry Champagne is an indulgent palate reset between dips — bubbles and acidity resetting through waves of numbing heat and rich broth."}, {id:'albarino',why:"Albariño's citrus freshness and saline minerality are a reliable refresher for the marathon eating experience of a Sichuan hot pot — clean, bright, and invigorating."}, {id:'syrah',why:"A Northern Rhône Syrah is one of few reds with the complexity to match the most intense pork-heavy hot pot dipping — pepper meeting pepper."} ],
+  'char-siu':           [ {id:'pinot-noir',why:"Burgundy Pinot Noir with char siu BBQ pork is an inspired East-meets-West pairing — red fruit and forest floor echo the honey-soy-five-spice glaze beautifully."}, {id:'riesling',why:"Off-dry Riesling's sweetness mirrors the honeyed marinade of char siu while acidity cuts through the rendered fat — a natural, complementary harmony."}, {id:'zinfandel',why:"Zinfandel's jammy dark fruit and spice have a natural affinity with the caramelised, honey-lacquered crust — both fully embrace the grill and the sweet-savoury."}, {id:'gewurztraminer',why:"Gewürztraminer's rose, lychee, and ginger echo the five-spice glaze with aromatic precision — sweet-savoury pork and sweet-aromatic wine in perfect conversation."}, {id:'grenache',why:"Grenache's red fruit warmth and slight sweetness complement the honey-caramelised crust of char siu — Mediterranean warmth for Cantonese sweetness."}, {id:'gamay',why:"Chilled Moulin-à-Vent or Morgon has surprising affinity with Chinese BBQ pork — cherry and earthiness resonate with the soy-honey marinade delicately."} ],
+  'xiaolongbao':        [ {id:'riesling',why:"Dry Riesling's mineral freshness is the ideal companion for soup dumplings — low alcohol, high acidity, and restrained fruit let the delicate pork-and-ginger filling shine."}, {id:'champagne',why:"Champagne with xiaolongbao is a luxury dim sum pairing — the wine's bubbles and mineral acidity cleanse perfectly between each precious soup-filled parcel."}, {id:'albarino',why:"Albariño's citrus freshness and saline minerality complement the ginger-soy accompaniments and the rich pork-stock broth locked inside each dumpling."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral precision are a thoughtful match for the subtle, complex pork and ginger filling of XLB — precise wine for a precise dish."}, {id:'vermentino',why:"Sardinian Vermentino's citrus and saline freshness echo the ginger and black vinegar dipping accompaniment for xiaolongbao with Shanghainese elegance."}, {id:'pinot-gris',why:"A lighter Alsace Pinot Gris has the body to match the richness of pork-stock broth without overwhelming the delicate, paper-thin dumpling wrapper."} ],
+  'congee':             [ {id:'riesling',why:"Dry Riesling is the thoughtful choice for congee — mineral, refreshing, and subtly aromatic without overwhelming the porridge's delicate, comforting character."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and gentle citrus are sympathetic partners for congee with century egg, scallion, and sesame oil — fresh without dominating."}, {id:'champagne',why:"Champagne with congee and century egg is an inspired brunch pairing — autolytic character resonates with fermented notes while bubbles refresh between spoonfuls."}, {id:'pinot-gris',why:"A gentle Alsace Pinot Gris provides warmth without weight for the soft, comforting character of congee with chicken, ginger, and spring onion."}, {id:'chenin-blanc',why:"Dry Chenin Blanc's mineral precision is an elegant match for the subtle savouriness of fish or seafood congee — gentle, focused, and beautifully clean."}, {id:'viognier',why:"A lighter, cooler-climate Viognier's aromatic peach and jasmine is a pleasing companion for congee with sesame oil, ginger, and spring onion."} ],
+  'bulgogi':            [ {id:'riesling',why:"Off-dry Riesling's sweetness mirrors the soy-pear-sesame marinade of bulgogi while acidity cuts through the beef fat — a natural, complementary harmony."}, {id:'pinot-noir',why:"A delicate Burgundy Pinot Noir echoes bulgogi's sweet-savoury marinated beef with red fruit and earthiness — surprisingly elegant and deeply satisfying."}, {id:'zinfandel',why:"Zinfandel's jammy, spiced fruity richness is a bold match for the sweet, caramelised Korean BBQ marinade — American intensity for Korean sweetness."}, {id:'grenache',why:"Grenache's warm, rounded red fruit complements the sesame, soy, and pear sweetness of bulgogi — Mediterranean warmth for Korean sweetness on the grill."}, {id:'gamay',why:"Chilled Beaujolais Crus have natural affinity with bulgogi's sweet, fruity marinade — light tannins and fresh cherry echo the sesame-soy character."}, {id:'gewurztraminer',why:"Gewürztraminer's rose, lychee, and ginger resonate beautifully with Korean aromatics — sesame, garlic, and ginger in perfect aromatic dialogue."} ],
+  'galbi':              [ {id:'syrah',why:"Northern Rhône Syrah's smoky, peppery, meaty character is built for short ribs — the grill char and the sweet-soy marinade's richness demand this kind of power."}, {id:'zinfandel',why:"Zinfandel and galbi is a natural American-Korean pairing — jammy, peppery fruit matches the caramelised sweet-soy marinade and the intense grill char."}, {id:'cabernet-sauvignon',why:"Napa Cabernet's firm tannins and dark cassis hold up to the richness of short ribs — protein and fat softening the tannin in the most satisfying way imaginable."}, {id:'malbec',why:"Argentine Malbec's plummy, velvety richness is a natural partner for the sweet caramelised galbi — both embrace the grill, both love the sweet marinade."}, {id:'grenache',why:"Southern Rhône Grenache's warm red fruit and moderate tannin complement the sweet soy-sesame marinade's residual caramel sweetness."}, {id:'tempranillo',why:"Rioja's earthy, leather-and-plum character works well with the charcoal-grilled richness of galbi — structure and warmth matching the meat's intensity."} ],
+  'bibimbap':           [ {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus are ideal for bibimbap — the variety of vegetable components and gochujang heat need a versatile, precise, fresh wine."}, {id:'riesling',why:"Off-dry Riesling tames the gochujang heat and echoes the sesame-dressed vegetables — one of the few wines that handles every component of bibimbap."}, {id:'gewurztraminer',why:"Gewürztraminer's aromatic richness resonates with sesame oil, gochujang, and the variety of namul vegetable flavours in bibimbap."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and spiced stone-fruit character hold up to the complex, layered flavours of dolsot bibimbap with its crispy rice base."}, {id:'vermentino',why:"Sardinian Vermentino's herbal freshness and citrus are a refreshing companion for the vegetable-heavy, sesame-scented bibimbap composition."}, {id:'viognier',why:"Viognier's peach and floral aromatics are a pleasant match for the sesame oil and namul vegetables — particularly with a fried egg crowning the bowl."} ],
+  'kimchi-jjigae':      [ {id:'riesling',why:"Off-dry Riesling is the definitive wine for kimchi-based dishes — residual sugar tames the fermented heat, acidity echoes kimchi's tartness, and the wine stays endlessly refreshing."}, {id:'gewurztraminer',why:"Gewürztraminer's exotic spice and gentle sweetness handle kimchi jjigae's funky, bubbling heat with surprising aplomb — aromatic wine for an aromatic stew."}, {id:'pinot-gris',why:"Off-dry Pinot Gris has the body and sweetness to stand up to the intense, deep richness of kimchi jjigae with pork belly and tofu."}, {id:'viognier',why:"Viognier's apricot-peachy richness is a warming companion for the savoury depth of kimchi jjigae — the wine's body matches the stew's considerable intensity."}, {id:'gruner-veltliner',why:"Grüner Veltliner's mineral freshness and white pepper create an interesting, refreshing dialogue with kimchi's acidic, fermented complexity."}, {id:'syrah',why:"A bold Northern Rhône Syrah is one of few reds with the intensity to match kimchi jjigae's fierce heat, pork fat, and fermented funk — power meeting power."} ],
+  'japchae':            [ {id:'riesling',why:"Dry Riesling's mineral delicacy is an excellent partner for japchae's glass noodles with sesame-dressed vegetables and beef — subtle, precise wine for a subtle, complex dish."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus precision suit japchae's sesame oil, soy, and earthy mushroom combination perfectly."}, {id:'pinot-gris',why:"A lighter Pinot Gris echoes the mild sweetness of japchae's soy-sesame sauce while its gentle body supports the glass noodles' silky richness."}, {id:'gewurztraminer',why:"Gewürztraminer's aromatics complement japchae's sesame and mushroom umami — spiced lychee and ginger adding an exotic dimension to the delicate noodle dish."}, {id:'champagne',why:"Champagne with japchae is a modern Korean-French fusion pairing — mineral acidity and fine bubbles work elegantly through the sesame-oil dressed glass noodles."}, {id:'gamay',why:"Chilled Beaujolais with japchae is a light, fruit-forward pairing — low tannins and fresh cherry won't overpower the delicate glass noodles and sesame."} ],
+  'haemul-pajeon':      [ {id:'riesling',why:"Dry Riesling's mineral, saline freshness is an excellent partner for seafood pancakes — the ocean flavours need this kind of precise, low-alcohol, mineral wine."}, {id:'albarino',why:"Albariño's Atlantic salinity and citrus zest are natural companions for the seafood-rich pajeon — Spanish coastal wine for Korean coastal cooking."}, {id:'melon-de-bourgogne',why:"Muscadet's saline, biscuity freshness echoes the seafood filling and the crispy-griddled exterior of haemul pajeon — the Atlantic wine for an East Asian pancake."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, saline character complements the seafood and spring onion combination in haemul pajeon with Mediterranean freshness."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral citrus are ideal for seafood pancakes — precise enough to complement the delicate filling without overwhelming it."}, {id:'champagne',why:"Champagne's autolytic biscuit notes and mineral salinity echo the crispy-seared exterior and ocean flavours in haemul pajeon beautifully."} ],
+  'tteokbokki':         [ {id:'riesling',why:"Off-dry Riesling is the best wine for tteokbokki's gochujang heat — sweetness counteracts the chilli, high acidity refreshes, and low alcohol doesn't amplify the spice."}, {id:'gewurztraminer',why:"Gewürztraminer's exotic sweetness and aromatic intensity handle tteokbokki's sweet-spicy fermented chilli sauce with genuine elegance and aromatic sympathy."}, {id:'pinot-gris',why:"Off-dry Pinot Gris's body and mild sweetness provide a protective buffer against the gochujang's heat and the chewy rice cakes' dense richness."}, {id:'lambrusco',why:"A semi-dry Lambrusco — sparkling, slightly sweet, and red-fruited — is an unexpected but genuinely fun pairing for tteokbokki's sweet-spicy appeal."}, {id:'viognier',why:"Viognier's apricot richness and floral character soften tteokbokki's gochujang intensity — the wine's natural sweetness working with the sweet-spicy sauce."}, {id:'muscat-blanc',why:"Moscato d'Asti's gentle sweetness and low alcohol make it a light, floral partner for tteokbokki — taming the chilli heat without adding alcohol fuel to the fire."} ],
+  'samgyeopsal':        [ {id:'riesling',why:"Off-dry Riesling is ideal for samgyeopsal — pork belly's considerable richness needs the wine's acidity, while its sweetness echoes the ssamjang and sesame dipping sauces."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral precision cut through the considerable fat of grilled pork belly — one of Austria's finest BBQ companions, surprisingly."}, {id:'gewurztraminer',why:"Gewürztraminer handles the sesame, garlic, and gochujang accompaniments of samgyeopsal with its exotic, aromatic character and genuine sympathy."}, {id:'zinfandel',why:"Bold, peppery Zinfandel has the intensity to match samgyeopsal's grilled pork belly — jammy fruit and high alcohol cut through the rendered fat deliciously."}, {id:'gamay',why:"Chilled Beaujolais is a lighter, more refreshing choice — cherry freshness and low tannin work with the fatty pork and the crisp lettuce wraps."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit richness match the fatty richness of samgyeopsal while echoing the sesame-soybean paste dipping sauces."} ],
+  'pho-bo':             [ {id:'riesling',why:"Dry Riesling's mineral precision and star-anise-resonant aromatics are perhaps the ideal wine companion for phở — the wine echoes the broth's complex aromatic spice bouquet."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral citrus echo the coriander, basil, and bean sprout freshness added at the table — herb meeting herb."}, {id:'gewurztraminer',why:"Gewürztraminer's ginger, rose, and lychee character has extraordinary resonance with phở's star anise, cinnamon, and clove-spiced broth — two aromatics in dialogue."}, {id:'viognier',why:"Viognier's aromatic peach, jasmine, and moderate acidity create a pleasing, harmonious pairing with phở's fragrant, fat-enriched bone broth."}, {id:'champagne',why:"Blanc de Blancs Champagne with phở bò is an inspired fusion — mineral precision and light autolytic character echo the clarity and aromatic depth of the broth."}, {id:'albarino',why:"Albariño's citrus freshness and saline minerality complement the lime wedges and fresh herbs added to phở — the wine has the same bright acidity as the garnish."} ],
+  'banh-mi':            [ {id:'riesling',why:"Off-dry Riesling navigates bánh mì's layered flavours — pickled daikon, pâté, fresh coriander, chilli — with its perfect balance of sweetness and acidity."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus echo the fresh herbs and pickled vegetables in bánh mì while its acidity handles the pâté's richness."}, {id:'champagne',why:"Champagne with bánh mì is a French-Vietnamese fusion pairing with historical roots — bubbles and mineral crispness complement the layered, flavour-packed sandwich."}, {id:'sauvignon-blanc',why:"Loire Sauvignon Blanc's herbaceous citrus resonates with bánh mì's fresh coriander, spring onion, and pickled vegetables — herbaceous wine for a herbaceous sandwich."}, {id:'albarino',why:"Albariño's citrus and herbal freshness match the pickled daikon and coriander in bánh mì — both sharp, aromatic, and brightened by citrus."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, citrusy freshness complements the fresh herb and vegetable elements of bánh mì alongside the rich, funky pâté."} ],
+  'fresh-spring-rolls': [ {id:'riesling',why:"Dry Riesling is the most elegant match for Vietnamese fresh spring rolls — mineral, low-alcohol, and aromatic enough to complement shrimp, mint, and delicate rice paper."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus are textbook with spring rolls — the peanut dipping sauce and fresh mint need a wine of equal freshness and precision."}, {id:'albarino',why:"Albariño's citrus saline freshness mirrors the shrimp filling and the lime-laced peanut dipping sauce — Atlantic coastal wine for coastal Vietnamese cuisine."}, {id:'sauvignon-blanc',why:"Marlborough Sauvignon Blanc's passionfruit and herbs echo the fresh mint, coriander, and shrimp inside the translucent rice paper rolls."}, {id:'vermentino',why:"Sardinian Vermentino's herbal freshness is a natural partner for fresh spring rolls — both are light, herbal, and defined by the freshness of their ingredients."}, {id:'champagne',why:"Champagne with fresh spring rolls is an elegant pairing — bubbles and acidity mirror the delicacy of the shrimp and the clean freshness of the herbs."} ],
+  'bun-bo-hue':         [ {id:'riesling',why:"Off-dry Riesling handles bún bò Huế's complex, fiery lemongrass-and-shrimp-paste broth with the same elegance it brings to all spiced dishes — essential balance."}, {id:'gewurztraminer',why:"Gewürztraminer's lychee, rose, and ginger character echoes the lemongrass and shrimp paste aromatics in the powerfully fragrant Huế broth."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral precision create an interesting, refreshing dialogue with the complex Sichuan-level spice of bún bò Huế."}, {id:'viognier',why:"Viognier's aromatic peach and jasmine character is a pleasing counterpoint to the fiery, deeply aromatic richness of this intensely flavoured noodle soup."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and spiced stone-fruit are needed to handle bún bò Huế's shrimp paste richness, chilli oil, and pork-hock intensity."}, {id:'syrah',why:"A Northern Rhône Syrah is one of few reds to hold its own against bún bò Huế's fierce, shrimp-paste-fortified broth — dark fruit and pepper matching the intensity."} ],
+  'ca-kho-to':          [ {id:'riesling',why:"Off-dry Riesling's sweetness mirrors the palm sugar and fish sauce caramel of cá kho tộ while acidity cuts through the rich catfish fat — a perfect balancing act."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit sweetness complement the caramelised, deeply savoury clay-pot braised catfish in its intensely reduced sauce."}, {id:'gewurztraminer',why:"Gewürztraminer's exotic lychee and ginger resonate with the five-spice and caramel notes of cá kho tộ's intense fish sauce reduction."}, {id:'viognier',why:"Viognier's peachy richness and aromatic character are a pleasing counterpoint to the deeply caramelised, intensely savoury braised fish."}, {id:'chenin-blanc',why:"Off-dry Chenin Blanc's honeyed sweetness and balancing acidity are a thoughtful match for the sweet-savoury, caramelised clay-pot braised catfish."}, {id:'champagne',why:"Demi-sec Champagne's sweetness and bubbles cut through the intensely caramelised, fish-sauce-rich clay pot with surprising effectiveness and elegance."} ],
+  'bo-luc-lac':         [ {id:'pinot-noir',why:"A delicate, cherry-forward Pinot Noir from Burgundy is an inspired match for shaking beef — the soy-lime-black pepper marinade resonates with earthy red fruit."}, {id:'riesling',why:"Dry Riesling's mineral precision complements the lime-pepper-soy seasoning of bò lúc lắc — clean, focused wine for a clean, intensely flavoured wok dish."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus echo the black pepper and lime dipping sauce of bò lúc lắc — a natural resonance of shared spice profiles."}, {id:'grenache',why:"Grenache's warm, soft red fruit is a pleasing match for the sweet-savoury soy-marinated beef — particularly a lighter-style southern Rhône Grenache."}, {id:'syrah',why:"A Crozes-Hermitage Syrah's pepper and dark fruit character complements bò lúc lắc's intense wok char and the lime-pepper accompaniment perfectly."}, {id:'cabernet-franc',why:"Cab Franc's earthy graphite and red pepper notes resonate with the black pepper crust and the beef's charred, caramelised wok-kissed exterior."} ],
+  'banh-xeo':           [ {id:'riesling',why:"Dry Riesling is ideal for bánh xèo — the wine's mineral freshness and moderate alcohol suit the shrimp, pork, bean sprouts, and fresh herbs wrapping the crispy turmeric pancake."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, citrusy freshness mirrors the fresh lettuce and herbs used to wrap bánh xèo — wine and food sharing the same light, herbal character."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus precision complement the fresh herbs, bean sprouts, and nuoc cham dipping sauce with equal freshness."}, {id:'champagne',why:"Champagne with bánh xèo is an inspired pairing — the wine's bubbles and minerality echo the sizzling crispness of the golden turmeric rice-flour pancake."}, {id:'sauvignon-blanc',why:"Sauvignon Blanc's herbaceous citrus is a natural partner for the fresh herb and vegetable-forward wrapping of bánh xèo — herb meeting herb."}, {id:'albarino',why:"Albariño's citrus freshness and mineral character complement the shrimp filling and the bright, lime-laced nuoc cham dipping sauce perfectly."} ],
+  'che-ba-ba':          [ {id:'muscat-blanc',why:"Moscato d'Asti's gentle sweetness and aromatic freshness complement the sweet coconut milk and tropical fruits of chè bà ba beautifully — both light, floral, and aromatic."}, {id:'gewurztraminer',why:"Gewürztraminer Vendange Tardive's lychee and tropical character echoes the palm sugar, coconut cream, and tropical fruits in Vietnamese sweet soups with genuine affinity."}, {id:'riesling',why:"German Spätlese Riesling's balanced sweetness and high acidity complement the coconut milk richness of Vietnamese desserts without cloying — freshness above all."}, {id:'muscat-ottonel',why:"Austrian Muscat Ottonel's delicate, floral sweetness is a light, aromatic companion for coconut-milk-based Vietnamese desserts — gentler than the more powerful Muscat varieties."}, {id:'pedro-ximenez',why:"PX Sherry's dried fruit and toffee concentration echoes the tamarind, palm sugar, and tropical fruit elements in chè desserts — indulgent and harmonious."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine's tropical concentration and balancing acidity are a luxury pairing for the rich coconut and palm sugar elements of Vietnamese sweet soups."} ],
+  'bacalhau-bras':      [ {id:'albarino',why:"Albariño's citrus and saline Atlantic minerality is perhaps the most natural partner for bacalhau — both grape and fish are defined by the Atlantic coast and the sea."}, {id:'fernao-pires',why:"Fernão Pires (Maria Gomes) — Portugal's most planted white — is the traditional local companion for all bacalhau preparations, grown in the same Atlantic-cooled region."}, {id:'sauvignon-blanc',why:"Loire Sauvignon Blanc's herbaceous citrus complements the olive oil, eggs, and parsley of bacalhau à brás without competing — clean, herbal, and refreshing."}, {id:'chardonnay',why:"An unoaked Chablis-style Chardonnay — mineral and citrusy — is a reliable companion for the rich, eggy preparation of bacalhau à brás."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral precision cut through the egg richness and olive oil of bacalhau à brás with elegant freshness."}, {id:'vermentino',why:"Sardinian Vermentino's saline herbal freshness echoes the Atlantic origins of the salt cod and the Mediterranean herbs that season the dish."} ],
+  'caldo-verde':        [ {id:'fernao-pires',why:"Fernão Pires's citrusy freshness and moderate body are the everyday Portuguese choice for this national soup — wine and dish sharing the same northern terroir."}, {id:'albarino',why:"Albariño's citrus and Atlantic freshness complement the olive oil, kale, and chouriço in caldo verde — Galician wine for a northern Portuguese recipe."}, {id:'sauvignon-blanc',why:"Sauvignon Blanc's fresh herbaceous character resonates with the kale in caldo verde while its acidity handles the olive oil and potato richness."}, {id:'gruner-veltliner',why:"Grüner Veltliner's herb-and-citrus character is a thoughtful Austrian match for caldo verde's kale, olive oil, and chouriço combination."}, {id:'chardonnay',why:"An unoaked Chardonnay provides clean mineral freshness to balance the olive oil richness and the potato's body in the soup."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, saline Mediterranean character echoes the kale, olive oil, and the flavour of the chouriço with genuine warmth."} ],
+  'leitao':             [ {id:'baga',why:"Bairrada's Baga — Portugal's most tannic indigenous red — with leitão is Portugal's greatest food-wine pairing. The rendered crackling fat meets the tannin in perfect, transcendent harmony."}, {id:'touriga-nacional',why:"Touriga Nacional's power and violet-scented dark fruit are a fitting match for the rich, crackling-laden leitão — the Douro's finest answer to a Bairrada classic."}, {id:'tempranillo',why:"Douro Tempranillo (Aragonez/Tinta Roriz) with leitão is a Portugal-within-Portugal pairing — structure and dark fruit for the crispy, herb-rubbed crackling."}, {id:'pinot-noir',why:"A richer Pinot Noir — Pommard or Gevrey-Chambertin — holds its own with leitão's gloriously crispy crackling and herb-stuffed belly."}, {id:'syrah',why:"Northern Rhône Syrah's meaty, peppery character is a robust international pairing for the roasted pork belly's intense crackling and aromatic herb stuffing."}, {id:'sangiovese',why:"Brunello di Montalcino's power, acidity, and structure make it a surprisingly harmonious Italian match for Portugal's most celebrated roast pork tradition."} ],
+  'arroz-marisco':      [ {id:'albarino',why:"Albariño's saline, citrusy Atlantic freshness is the definitive companion for arroz de marisco — Atlantic wine for an Atlantic seafood dish cooked on the same coast."}, {id:'fernao-pires',why:"Fernão Pires's citrusy freshness is the traditional local wine for Portuguese seafood rice — fresh, clean, and unpretentious against the rich, saffron-scented shellfish."}, {id:'assyrtiko',why:"Santorini Assyrtiko's volcanic mineral intensity and saline character are an outstanding cross-Mediterranean match for the intensely flavoured shellfish rice."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, saline character resonates beautifully with the Mediterranean herbs and mixed shellfish of arroz de marisco."}, {id:'chardonnay',why:"Unoaked Chablis-style Chardonnay — briny and mineral — is a reliable international partner for the rich, saffron-and-shellfish-scented Portuguese rice."}, {id:'gruner-veltliner',why:"Grüner Veltliner's mineral freshness and white pepper cut through the rich, saffron-tinged seafood rice with elegance and genuine food-friendliness."} ],
+  'cataplana':          [ {id:'albarino',why:"Albariño's citrus and Atlantic salinity is the most natural companion for cataplana — the wine and the shellfish share the same Portuguese coastal identity."}, {id:'fernao-pires',why:"Fernão Pires is the traditional local wine for cataplana — grown in the same Alentejo and Algarve region where the copper cooking vessel was born."}, {id:'assyrtiko',why:"Assyrtiko's volcanic mineral intensity and saline character make it an outstanding match for cataplana's briny shellfish and tomato-saffron broth."}, {id:'vermentino',why:"Sardinian Vermentino's herbal, saline Mediterranean character resonates with cataplana's Mediterranean-influenced shellfish and herb preparation."}, {id:'chardonnay',why:"Unoaked Chardonnay's mineral-citrus freshness complements cataplana's white-wine-and-clam broth without adding competing oak weight."}, {id:'melon-de-bourgogne',why:"Muscadet's saline, Atlantic freshness echoes cataplana's shellfish and sea flavours — the French coastal alternative for a Portuguese coastal classic."} ],
+  'pica-pau':           [ {id:'fernao-pires',why:"Fernão Pires's everyday Portuguese freshness is the traditional local choice for pica-pau's quick-marinated veal or chicken with pickled vegetables."}, {id:'albarino',why:"Albariño's citrus and mineral precision mirrors the garlic-vinegar-mustard marinade of pica-pau — sharp, fresh, and satisfying."}, {id:'sauvignon-blanc',why:"Sauvignon Blanc's herbaceous citrus handles the garlic, pickled vegetables, and mustard in pica-pau's marinade with natural, refreshing ease."}, {id:'riesling',why:"Dry Riesling's mineral precision is an elegant companion for the pickled, garlicky flavours of this beloved Portuguese bar snack."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus echo the vinegar and herb character of pica-pau's quick marinade with genuine aromatic resonance."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit character complement the richness of veal or pork in pica-pau alongside the sharp pickled accompaniments."} ],
+  'pastel-nata':        [ {id:'muscat-blanc',why:"Moscato d'Asti's gentle sweetness, peach, and florals are a perfect counterpoint for pastéis de nata's custard richness — both delicate, aromatic, and classically beautiful."}, {id:'riesling',why:"German Spätlese Riesling with pastéis de nata is inspired — apple-and-honey sweetness echoes the cinnamon and egg-yolk custard with perfectly balanced acidity."}, {id:'gewurztraminer',why:"Alsace Gewürztraminer Vendange Tardive's lychee and spice character alongside the cinnamon-dusted custard tart is a luxury fusion pairing of great opulence."}, {id:'pedro-ximenez',why:"PX Sherry's toffee, caramel, and dried-fruit sweetness amplifies the caramelised custard and buttery pastry of pastéis de nata in bold, indulgent harmony."}, {id:'champagne',why:"Champagne with pastéis de nata is a classic Lisbon café luxury — bubbles and acidity balance the rich custard and buttery flakiness with sparkling elegance."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine's peach-apricot concentration is a luxury pairing for pastéis de nata's egg-yolk richness — intensity meeting intensity beautifully."} ],
+  'alheira':            [ {id:'fernao-pires',why:"Fernão Pires's everyday Portuguese freshness is the traditional northern wine for alheira — the classic smoked bread-and-meat sausage of Trás-os-Montes."}, {id:'albarino',why:"Albariño's citrus and saline freshness cuts through the fatty, smoked richness of alheira — Atlantic wine for a mountain sausage, both shaped by their landscape."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus cut through the bread-and-meat smokiness of alheira with refreshing, mineral precision."}, {id:'gamay',why:"Chilled Beaujolais's cherry-fresh, light-tannin style works with alheira's smoked richness — fresh fruit without heavy weight, the perfect picnic red."}, {id:'barbera',why:"Barbera's bright acidity and dark fruit are a lively, Italian-style match for the richness of alheira — shared love of pork and acidity across cultures."}, {id:'sauvignon-blanc',why:"Sauvignon Blanc's herbaceous citrus freshness cuts through the alheira's smoked pork and bread richness, lifting the dish with herbal brightness."} ],
+  'eggs-benedict':      [ {id:'champagne',why:"Champagne with eggs Benedict is the canonical brunch luxury — autolytic biscuit notes echo the muffin, acidity cuts through hollandaise, and the ceremony matches the occasion."}, {id:'chardonnay',why:"White Burgundy or Chablis with eggs Benedict is a classic — mineral creaminess echoes the hollandaise while acidity cuts through the poached egg and smoked ham."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit richness complement hollandaise's buttery richness while adding aromatic freshness to balance the richness."}, {id:'sauvignon-blanc',why:"Loire Sauvignon Blanc's herbaceous citrus cuts through the hollandaise's fat and lifts the smoked ham or salmon — a lighter, brighter alternative."}, {id:'vermentino',why:"Vermentino's citrusy freshness and herbal notes provide a lighter, modern alternative for eggs Benedict — particularly inspired with a smoked salmon version."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral precision cut through hollandaise fat beautifully — Austria's elegant, food-friendly answer to a brunch classic."} ],
+  'shakshuka':          [ {id:'grenache',why:"Southern Rhône Grenache's warm red fruit and moderate tannin are an excellent match for shakshuka's spiced tomato and pepper sauce — shared Mediterranean heritage."}, {id:'syrah',why:"Crozes-Hermitage Syrah's herby, peppery character resonates with shakshuka's cumin, paprika, and harissa — a Rhône wine for a Middle Eastern-origin dish."}, {id:'sangiovese',why:"Chianti's tomato-friendly acidity and earthy complexity are a natural match for shakshuka's rich spiced tomato sauce — Italy meets the Levant through the tomato."}, {id:'sauvignon-blanc',why:"Sauvignon Blanc's herbaceous citrus freshness is a refreshing white option for shakshuka — herbal brightness echoing the fresh herbs folded in at the end."}, {id:'assyrtiko',why:"Santorini Assyrtiko's mineral citrus is an inspired Greek match for the Middle Eastern-origin shakshuka — Eastern Mediterranean wine for an Eastern Mediterranean dish."}, {id:'nero-davola',why:"Sicilian Nero d'Avola's dark fruit and tomato-friendly acidity make it a sun-drenched southern match for shakshuka — both products of hot, volcanic landscapes."} ],
+  'smoked-salmon-bagel':[ {id:'champagne',why:"Champagne with smoked salmon is a classic celebration of shared luxury — autolytic biscuit notes echo the bagel, acidity cuts through cream cheese and smoked fish."}, {id:'chardonnay',why:"Chablis-style Chardonnay's oyster-shell mineral character and citrus freshness is a benchmark match for smoked salmon and cream cheese — marine wine for marine fish."}, {id:'riesling',why:"Dry Riesling — particularly Alsace or Mosel — has the mineral precision and citrus freshness to cut through smoked salmon's oiliness and cream cheese's richness."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral character are an elegant, understated companion for smoked salmon with capers and cream cheese."}, {id:'albarino',why:"Albariño's Atlantic salinity and citrus zest are natural companions for smoked salmon — saline, oceanic wine for saline, oceanic fish."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and spiced stone-fruit are a richer alternative for smoked salmon, particularly with wasabi cream cheese or a Japanese-influenced garnish."} ],
+  'french-toast':       [ {id:'muscat-blanc',why:"Moscato d'Asti's gentle sweetness and floral aromatics are a delicate companion for French toast with fruit compote — low alcohol perfect for a brunch setting."}, {id:'riesling',why:"German Spätlese Riesling with French toast and maple syrup is inspired — apple sweetness and balancing acidity echo the caramelised, eggy bread perfectly."}, {id:'brachetto',why:"Brachetto d'Acqui's rose-scented, lightly sparkling sweetness pairs beautifully with French toast topped with fresh strawberries or mixed berries."}, {id:'gewurztraminer',why:"Gewürztraminer Vendange Tardive's lychee and cinnamon-spice add an aromatic French dimension to the vanilla-and-egg-soaked brioche French toast."}, {id:'champagne',why:"Demi-sec Champagne with French toast is indulgent and effective — sweetness and bubbles perfectly complementing the caramelised bread and maple syrup."}, {id:'vidal-blanc',why:"Canadian Vidal Icewine is a luxury North American pairing for French toast — the country's most celebrated dessert wine alongside the continent's most beloved brunch dish."} ],
+  'avocado-toast':      [ {id:'sauvignon-blanc',why:"Sauvignon Blanc's herbaceous citrus is the natural partner for avocado toast — grassy freshness and lemon character echo the lemon squeeze, microherbs, and chilli flakes."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and citrus are a thoughtful match for avocado's creaminess — the wine's freshness and mineral precision counteract the fat."}, {id:'vermentino',why:"Sardinian Vermentino's herbal freshness and citrus are ideal for avocado toast — Mediterranean wine for a modern dish that shares the same sun-bright character."}, {id:'albarino',why:"Albariño's citrusy, saline freshness cuts through avocado's richness and echoes the lemon, flaky salt, and microherbs that garnish the toast."}, {id:'champagne',why:"Champagne with avocado toast is the brunch pairing that launched a thousand Instagram posts — acidity and mineral precision cut through the fat elegantly."}, {id:'riesling',why:"Dry Riesling — mineral, citrusy, and refreshing — handles avocado's richness with precision while echoing the lemon, herbs, and chilli of the garnish."} ],
+  'croque-monsieur':    [ {id:'chardonnay',why:"White Burgundy or Chablis with croque monsieur is the classic French brasserie pairing — mineral creaminess echoes the béchamel while acidity cuts through the Gruyère."}, {id:'champagne',why:"Champagne with croque monsieur is a Parisian brasserie tradition — autolytic biscuit notes echo the toasted pain de mie while acidity cuts through the rich béchamel and ham."}, {id:'sauvignon-blanc',why:"Loire Sauvignon Blanc's herbaceous citrus cuts through croque monsieur's Gruyère, béchamel, and ham richness with elegant, refreshing precision."}, {id:'riesling',why:"Alsace Riesling's mineral freshness and citrus precision are an excellent match for croque monsieur — the wine handles the ham's salt and the cheese's richness."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and stone-fruit richness complement the generous béchamel and melted Gruyère in croque monsieur with regional affinity."}, {id:'gruner-veltliner',why:"Grüner Veltliner's white pepper and mineral freshness cut through the richness of the béchamel and ham in this French café classic with Austrian precision."} ],
+  'pain-perdu':         [ {id:'riesling',why:"German Spätlese Riesling with pain perdu is a natural pairing — apple sweetness and balancing acidity complement the caramelised brioche and vanilla cream perfectly."}, {id:'muscat-blanc',why:"Moscato d'Asti's gentle sweetness and gentle fizz are a delicate brunch companion for pain perdu with fresh fruit or whipped vanilla cream."}, {id:'gewurztraminer',why:"Gewürztraminer Vendange Tardive's lychee and aromatic spice add exotic richness to pain perdu's egg-and-vanilla-soaked brioche with fruit compote."}, {id:'champagne',why:"Demi-sec Champagne's sweetness and mineral freshness work beautifully with pain perdu — bubbles echoing the golden-brown, caramelised crust."}, {id:'semillon',why:"Sauternes with pain perdu at brunch is a French luxury — the wine's honey-apricot sweetness alongside caramelised brioche and crème fraîche is deeply, perfectly Gallic."}, {id:'brachetto',why:"Brachetto d'Acqui's sparkling rose-scented sweetness pairs beautifully with pain perdu topped with fresh strawberries or raspberry compote."} ],
+  'brunch-charcuterie': [ {id:'gamay',why:"Beaujolais is the quintessential charcuterie wine — fresh, cherry-bright, and low-tannin, it was practically invented to accompany cured pork in all its forms."}, {id:'chenin-blanc',why:"Vouvray Sec or demi-sec Chenin Blanc handles charcuterie's variety — from rillettes to saucisson sec — with mineral freshness and gentle, honeyed fruit."}, {id:'champagne',why:"Champagne with a charcuterie platter is the festive brunch choice — bubbles and acidity cut through cured meats and terrines with natural celebration."}, {id:'riesling',why:"Alsace Riesling with Alsatian charcuterie (saucisse de Montbéliard, baeckeoffe pâté) is a regional tradition — wine and food from the same proud culture."}, {id:'pinot-gris',why:"Alsace Pinot Gris's body and spiced stone-fruit complement the richer items on a charcuterie platter — terrines, pâtés, and aged, complex charcuterie."}, {id:'albarino',why:"Albariño's citrusy freshness is a natural partner for Iberian charcuterie — chorizo, jamón ibérico, and morcilla all sing with Atlantic citrus brightness."} ],
 };
 
+
+// ── Curated Wine Menus ───────────────────────────────────────────────────────
+const WINE_MENUS = [
+  {
+    id: 'classic-french',
+    name: 'Classic French Dinner',
+    occasion: 'A formal dinner party',
+    icon: '🇫🇷',
+    theme: 'dark',
+    intro: 'France set the template for fine dining — and its wines were always central to the menu. This progression moves through the regions, each course unlocking a new dimension of French terroir.',
+    courses: [
+      { course: 'Aperitif', dish: 'Gougères & olives', wine: 'Blanc de Blancs Champagne', grapeId: 'chardonnay', why: "100% Chardonnay Champagne's mineral precision and autolytic brioche notes set the table beautifully — stimulating appetite without overwhelming it.", temp: '8–10 °C', glass: 'Flute or tulip' },
+      { course: 'Starter',  dish: 'Foie gras with Sauternes jelly', wine: 'Sauternes', grapeId: 'semillon', why: "Sauternes and foie gras is one of the world's definitive pairings — honeyed acidity balancing the rich, buttery liver in perfect, classical opposition.", temp: '10–12 °C', glass: 'Small white wine glass' },
+      { course: 'Fish',     dish: 'Bouillabaisse with rouille', wine: 'Cassis Blanc or Rhône Marsanne', grapeId: 'marsanne', why: "A herbal, textured Provençal white echoes the saffron, fennel, and rouille without competing. Marsanne's nutty richness holds up to the garlic-intense broth.", temp: '12–14 °C', glass: 'Medium white wine glass' },
+      { course: 'Main',     dish: 'Boeuf bourguignon', wine: 'Burgundy Pinot Noir (Gevrey-Chambertin)', grapeId: 'pinot-noir', why: "The wine that inspired the dish, in the glass alongside it. Premier Cru Gevrey's earthy depth, sour cherry, and forest floor are in complete harmony with the braised beef.", temp: '16–18 °C', glass: 'Large Burgundy bowl' },
+      { course: 'Cheese',   dish: 'Comté, Brie de Meaux, Époisses', wine: 'Alsace Gewürztraminer (Vendange Tardive)', grapeId: 'gewurztraminer', why: "Gewürztraminer's rose-and-lychee sweetness tames the pungent Époisses while complementing the milder Brie — one wine that bridges the whole cheese board.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Dessert',  dish: 'Tarte Tatin with crème fraîche', wine: 'Vouvray Moelleux', grapeId: 'chenin-blanc', why: "Honeyed Chenin Blanc from Vouvray echoes the caramelised apple and buttery pastry while its Loire acidity prevents the pairing from becoming cloying.", temp: '10–12 °C', glass: 'White wine glass' },
+    ]
+  },
+  {
+    id: 'italian-feast',
+    name: 'The Italian Feast',
+    occasion: 'Sunday lunch or a long table celebration',
+    icon: '🇮🇹',
+    theme: 'wine',
+    intro: 'Italian food and wine are inseparable — every region makes wine for its own table. This menu traces a journey from the Alpine north to the sun-scorched south, with wines to match.',
+    courses: [
+      { course: 'Aperitivo', dish: 'Prosecco & cicchetti (crostini, bruschetta)', wine: 'Prosecco Superiore DOCG', grapeId: 'glera', why: "Glera's fresh green apple and floral character with light bubbles is the perfect low-alcohol aperitivo — the ideal way to open an Italian evening.", temp: '7–9 °C', glass: 'Flute' },
+      { course: 'Antipasto', dish: 'Prosciutto, mortadella, burrata', wine: 'Barbera d\'Asti Superiore', grapeId: 'barbera', why: "Barbera's vibrant, almost electric acidity cuts through the fat of burrata and cured meats while its dark cherry fruit lifts the whole antipasto spread.", temp: '16–17 °C', glass: 'Medium Burgundy bowl' },
+      { course: 'Primo',     dish: 'Tagliolini al tartufo bianco', wine: 'Barolo (Nebbiolo)', grapeId: 'nebbiolo', why: "White truffle and Barolo is Piedmont's greatest luxury pairing — tar, roses, and leather meeting earthy, pungent truffle in a combination that defines Italian fine dining.", temp: '17–18 °C', glass: 'Large Bordeaux glass' },
+      { course: 'Secondo',   dish: 'Bistecca alla Fiorentina', wine: 'Brunello di Montalcino', grapeId: 'sangiovese', why: "Brunello's power, acidity, and earthy cherry character are a perfect match for the charred T-bone — Tuscan vine and Chianina cow sharing the same limestone hillside.", temp: '17–18 °C', glass: 'Large Bordeaux glass' },
+      { course: 'Formaggio', dish: 'Parmigiano Reggiano, Pecorino aged, Gorgonzola', wine: 'Amarone della Valpolicella', grapeId: 'corvina', why: "Amarone's concentrated dried-grape intensity handles the saltiest, most intense Italian cheeses — the wine's richness requires the resistance of aged hard cheese and blue.", temp: '17–18 °C', glass: 'Large Bordeaux glass' },
+      { course: 'Dolce',     dish: 'Panna cotta with strawberry compote', wine: 'Moscato d\'Asti', grapeId: 'muscat-blanc', why: "Moscato d'Asti's delicate sweetness, peach, and rose-petal character are the ideal Italian dessert wine — light enough to float alongside the wobbling cream.", temp: '8–10 °C', glass: 'Dessert wine glass' },
+    ]
+  },
+  {
+    id: 'spanish-evening',
+    name: 'A Spanish Evening',
+    occasion: 'Tapas evening or dinner party',
+    icon: '🇪🇸',
+    theme: 'gold',
+    intro: 'Spain's wine culture is built on food — from the salty precision of Fino Sherry to the oak-aged grandeur of Rioja Reserva. This menu celebrates the full sweep of Spanish wine and cuisine.',
+    courses: [
+      { course: 'Aperitivo', dish: 'Almonds, olives & Manchego crisps', wine: 'Fino Sherry', grapeId: 'palomino', why: "Bone-dry Fino Sherry is one of the world's great aperitifs — its saline, almond, and chamomile character is tailor-made for salty snacks and the Spanish table.", temp: '7–9 °C', glass: 'Copita or small white glass' },
+      { course: 'Tapas',     dish: 'Jamón Ibérico de Bellota', wine: 'Rioja Blanco Reserva (Viura)', grapeId: 'viura-macabeo', why: "An oaked white Rioja — waxy, nutty, and oxidative — complements the complex, nutty fat of bellota ham in a pairing of equal sophistication and Spanish pride.", temp: '12–14 °C', glass: 'White wine glass' },
+      { course: 'Seafood',   dish: 'Pulpo a la Gallega & Gambas al ajillo', wine: 'Albariño (Rías Baixas)', grapeId: 'albarino', why: "Albariño from Galicia alongside Galician octopus is one of Spain's most intuitive pairings — saline citrus wine for a coastal, paprika-dusted dish.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Main',      dish: 'Cocido Madrileño', wine: 'Rioja Gran Reserva (Tempranillo)', grapeId: 'tempranillo', why: "Spain's most celebrated slow-cooked meat stew and its most celebrated red wine — aged Rioja's leather, plum, and vanilla oak are built for the depth of cocido.", temp: '17–18 °C', glass: 'Bordeaux glass' },
+      { course: 'Cheese',    dish: 'Manchego Curado, Idiazábal, Cabrales', wine: 'Manzanilla Sherry', grapeId: 'palomino', why: "Manzanilla's extra-saline, chamomile-and-almond character is extraordinary with Spanish cheeses — the bone-dry acidity cuts through fat while enhancing flavour.", temp: '7–9 °C', glass: 'Copita' },
+      { course: 'Dessert',   dish: 'Crema Catalana', wine: 'Cava Brut Nature', grapeId: 'macabeu', why: "Cava's Catalan origins make it the natural partner for crema catalana — mineral bubbles and high acidity cut through the rich custard and caramelised sugar crust.", temp: '8–10 °C', glass: 'Flute or tulip' },
+    ]
+  },
+  {
+    id: 'grand-celebration',
+    name: 'Grand Celebration',
+    occasion: 'Milestone birthday, anniversary, or black-tie dinner',
+    icon: '🥂',
+    theme: 'dark',
+    intro: 'For the occasions that demand the very best. Each wine here is a prestige choice — aged, celebrated, and deliberately luxurious. This menu is an event in itself.',
+    courses: [
+      { course: 'Reception', dish: 'Blinis with caviar', wine: 'Aged Blanc de Blancs Champagne (Blanc de Millésimé)', grapeId: 'chardonnay', why: "Aged Champagne with caviar is the world's most celebrated luxury pairing — the wine's autolytic complexity, toasted brioche, and mineral salinity meet the caviar's brine.", temp: '10–12 °C', glass: 'Tulip glass' },
+      { course: 'Starter',   dish: 'Whole lobster thermidor', wine: 'Puligny-Montrachet Premier Cru', grapeId: 'chardonnay', why: "Grand Cru Burgundy and lobster is the prestige pairing — the wine's hazelnut, cream, and mineral depth meet the rich, butter-enriched thermidor sauce perfectly.", temp: '13–15 °C', glass: 'Large white wine glass' },
+      { course: 'Interlude', dish: 'Truffle arancini', wine: 'Barolo (Castiglione Falletto)', grapeId: 'nebbiolo', why: "Nebbiolo with truffle is Italy's great luxury pairing — the wine is served cool to preserve its aromatics, and the saffron risotto base bridges wine and truffle beautifully.", temp: '16–17 °C', glass: 'Burgundy bowl' },
+      { course: 'Main',      dish: 'Prime aged rib of beef (côte de boeuf)', wine: 'Pauillac or Pomerol (aged 15+ years)', grapeId: 'cabernet-sauvignon', why: "Aged Bordeaux and prime aged beef is the ultimate classic combination — tannins softened by time, cassis and cedar meeting the protein-rich char of perfectly cooked rib.", temp: '17–18 °C', glass: 'Large Bordeaux glass' },
+      { course: 'Cheese',    dish: 'Roquefort & Époisses', wine: 'Sauternes (aged)', grapeId: 'semillon', why: "Aged Sauternes with Roquefort is one of France's transcendent pairings — the wine's honey-botrytis intensity and acidity balance the cheese's salt and funk magnificently.", temp: '12–14 °C', glass: 'Small dessert wine glass' },
+      { course: 'Dessert',   dish: 'Dark chocolate fondant', wine: 'Vintage Port', grapeId: 'touriga-nacional', why: "Vintage Port and dark chocolate is a grand finale worthy of the occasion — the wine's concentrated dark fruit, violet perfume, and warming finish make the chocolate sing.", temp: '17–18 °C', glass: 'Port glass' },
+    ]
+  },
+  {
+    id: 'summer-garden',
+    name: 'Summer Garden Party',
+    occasion: 'Outdoor lunch, garden party, or summer gathering',
+    icon: '☀️',
+    theme: 'gold',
+    intro: 'Light, fresh, and sun-drenched — this menu pairs al fresco dishes with wines that celebrate the warmth of summer. Nothing heavy, nothing over-extracted, just brightness and joy.',
+    courses: [
+      { course: 'Arrival',   dish: 'Sparkling elderflower & charcuterie', wine: 'Crémant d\'Alsace Rosé', grapeId: 'pinot-noir', why: "Crémant's gentle bubbles and salmon-pink rosé freshness are the perfect outdoor aperitif — light enough for a warm afternoon, elegant enough to impress.", temp: '8–10 °C', glass: 'Flute' },
+      { course: 'Starter',   dish: 'Burrata with heirloom tomatoes & basil', wine: 'Vermentino di Sardegna', grapeId: 'vermentino', why: "Sardinian Vermentino's herbal, saline freshness and citrus zest mirror the bright tomatoes and basil while cutting through burrata's rich cream.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Fish',      dish: 'Grilled sea bass with fennel & lemon', wine: 'Sancerre (Sauvignon Blanc)', grapeId: 'sauvignon-blanc', why: "Sancerre's flint-mineral, citrus, and herbal freshness is a benchmark match for grilled sea bass — Loire wine for a dish built on freshness, lemon, and herbs.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Main',      dish: 'Herb-crusted rack of lamb', wine: 'Bandol Rosé', grapeId: 'grenache', why: "Provençal rosé — particularly Bandol's Mourvèdre-driven style — is structured enough for the herb crust while refreshing enough for a summer afternoon.", temp: '12–14 °C', glass: 'White wine glass' },
+      { course: 'Cheese',    dish: 'Selection of goat cheeses', wine: 'Pouilly-Fumé (Sauvignon Blanc)', grapeId: 'sauvignon-blanc', why: "Goat cheese and Pouilly-Fumé is France's most celebrated cheese pairing — grassy, flint-mineral Sauvignon Blanc mirrors the chalk freshness of the chèvre.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Dessert',   dish: 'Fresh strawberries with cream', wine: 'Brachetto d\'Acqui', grapeId: 'brachetto', why: "Brachetto d'Acqui — sparkling, rose-scented, gently sweet — is perhaps the world's most perfect match for fresh strawberries. This pairing is almost impossibly beautiful.", temp: '8–10 °C', glass: 'Flute or tulip' },
+    ]
+  },
+  {
+    id: 'asian-fusion',
+    name: 'Asian Fusion Journey',
+    occasion: 'Adventurous dinner party or tasting menu',
+    icon: '🌏',
+    theme: 'wine',
+    intro: 'Asian cuisines are complex, aromatic, and spice-forward — wine selection matters enormously. These pairings prove that European wines can be extraordinary with Asian food, when chosen with care.',
+    courses: [
+      { course: 'Amuse',    dish: 'Edamame with sea salt & sesame', wine: 'Dry Riesling Kabinett (Mosel)', grapeId: 'riesling', why: "A light, mineral Kabinett Riesling is an elegant start — low alcohol, high acidity, and a gentle floral delicacy that doesn't overwhelm the simple edamame.", temp: '8–10 °C', glass: 'White wine glass' },
+      { course: 'Starter',  dish: 'Sushi & sashimi platter', wine: 'Grüner Veltliner Smaragd', grapeId: 'gruner-veltliner', why: "Austrian Grüner Veltliner's white pepper, mineral freshness, and citrus make it one of the finest matches for high-quality sashimi — precision for precision.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Soup',     dish: 'Tom Yum with prawns', wine: 'Off-dry Riesling Spätlese', grapeId: 'riesling', why: "Off-dry Spätlese Riesling is the world's best wine with Thai spice — residual sugar tames the bird's eye chilli, while lemongrass resonates with the wine's aromatics.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Main',     dish: 'Peking Duck with pancakes & hoisin', wine: 'Alsace Pinot Gris (late harvest)', grapeId: 'pinot-gris', why: "Alsace Pinot Gris's stone-fruit richness and spice complement the lacquered duck and hoisin sauce — Alsace and Beijing united by aromatic, spiced richness.", temp: '12–14 °C', glass: 'White wine glass' },
+      { course: 'BBQ',      dish: 'Bulgogi & Galbi Korean BBQ', wine: 'Zinfandel (Dry Creek Valley)', grapeId: 'zinfandel', why: "Zinfandel's jammy, spiced dark fruit and high alcohol match the sweet-soy caramelisation of Korean BBQ — the most exuberant pairing of the evening.", temp: '16–18 °C', glass: 'Bordeaux glass' },
+      { course: 'Dessert',  dish: 'Mango sticky rice', wine: 'Gewürztraminer Vendange Tardive', grapeId: 'gewurztraminer', why: "Gewürztraminer's lychee, rose, and mango-ripeness create extraordinary resonance with mango sticky rice — the wine seems to have been born for this dessert.", temp: '10–12 °C', glass: 'Dessert wine glass' },
+    ]
+  },
+  {
+    id: 'winter-warming',
+    name: 'Winter Warming',
+    occasion: 'Cold-weather dinner or fireside gathering',
+    icon: '🪵',
+    theme: 'wine',
+    intro: 'Winter calls for wines of depth, weight, and warmth — wines made for slow cooking, rich sauces, and long evenings by the fire. This menu celebrates cold-weather comfort at its finest.',
+    courses: [
+      { course: 'Aperitif',  dish: 'Smoked almonds & aged Comté', wine: 'White Port (10-year Tawny-style)', grapeId: 'verdelho', why: "White Port's nutty, dried-fruit richness is an inspired winter aperitif — aged and complex enough to partner Comté's crystalline saltiness and smoked almonds.", temp: '10–12 °C', glass: 'Copita or white wine glass' },
+      { course: 'Starter',   dish: 'Velouté de champignons with truffle oil', wine: 'White Burgundy (Meursault)', grapeId: 'chardonnay', why: "Meursault's mushroom, butter, and hazelnut notes echo the cream and mushroom soup with uncanny resonance — the wine seems to have been made inside the pot.", temp: '13–15 °C', glass: 'Burgundy bowl' },
+      { course: 'Main',      dish: 'Braised venison with celeriac & juniper', wine: 'Cornas (Syrah)', grapeId: 'syrah', why: "Northern Rhône Syrah at its most structured — Cornas's dark berry, smoked meat, black olive, and inky depth are built for wild venison and winter root vegetables.", temp: '17–18 °C', glass: 'Bordeaux glass' },
+      { course: 'Side',      dish: 'Gratin dauphinois', wine: 'Crozes-Hermitage Blanc (Marsanne)', grapeId: 'marsanne', why: "White Rhône Marsanne — nutty, textured, and herbal — is poured alongside the gratin as the wine course. Aged Marsanne develops hazelnut notes that mirror the cream and Gruyère.", temp: '14–16 °C', glass: 'White wine glass' },
+      { course: 'Cheese',    dish: 'Jura selection: Comté, Morbier, Époisses', wine: 'Vin Jaune (Savagnin)', grapeId: 'savagnin', why: "Vin Jaune and Jura cheeses is the most hyperlocal pairing imaginable — the wine's walnut, curry, and oxidative depth perfectly mirrors the aged alpine cheeses.", temp: '14–16 °C', glass: 'White wine glass' },
+      { course: 'Dessert',   dish: 'Dark chocolate and walnut tart', wine: 'Pedro Ximénez Sherry', grapeId: 'pedro-ximenez', why: "PX Sherry — treacle-dark, dried-fruit intense, and almost viscous — is the most hedonistic pairing imaginable for a dark chocolate and walnut tart by the fireside.", temp: '14–16 °C', glass: 'Small dessert wine glass' },
+    ]
+  },
+  {
+    id: 'vegetarian-fine-dining',
+    name: 'Vegetarian Fine Dining',
+    occasion: 'Plant-forward dinner party or tasting menu',
+    icon: '🌿',
+    theme: 'gold',
+    intro: 'Vegetarian cuisine at its finest demands wines of precision, freshness, and aromatic complexity. This menu proves that plant-based cooking is among the most sophisticated in the world.',
+    courses: [
+      { course: 'Aperitif',  dish: 'Wild mushroom bruschetta', wine: 'Crémant d\'Alsace Blanc', grapeId: 'pinot-blanc', why: "Alsace Crémant's gentle mousse, apple freshness, and mineral depth are ideal with mushroom bruschetta — the wine doesn't compete with earthy umami.", temp: '8–10 °C', glass: 'Flute or tulip' },
+      { course: 'Starter',   dish: 'Burrata with beetroot & aged balsamic', wine: 'Soave Classico (Garganega)', grapeId: 'garganega', why: "Soave Classico's almond, citrus, and mineral character complement burrata's cream and the sweet-earthiness of beetroot without overwhelming either.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Soup',      dish: 'Asparagus velouté with lemon cream', wine: 'Grüner Veltliner Federspiel', grapeId: 'gruner-veltliner', why: "Grüner Veltliner is the world's greatest asparagus wine — white pepper, citrus, and grassy notes echo the asparagus with a precision that borders on magical.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Pasta',     dish: 'Porcini & black truffle tagliatelle', wine: 'White Burgundy (Puligny-Montrachet)', grapeId: 'chardonnay', why: "Premier Cru white Burgundy with truffle pasta is a luxury vegetarian pairing — the wine's hazelnut, mineral, and cream notes resonate with the porcini and truffle.", temp: '13–15 °C', glass: 'Burgundy bowl' },
+      { course: 'Main',      dish: 'Roasted celeriac with herb crust & jus', wine: 'Côte Rôtie (Syrah) or Pinot Noir (Vosne-Romanée)', grapeId: 'pinot-noir', why: "A great red Burgundy or Northern Rhône Syrah has the earthy depth and complexity to elevate roasted root vegetables — the wine adds the 'meat' the dish doesn't need.", temp: '16–18 °C', glass: 'Burgundy bowl' },
+      { course: 'Dessert',   dish: 'Lemon tart with raspberry coulis', wine: 'Vouvray Moelleux (Chenin Blanc)', grapeId: 'chenin-blanc', why: "Vouvray moelleux's honeyed apple and quince sweetness alongside a bright lemon tart is a Loire classic — sweetness and acidity in perfect, complementary tension.", temp: '10–12 °C', glass: 'Dessert wine glass' },
+    ]
+  },
+  {
+    id: 'coastal-feast',
+    name: 'Coastal Seafood Feast',
+    occasion: 'Seaside dinner or summer entertaining',
+    icon: '🌊',
+    theme: 'dark',
+    intro: 'A celebration of the sea — from oysters to lobster, each course is driven by ocean flavours. These wines share a saline, mineral character that echoes the waves.',
+    courses: [
+      { course: 'Opener',   dish: 'Oysters on ice with mignonette', wine: 'Muscadet Sèvre et Maine sur Lie', grapeId: 'melon-de-bourgogne', why: "Muscadet with oysters is one of France's most celebrated pairings — saline, biscuity, and almost briny, the wine is practically a mirror of the sea itself.", temp: '8–10 °C', glass: 'White wine glass' },
+      { course: 'Starter',  dish: 'Grilled octopus with smoked paprika', wine: 'Assyrtiko (Santorini)', grapeId: 'assyrtiko', why: "Santorini Assyrtiko's volcanic mineral intensity, high acidity, and saline character are a revelation with grilled octopus — Greek wine for a Greek coastal classic.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Pasta',    dish: 'Spaghetti alle vongole', wine: 'Vermentino di Sardegna', grapeId: 'vermentino', why: "Sardinian Vermentino's herbal, saline coastal character and citrus freshness alongside clam pasta is a Mediterranean pairing of pure, uncomplicated joy.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Fish',     dish: 'Whole baked sea bream with herbs & lemon', wine: 'Albariño (Rías Baixas)', grapeId: 'albarino', why: "Galician Albariño is grown in Europe's most seafood-productive region — Atlantic salinity, citrus zest, and stone-fruit precision are the natural match for any whole baked fish.", temp: '10–12 °C', glass: 'White wine glass' },
+      { course: 'Main',     dish: 'Lobster with beurre blanc & tarragon', wine: 'Meursault (Chardonnay)', grapeId: 'chardonnay', why: "White Burgundy and lobster is the prestige coastal pairing — Meursault's hazelnut cream and mineral depth match the sweetness of lobster and the richness of beurre blanc.", temp: '13–15 °C', glass: 'Burgundy bowl' },
+      { course: 'Dessert',  dish: 'Lemon posset with sea-salted shortbread', wine: 'Riesling Beerenauslese', grapeId: 'riesling', why: "German Beerenauslese Riesling's concentrated honey, apricot, and balancing acidity alongside a sharp lemon posset and salted butter shortbread is a sublime finale.", temp: '10–12 °C', glass: 'Small dessert wine glass' },
+    ]
+  },
+  {
+    id: 'hunters-table',
+    name: "The Hunter's Table",
+    occasion: 'Autumn dinner, game season, or rustic feast',
+    icon: '🦌',
+    theme: 'wine',
+    intro: "Autumn's game birds, venison, and wild mushrooms demand wines of equal wildness — earthy, tannic, and complex. This menu is a celebration of the season's most intense flavours.",
+    courses: [
+      { course: 'Aperitif',  dish: 'Wild boar terrine with pickled walnuts', wine: 'Châteauneuf-du-Pape Blanc', grapeId: 'grenache-blanc', why: "A white Châteauneuf's richness, spice, and body hold up to a robust game terrine — white wine with the structural weight of many reds.", temp: '13–15 °C', glass: 'White wine glass' },
+      { course: 'Starter',   dish: 'Roast partridge salad with autumn leaves', wine: 'Gevrey-Chambertin (Pinot Noir)', grapeId: 'pinot-noir', why: "Burgundy's most structured village — earthy, forest-floor, and dark cherry — mirrors the wild character of partridge and the autumn leaf bitterness.", temp: '16–17 °C', glass: 'Burgundy bowl' },
+      { course: 'Soup',      dish: 'Wild mushroom & chestnut soup', wine: 'Jura Chardonnay (aged on lees)', grapeId: 'chardonnay', why: "Aged Jura Chardonnay's oxidative, nutty, mushroom character resonates with the wild forest floor — the wine seems to have been made from the same earth.", temp: '13–15 °C', glass: 'White wine glass' },
+      { course: 'Main',      dish: 'Haunch of venison with blackberry & juniper', wine: 'Barolo (Serralunga d\'Alba)', grapeId: 'nebbiolo', why: "Serralunga Barolo's extreme tannin, tar, and rose petal character needs the wild protein of venison to relax and reveal its full, extraordinary depth.", temp: '17–18 °C', glass: 'Bordeaux glass' },
+      { course: 'Cheese',    dish: 'Stilton, Aged Cheddar, game pâté', wine: 'Vintage Port (15+ years)', grapeId: 'touriga-nacional', why: "Stilton and Vintage Port is Britain's most enduring cheese pairing — the wine's power, sweetness, and dark fruit counterpoint the cheese's salt and pungency.", temp: '17–18 °C', glass: 'Port glass' },
+      { course: 'Dessert',   dish: 'Damson plum tart with clotted cream', wine: 'Madeira Verdelho (10-year)', grapeId: 'verdelho', why: "Madeira's oxidative richness, dried fruit, and balancing acidity create a complex, warming finish — the wine's longevity and intensity equal the occasion.", temp: '16–18 °C', glass: 'Small dessert wine glass' },
+    ]
+  },
+];
+
 // ── Pairing UI ────────────────────────────────────────────────────────────
+
+// ── Wine Menus ────────────────────────────────────────────────────────────────
+function renderMenuGrid() {
+  const grid = document.getElementById('menu-grid');
+  const detail = document.getElementById('menu-detail');
+  detail.classList.remove('active');
+  detail.innerHTML = '';
+  grid.style.display = '';
+
+  const frag = document.createDocumentFragment();
+  WINE_MENUS.forEach(menu => {
+    const card = document.createElement('div');
+    card.className = 'menu-card';
+    card.setAttribute('tabindex', '0');
+    const courses = menu.courses.slice(0, 3).map(c => `${c.course}: ${escapeHtml(c.wine)}`).join(' · ');
+    card.innerHTML = `
+      <div class="menu-card-icon">${menu.icon}</div>
+      <div class="menu-card-name">${escapeHtml(menu.name)}</div>
+      <div class="menu-card-occasion">${escapeHtml(menu.occasion)}</div>
+      <div class="menu-card-preview">${escapeHtml(courses)}&hellip;</div>
+    `;
+    card.addEventListener('click', () => renderMenuDetail(menu.id));
+    card.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') renderMenuDetail(menu.id); });
+    frag.appendChild(card);
+  });
+  grid.innerHTML = '';
+  grid.appendChild(frag);
+}
+
+function renderMenuDetail(menuId) {
+  const menu = WINE_MENUS.find(m => m.id === menuId);
+  if (!menu) return;
+  const grid = document.getElementById('menu-grid');
+  const detail = document.getElementById('menu-detail');
+  grid.style.display = 'none';
+  detail.classList.add('active');
+
+  const coursesHtml = menu.courses.map(c => `
+    <div class="course-item">
+      <div class="course-label">${escapeHtml(c.course)}</div>
+      <div>
+        <div class="course-dish">${escapeHtml(c.dish)}</div>
+        <div class="course-wine">🍷 ${escapeHtml(c.wine)}</div>
+        <div class="course-why">${escapeHtml(c.why)}</div>
+        <div class="course-meta">
+          <span class="course-meta-tag">🌡 ${escapeHtml(c.temp)}</span>
+          <span class="course-meta-tag">🍷 ${escapeHtml(c.glass)}</span>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  detail.innerHTML = `
+    <button class="menu-detail-back" id="menu-back">← Back to menus</button>
+    <div class="menu-detail-header">
+      <div class="menu-detail-icon">${menu.icon}</div>
+      <div class="menu-detail-name">${escapeHtml(menu.name)}</div>
+      <div class="menu-detail-occasion">${escapeHtml(menu.occasion)}</div>
+      <p class="menu-detail-intro">${escapeHtml(menu.intro)}</p>
+    </div>
+    <div class="course-list">${coursesHtml}</div>
+  `;
+  document.getElementById('menu-back').addEventListener('click', renderMenuGrid);
+}
+
+// Pairing mode toggle
+document.getElementById('pm-dish').addEventListener('click', () => {
+  document.getElementById('pm-dish').classList.add('active');
+  document.getElementById('pm-dish').setAttribute('aria-selected','true');
+  document.getElementById('pm-menu').classList.remove('active');
+  document.getElementById('pm-menu').setAttribute('aria-selected','false');
+  document.getElementById('dish-mode').hidden = false;
+  document.getElementById('menu-mode').hidden = true;
+});
+document.getElementById('pm-menu').addEventListener('click', () => {
+  document.getElementById('pm-menu').classList.add('active');
+  document.getElementById('pm-menu').setAttribute('aria-selected','true');
+  document.getElementById('pm-dish').classList.remove('active');
+  document.getElementById('pm-dish').setAttribute('aria-selected','false');
+  document.getElementById('dish-mode').hidden = true;
+  document.getElementById('menu-mode').hidden = false;
+  renderMenuGrid();
+});
+
+
 let activeCategoryId = null;
 let activeDishId     = null;
 
