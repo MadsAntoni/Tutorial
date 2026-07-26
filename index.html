@@ -1703,7 +1703,132 @@
       padding: 0;
     }
 
-    /* ── Wine Menus ───────────────────────────────────────────────────────── */
+    /* ── Gift a Bottle ─────────────────────────────────────────────────────── */
+    #tab-gift .page-header { margin-bottom: 28px; }
+    .gift-quiz-steps {
+      display: flex; align-items: center; margin: 0 auto 32px;
+      max-width: 320px; justify-content: center;
+    }
+    .gift-step-dot {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid var(--border); display: flex;
+      align-items: center; justify-content: center;
+      font-size: .85rem; font-weight: 700; color: var(--muted);
+      background: var(--card-bg); transition: all .25s; flex-shrink: 0;
+    }
+    .gift-step-dot.active { border-color: var(--wine); color: var(--wine); background: color-mix(in srgb, var(--wine) 8%, var(--card-bg)); }
+    .gift-step-dot.done  { border-color: var(--wine); background: var(--wine); color: #fff; }
+    .gift-step-line { flex: 1; height: 2px; background: var(--border); max-width: 80px; }
+    .gift-step-title { text-align: center; font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0 0 24px; }
+    .gift-option-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px; max-width: 720px; margin: 0 auto;
+    }
+    .gift-option-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 5px;
+      padding: 18px 12px; background: var(--card-bg);
+      border: 2px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: border-color .2s, transform .15s, box-shadow .2s;
+      text-align: center;
+    }
+    .gift-option-btn:hover { border-color: var(--wine); transform: translateY(-2px); box-shadow: var(--shadow); }
+    .gift-option-icon  { font-size: 2rem; line-height: 1; }
+    .gift-option-label { font-weight: 700; font-size: .92rem; color: var(--text); }
+    .gift-option-price { font-size: .78rem; font-weight: 600; color: var(--wine); }
+    .gift-option-desc  { font-size: .76rem; color: var(--muted); line-height: 1.4; }
+    .gift-results-header { text-align: center; margin-bottom: 28px; }
+    .gift-results-title { font-size: 1.4rem; font-weight: 700; color: var(--text); margin: 0 0 6px; }
+    .gift-results-sub   { color: var(--muted); font-size: .9rem; margin: 0 0 16px; }
+    .gift-restart-btn {
+      background: none; border: 1.5px solid var(--border); border-radius: 20px;
+      padding: 6px 18px; font-size: .85rem; color: var(--muted); cursor: pointer;
+      transition: border-color .2s, color .2s;
+    }
+    .gift-restart-btn:hover { border-color: var(--wine); color: var(--wine); }
+    .gift-results-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px; margin-bottom: 48px;
+    }
+    .gift-result-card {
+      background: var(--card-bg); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 20px; position: relative;
+      transition: box-shadow .2s;
+    }
+    .gift-result-card.top-pick { border-color: var(--gold); box-shadow: 0 0 0 1px color-mix(in srgb, var(--gold) 30%, transparent); }
+    .gift-top-badge {
+      position: absolute; top: -1px; right: 14px;
+      background: var(--gold); color: #fff; font-size: .68rem; font-weight: 700;
+      padding: 3px 10px; border-radius: 0 0 8px 8px; letter-spacing: .05em; text-transform: uppercase;
+    }
+    .gift-result-style {
+      display: inline-block; font-size: .7rem; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .06em; padding: 2px 10px; border-radius: 12px; margin-bottom: 10px;
+    }
+    .gift-style-sparkling { background: color-mix(in srgb, #e8d5a3 40%, transparent); color: #7a5c00; }
+    .gift-style-red       { background: color-mix(in srgb, var(--wine) 15%, transparent); color: var(--wine-dk); }
+    .gift-style-white     { background: color-mix(in srgb, #b8d4a0 40%, transparent); color: #3a6020; }
+    .gift-style-sweet     { background: color-mix(in srgb, #e8c8e8 40%, transparent); color: #7a3a7a; }
+    .gift-style-fortified { background: color-mix(in srgb, #c8a080 40%, transparent); color: #6a3a10; }
+    .gift-result-name    { font-size: 1.05rem; font-weight: 700; color: var(--text); margin: 0 0 4px; }
+    .gift-result-grape   { font-size: .82rem; color: var(--muted); margin: 0 0 10px; }
+    .gift-result-note    { font-size: .88rem; color: var(--text); line-height: 1.55; margin: 0 0 10px; }
+    .gift-result-suggest { font-size: .82rem; color: var(--muted); line-height: 1.5; margin: 0; }
+    .gift-no-results { text-align: center; color: var(--muted); padding: 32px; }
+    .gift-guides-section, .gift-tips-section {
+      margin-top: 52px; padding-top: 32px; border-top: 1.5px solid var(--border);
+    }
+    .gift-section-heading { font-size: 1.2rem; font-weight: 700; color: var(--text); margin: 0 0 6px; }
+    .gift-section-sub { color: var(--muted); font-size: .88rem; margin: 0 0 20px; }
+    .gift-guides-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 12px; margin-bottom: 24px;
+    }
+    .gift-guide-card {
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      padding: 18px 12px; background: var(--card-bg);
+      border: 1.5px solid var(--border); border-radius: var(--radius);
+      cursor: pointer; transition: border-color .2s, box-shadow .2s; text-align: center;
+    }
+    .gift-guide-card:hover { border-color: var(--wine); box-shadow: var(--shadow); }
+    .gift-guide-icon  { font-size: 1.8rem; }
+    .gift-guide-title { font-size: .86rem; font-weight: 600; color: var(--text); }
+    .gift-guide-detail {
+      background: var(--card-bg); border: 1.5px solid var(--border);
+      border-radius: var(--radius); padding: 28px; margin-top: 12px;
+    }
+    .gift-guide-back {
+      background: none; border: none; color: var(--wine); cursor: pointer;
+      font-size: .85rem; padding: 0; margin-bottom: 18px; display: block;
+    }
+    .gift-guide-back:hover { text-decoration: underline; }
+    .gift-guide-detail-title { font-size: 1.18rem; font-weight: 700; color: var(--text); margin: 0 0 12px; }
+    .gift-guide-intro { font-size: .9rem; color: var(--text); line-height: 1.6; margin: 0 0 20px; }
+    .gift-guide-tips { list-style: none; padding: 0; margin: 0 0 24px; display: flex; flex-direction: column; gap: 10px; }
+    .gift-guide-tip  { display: flex; gap: 10px; font-size: .87rem; line-height: 1.5; color: var(--text); }
+    .tip-icon { flex-shrink: 0; font-weight: 700; }
+    .tip-do   .tip-icon { color: #3a8a30; }
+    .tip-dont .tip-icon { color: var(--wine); }
+    .gift-best-picks-title { font-size: .92rem; font-weight: 700; color: var(--text); margin: 0 0 10px; }
+    .gift-best-picks-list  { display: flex; flex-wrap: wrap; gap: 8px; }
+    .gift-best-pick-chip {
+      background: color-mix(in srgb, var(--wine) 8%, var(--card-bg));
+      border: 1px solid color-mix(in srgb, var(--wine) 20%, transparent);
+      color: var(--wine-dk); font-size: .78rem; font-weight: 600;
+      padding: 4px 12px; border-radius: 16px;
+    }
+    .gift-tips-list  { display: flex; flex-direction: column; gap: 16px; }
+    .gift-tip-item   { display: flex; gap: 14px; align-items: flex-start; }
+    .gift-tip-icon   { font-size: 1.4rem; flex-shrink: 0; }
+    .gift-tip-body   { flex: 1; }
+    .gift-tip-heading { font-size: .9rem; font-weight: 700; color: var(--text); display: block; margin-bottom: 3px; }
+    .gift-tip-text   { font-size: .85rem; color: var(--muted); line-height: 1.5; margin: 0; }
+    @media (max-width: 500px) {
+      .gift-option-grid { grid-template-columns: 1fr 1fr; }
+      .gift-results-grid { grid-template-columns: 1fr; }
+      .gift-guides-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+        /* ── Wine Menus ───────────────────────────────────────────────────────── */
     .pairing-mode-toggle {
       display: flex;
       border-radius: 8px;
@@ -1992,6 +2117,10 @@
   <button class="primary-btn" data-group="my-wines" aria-expanded="false">
     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14.5s-6-3.5-6-7.5a4 4 0 0 1 6-3.46A4 4 0 0 1 15 7c0 4-6 7.5-6 7.5z"/></svg>
     My Wines
+  </button>
+  <button class="primary-btn" data-group="gift" aria-expanded="false">
+    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="14" height="10" rx="1"/><path d="M5 7V5a3 3 0 0 1 6 0v2"/><path d="M9 7v10"/><path d="M2 11h14"/></svg>
+    Gift a Bottle
   </button>
 </nav>
 
@@ -4433,6 +4562,61 @@
   <div id="my-wines-grid" class="card-grid"></div>
 </section>
 
+<section id="tab-gift" class="tab-panel" role="tabpanel">
+  <div class="page-header">
+    <h2>Gift a Bottle</h2>
+    <p>Find the perfect wine to bring or give as a present</p>
+  </div>
+
+  <!-- 3-step quiz -->
+  <div id="gift-quiz">
+    <div class="gift-quiz-steps" id="gift-step-indicators">
+      <div class="gift-step-dot active" data-step="1">1</div>
+      <div class="gift-step-line"></div>
+      <div class="gift-step-dot" data-step="2">2</div>
+      <div class="gift-step-line"></div>
+      <div class="gift-step-dot" data-step="3">3</div>
+    </div>
+    <div class="gift-step" id="gift-step-1">
+      <h3 class="gift-step-title">What's the occasion?</h3>
+      <div class="gift-option-grid" id="gift-occasions-grid"></div>
+    </div>
+    <div class="gift-step" id="gift-step-2" hidden>
+      <h3 class="gift-step-title">Who is it for?</h3>
+      <div class="gift-option-grid" id="gift-recipients-grid"></div>
+    </div>
+    <div class="gift-step" id="gift-step-3" hidden>
+      <h3 class="gift-step-title">What's your budget?</h3>
+      <div class="gift-option-grid" id="gift-budgets-grid"></div>
+    </div>
+  </div>
+
+  <!-- Quiz results -->
+  <div id="gift-results" hidden>
+    <div class="gift-results-header">
+      <h3 class="gift-results-title">Our Recommendations</h3>
+      <p class="gift-results-sub" id="gift-results-context"></p>
+      <button class="gift-restart-btn" id="gift-restart-btn">Start over</button>
+    </div>
+    <div id="gift-results-grid" class="gift-results-grid"></div>
+  </div>
+
+  <!-- Occasion guides -->
+  <div class="gift-guides-section">
+    <h3 class="gift-section-heading">Occasion Guides</h3>
+    <p class="gift-section-sub">Detailed advice for specific gifting situations</p>
+    <div id="gift-guides-grid" class="gift-guides-grid"></div>
+    <div id="gift-guide-detail" class="gift-guide-detail" hidden></div>
+  </div>
+
+  <!-- Etiquette tips -->
+  <div class="gift-tips-section">
+    <h3 class="gift-section-heading">Wine Gifting Etiquette</h3>
+    <p class="gift-section-sub">Eight rules that separate a thoughtful gift from a forgettable one</p>
+    <div id="gift-tips-list" class="gift-tips-list"></div>
+  </div>
+</section>
+
 <!-- Modal -->
 <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="modal-grape-name">
   <div class="modal" id="modal">
@@ -4526,7 +4710,7 @@ function safeCssColor(val) {
 }
 
 const VALID_TYPES   = new Set(['red', 'white']);
-const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'faults', 'winemaking', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'glossary', 'finder', 'my-wines']);
+const VALID_TABS    = new Set(['explorer', 'pairing', 'tasting', 'ageing', 'faults', 'winemaking', 'regions', 'styles', 'labels', 'pairing-science', 'serving', 'vintages', 'glossary', 'finder', 'my-wines', 'gift']);
 const VALID_FILTERS = new Set(['all', 'red', 'white']);
 
 function debounce(fn, ms) {
@@ -9448,6 +9632,12 @@ document.querySelectorAll('.primary-btn').forEach(btn => {
       subnav.hidden = true;
       document.getElementById('tab-my-wines').classList.add('active');
       renderMyWines();
+    } else if (group === 'gift') {
+      subnav.hidden = true;
+      document.getElementById('tab-gift').classList.add('active');
+      renderGiftQuiz();
+      renderGiftGuides();
+      renderGiftTips();
     } else {
       subnav.hidden = false;
       const lastBtn = document.querySelector(`.tab-btn[data-tab="${lastLearnTab}"]`);
@@ -10363,6 +10553,69 @@ const PAIRINGS = {
 };
 
 
+// ── Gift a Bottle — data ─────────────────────────────────────────────────────
+
+const GIFT_OCCASIONS = [
+  { id: 'dinner-party', label: 'Dinner Party',   icon: '🍽️', desc: 'Bringing a bottle to someone\'s dinner' },
+  { id: 'birthday',     label: 'Birthday',       icon: '🎂', desc: 'A birthday gift for someone special' },
+  { id: 'anniversary',  label: 'Anniversary',    icon: '💕', desc: 'Romantic or milestone occasion' },
+  { id: 'business',     label: 'Business Gift',  icon: '💼', desc: 'Professional thank-you or client gift' },
+  { id: 'celebration',  label: 'Celebration',    icon: '🎉', desc: 'Promotion, new job, or big achievement' },
+  { id: 'housewarming', label: 'Housewarming',   icon: '🏡', desc: 'Moving into a new home' },
+  { id: 'christmas',    label: 'Christmas',      icon: '🎄', desc: 'Festive season gift' },
+];
+
+const GIFT_RECIPIENTS = [
+  { id: 'wine-lover', label: 'Wine Enthusiast', icon: '🍷', desc: 'They know their appellations from their grapes' },
+  { id: 'casual',     label: 'Casual Drinker',  icon: '😊', desc: 'They enjoy wine but aren\'t an expert' },
+  { id: 'unknown',    label: 'Not Sure',        icon: '🤷', desc: 'Play it safe — crowd-pleasers only' },
+];
+
+const GIFT_BUDGETS = [
+  { id: 'everyday', label: 'Budget-Friendly', price: 'Under €20', icon: '💚', desc: 'Thoughtful without breaking the bank' },
+  { id: 'mid',      label: 'Mid-Range',       price: '€20–50',   icon: '💛', desc: 'A proper gift bottle' },
+  { id: 'special',  label: 'Special Bottle',  price: '€50–100',  icon: '🧡', desc: 'For important occasions' },
+  { id: 'luxury',   label: 'Prestige',        price: '€100+',    icon: '❤️', desc: 'A truly memorable gift' },
+];
+
+const GIFT_GRAPES = [
+  { grapeId:'chardonnay',        giftName:'Champagne (Blanc de Blancs)', style:'sparkling', occasions:{'anniversary':5,'celebration':5,'birthday':5,'dinner-party':4,'business':4,'housewarming':4,'christmas':4}, recipients:{'wine-lover':4,'casual':5,'unknown':5}, budgets:['mid','special','luxury'], giftNote:'Champagne is the universally safe gift — elegant, celebratory, and impossible to misread. Blanc de Blancs (100% Chardonnay) is an especially impressive choice that shows you went beyond the obvious.', suggest:'Look for a grower Champagne or a known maison: Taittinger Comtes de Champagne, Pol Roger, or Bollinger.' },
+  { grapeId:'glera',             giftName:'Prosecco Superiore',          style:'sparkling', occasions:{'dinner-party':5,'birthday':4,'housewarming':5,'celebration':4,'christmas':4,'business':3,'anniversary':2}, recipients:{'wine-lover':2,'casual':5,'unknown':5}, budgets:['everyday','mid'], giftNote:'Prosecco is the crowd-pleasing sparkling — approachable, festive, and works as an aperitif at any gathering. Upgrade to a Superiore DOCG or Valdobbiadene Rive for more personality.', suggest:'Choose Prosecco Superiore DOCG over basic DOC. Nino Franco \'Rustico\' or Adami Garbèl are excellent mid-range options.' },
+  { grapeId:'pinot-noir',        giftName:'Pinot Noir',                  style:'red',       occasions:{'dinner-party':5,'anniversary':5,'birthday':5,'business':4,'christmas':4,'celebration':4,'housewarming':3}, recipients:{'wine-lover':5,'casual':4,'unknown':4}, budgets:['mid','special','luxury'], giftNote:'Pinot Noir is the "everyone secretly loves it" choice — silky, elegant, and food-friendly without being intimidating. A New Zealand or Oregon Pinot over-delivers at mid-range; Burgundy impresses wine lovers.', suggest:'Cloudy Bay or Meiomi for casual crowds. Gevrey-Chambertin or Willamette Valley for wine enthusiasts.' },
+  { grapeId:'nebbiolo',          giftName:'Barolo (Nebbiolo)',           style:'red',       occasions:{'anniversary':5,'birthday':5,'celebration':5,'business':4,'christmas':5,'dinner-party':3,'housewarming':4}, recipients:{'wine-lover':5,'casual':2,'unknown':2}, budgets:['special','luxury'], giftNote:'Barolo is "the King" — a wine that signals serious intent. Best for a wine lover or a truly important occasion. It needs years to open, so pair it with a note: "Save this for your next milestone."', suggest:'Producers: Giacomo Conterno, Vietti, Mascarello, or Ceretto. A village Barolo (around €40–60) is a serious gift.' },
+  { grapeId:'cabernet-sauvignon',giftName:'Cabernet Sauvignon',         style:'red',       occasions:{'business':5,'birthday':4,'celebration':4,'christmas':4,'dinner-party':4,'anniversary':3,'housewarming':3}, recipients:{'wine-lover':3,'casual':5,'unknown':5}, budgets:['mid','special','luxury'], giftNote:'Cabernet Sauvignon is the most recognized red grape in the world — it projects confidence and rarely disappoints. A Napa Valley or Coonawarra bottle at the right price point feels both generous and safe.', suggest:'Jordan or Louis M. Martini at mid-range. Stag\'s Leap or Ridge Monte Bello for a special gift.' },
+  { grapeId:'champagne',         giftName:'Champagne Rosé',             style:'sparkling', occasions:{'anniversary':5,'birthday':5,'celebration':5,'dinner-party':4,'christmas':4,'housewarming':3,'business':3}, recipients:{'wine-lover':4,'casual':5,'unknown':5}, budgets:['mid','special','luxury'], giftNote:'Rosé Champagne is Champagne with extra charm — the pink colour makes it feel romantic and festive. It\'s visually stunning as a gift and universally adored. A great choice when Champagne alone feels too ordinary.', suggest:'Billecart-Salmon Rosé, Laurent-Perrier Rosé, or Ruinart Rosé. All signal sophistication at different price points.' },
+  { grapeId:'sangiovese',        giftName:'Chianti Classico / Brunello', style:'red',       occasions:{'dinner-party':5,'birthday':4,'business':4,'christmas':4,'celebration':4,'housewarming':3,'anniversary':3}, recipients:{'wine-lover':5,'casual':3,'unknown':3}, budgets:['mid','special','luxury'], giftNote:'Italian wine has a romantic association that makes it an excellent gift. Chianti Classico Riserva is an impressive mid-range choice; Brunello di Montalcino at a higher budget is genuinely unforgettable.', suggest:'Antinori Chianti Classico Riserva or Felsina Berardenga for mid-range. Biondi-Santi or Poggio di Sotto Brunello for prestige.' },
+  { grapeId:'semillon',          giftName:'Sauternes (Semillon)',        style:'sweet',     occasions:{'anniversary':5,'christmas':5,'birthday':4,'celebration':4,'business':4,'dinner-party':3,'housewarming':3}, recipients:{'wine-lover':5,'casual':3,'unknown':3}, budgets:['mid','special','luxury'], giftNote:'Sauternes is the most misunderstood gift wine — people who haven\'t tried it are blown away. The golden bottle alone looks like a gift. Pair with a note: "Try this with a slice of foie gras, blue cheese, or just on its own."', suggest:'Château Guiraud or Château Rieussec for serious mid-range. Château d\'Yquem if the occasion is truly special.' },
+  { grapeId:'tempranillo',       giftName:'Rioja Reserva (Tempranillo)', style:'red',       occasions:{'dinner-party':5,'birthday':4,'business':4,'christmas':5,'celebration':4,'housewarming':4,'anniversary':3}, recipients:{'wine-lover':4,'casual':5,'unknown':5}, budgets:['everyday','mid','special'], giftNote:'A Rioja Reserva is one of the best value-for-money gift wines in the world — oak-aged, food-friendly, recognizable, and with impressive labels. Most people love it without knowing exactly why.', suggest:'La Rioja Alta Viña Ardanza or Bodegas Muga Reserva for excellent mid-range. Marqués de Murrieta Castillo Ygay for prestige.' },
+  { grapeId:'riesling',          giftName:'Riesling (Alsace or Mosel)',  style:'white',     occasions:{'dinner-party':5,'birthday':4,'business':3,'christmas':3,'housewarming':3,'celebration':3,'anniversary':3}, recipients:{'wine-lover':5,'casual':2,'unknown':2}, budgets:['everyday','mid','special'], giftNote:'Riesling is the sommelier\'s secret gift — they\'ll be excited, the wine will be extraordinary, and it\'s usually half the price of equivalent Burgundy. Best for a wine lover who appreciates the unconventional.', suggest:'Trimbach Clos Sainte Hune (Alsace) for a truly impressive gift. Egon Müller or J.J. Prüm from the Mosel for world-class quality.' },
+  { grapeId:'grenache',          giftName:'Châteauneuf-du-Pape (Grenache)', style:'red',    occasions:{'dinner-party':5,'christmas':5,'birthday':4,'celebration':4,'business':4,'anniversary':3,'housewarming':4}, recipients:{'wine-lover':5,'casual':3,'unknown':3}, budgets:['mid','special'], giftNote:'Châteauneuf-du-Pape carries one of wine\'s most famous names — the bottle alone (sometimes embossed with the papal crest) looks magnificent as a gift. A genuine conversation starter.', suggest:'Château Rayas or Château Beaucastel for prestige. Domaine du Vieux Télégraphe or Clos des Papes for impressive mid-range.' },
+  { grapeId:'touriga-nacional',  giftName:'Vintage Port (Touriga Nacional)', style:'fortified', occasions:{'christmas':5,'birthday':5,'anniversary':5,'celebration':5,'business':4,'dinner-party':3,'housewarming':4}, recipients:{'wine-lover':5,'casual':3,'unknown':3}, budgets:['mid','special','luxury'], giftNote:'A bottle of Vintage Port is a long-term gift — most will age for decades. The ideal "cellar bottle" for a new home, a milestone birthday (match the vintage to their birth year), or Christmas.', suggest:'Quinta do Crasto or Ramos Pinto LBV for mid-range. Fonseca or Graham\'s Vintage Port for a serious gift.' },
+  { grapeId:'barbera',           giftName:'Barbera d\'Asti Superiore',  style:'red',       occasions:{'dinner-party':5,'birthday':4,'housewarming':4,'christmas':3,'celebration':3,'business':3,'anniversary':3}, recipients:{'wine-lover':4,'casual':4,'unknown':3}, budgets:['everyday','mid'], giftNote:'Barbera is the "brilliant surprise" gift — nobody expects it to be this good. It\'s instantly loveable (dark fruit, bright acidity, no hard edges) and dramatically underpriced for what it delivers.', suggest:'La Spinetta Barbera d\'Asti "Ca\' di Pian" or Braida Montebruna. Both are impressive bottles at very approachable prices.' },
+  { grapeId:'zinfandel',         giftName:'Zinfandel (Old Vine)',        style:'red',       occasions:{'birthday':4,'celebration':4,'christmas':4,'dinner-party':3,'housewarming':4,'business':3,'anniversary':2}, recipients:{'wine-lover':3,'casual':5,'unknown':4}, budgets:['everyday','mid'], giftNote:'Old Vine Zinfandel is one of the most crowd-pleasing reds you can bring — jammy, generously fruited, and high in alcohol makes it instant party wine. Americans love it; Europeans find it a delicious novelty.', suggest:'Ridge Lytton Springs, Seghesio Family Vineyards, or Ravenswood "Teldeschi". All deliver enormously at fair prices.' },
+  { grapeId:'sauvignon-blanc',   giftName:'Sauvignon Blanc (Marlborough)', style:'white',  occasions:{'dinner-party':5,'housewarming':4,'birthday':3,'celebration':3,'business':3,'christmas':3,'anniversary':2}, recipients:{'wine-lover':2,'casual':5,'unknown':5}, budgets:['everyday','mid'], giftNote:'New Zealand Sauvignon Blanc is one of the most immediately recognizable and universally enjoyed white wines in the world. It\'s fresh, crowd-pleasing, and a dependable dinner-party contribution.', suggest:'Cloudy Bay is the famous choice. For more personality: Dog Point Vineyard or Greywacke. All are impressive and approachable.' },
+  { grapeId:'syrah',             giftName:'Northern Rhône Syrah',        style:'red',       occasions:{'dinner-party':4,'birthday':4,'christmas':5,'celebration':4,'business':3,'anniversary':4,'housewarming':3}, recipients:{'wine-lover':5,'casual':2,'unknown':2}, budgets:['mid','special'], giftNote:'Northern Rhône Syrah is a wine connoisseur\'s gift — smoky, meaty, peppery, and deeply complex. A Crozes-Hermitage or Saint-Joseph delivers world-class quality at a fraction of a famous Hermitage label.', suggest:'E. Guigal Crozes-Hermitage or Domaine Combier. For a splash: Chapoutier or Jean-Louis Chave Saint-Joseph.' },
+];
+
+const GIFT_GUIDES = [
+  { id:'dinner-party', icon:'🍽️', title:'Bringing to a Dinner Party', intro:'The dinner-party bottle has a particular etiquette: your host may not open it tonight, and it will be seen by other guests. Choose something that looks thoughtful without being showy.', tips:[ {icon:'✓',text:'Bring something the host can open with their food — a food-friendly red (Pinot Noir, Chianti) or a versatile white (Sauvignon Blanc, Riesling).'},{icon:'✓',text:'If you don\'t know the menu, a good Champagne or sparkling wine can serve as the aperitif and is always welcome.'},{icon:'✓',text:'Spend more than you\'d spend on flowers but less than you\'d feel awkward about — €20–40 is the sweet spot for most occasions.'},{icon:'✗',text:'Don\'t bring a very tannic, age-worthy red and expect them to open it. It can feel like a directive to the host.'},{icon:'✗',text:'Avoid very unusual or avant-garde wines unless you know your host well — an orange wine for a casual dinner can puzzle more than delight.'} ], bestPicks:['pinot-noir','chardonnay','sauvignon-blanc','glera'] },
+  { id:'anniversary',  icon:'💕', title:'The Romantic Anniversary Bottle', intro:'An anniversary wine should feel special, sensual, and a little extravagant. Think: bottles that look beautiful, pour with ceremony, and make the evening feel significant.', tips:[ {icon:'✓',text:'Champagne Rosé is the definitive romantic wine gift — pink, elegant, and unmistakably celebratory. It\'s nearly impossible to go wrong.'},{icon:'✓',text:'If they love red wine, a bottle of Barolo or Brunello with a note "to open on your next anniversary" is a genuinely touching gift.'},{icon:'✓',text:'Sauternes in its golden bottle is a beautiful, unusual choice — accompany it with a small piece of Roquefort or a chocolate.'},{icon:'✗',text:'Don\'t bring something too everyday — a mid-range Pinot Grigio signals habit, not intention.'},{icon:'✗',text:'Avoid very tannic young wines that need years to open — save those for milestone birthdays.'} ], bestPicks:['champagne','pinot-noir','nebbiolo','semillon'] },
+  { id:'business',     icon:'💼', title:'The Professional Gift', intro:'A business wine gift needs to be universally appealing, impressive without being ostentatious, and culturally sensitive. The goal is warm appreciation, not a conversation about wine.', tips:[ {icon:'✓',text:'Classic regions speak clearly: Burgundy, Bordeaux, Barossa Valley, Napa. The name carries weight even for non-experts.'},{icon:'✓',text:'A prestigious-looking bottle with a famous label works well for clients who aren\'t wine lovers.'},{icon:'✓',text:'A premium sparkling wine (Champagne, good Crémant) is the safest professional gift — celebratory and inoffensive.'},{icon:'✗',text:'Avoid very unusual or regional grapes — it can look like you\'re testing the recipient rather than thanking them.'},{icon:'✗',text:'Be culturally aware — some recipients don\'t drink alcohol for religious or personal reasons. A non-alcoholic alternative may be appropriate.'} ], bestPicks:['cabernet-sauvignon','chardonnay','champagne','tempranillo'] },
+  { id:'housewarming', icon:'🏡', title:'The Housewarming Bottle', intro:'A housewarming wine can be two things: something to crack open that evening in celebration, or a "cellar bottle" to mark the occasion and age in the new home. Both are thoughtful gestures.', tips:[ {icon:'✓',text:'"Open tonight" pick: Champagne or Prosecco is perfect — immediately festive and requires no decanting or deliberation.'},{icon:'✓',text:'"Age with the house" pick: A Vintage Port, young Barolo, or Bordeaux with a note: "Open this in 10 years in your new kitchen." Deeply memorable.'},{icon:'✓',text:'Match the vintage to a meaningful year — the year they moved in, or the year they met.'},{icon:'✗',text:'Don\'t bring something that needs immediate refrigeration unless you know the circumstances.'} ], bestPicks:['glera','touriga-nacional','nebbiolo','cabernet-sauvignon'] },
+  { id:'christmas',    icon:'🎄', title:'The Christmas Gift Bottle', intro:'Christmas calls for warmth, richness, and festivity. The best gift wines for this season tend toward the rich and generous — big reds, fortified wines, sparkling, or something with a beautiful label.', tips:[ {icon:'✓',text:'Vintage Port is the quintessential Christmas bottle — rich, warming, with a label that looks like a gift. It ages for decades, making it a long-term present.'},{icon:'✓',text:'A bottle of Champagne or Cava in a gift box is always welcome — festive, celebratory, and usable on Christmas Day itself.'},{icon:'✓',text:'Rich reds (Amarone, Rioja Gran Reserva, Châteauneuf-du-Pape) suit the season\'s food and warmth perfectly.'},{icon:'✗',text:'Avoid delicate, light wines (Vinho Verde, light Pinot Gris) — they feel wrong against the season\'s rich food and cold weather.'} ], bestPicks:['touriga-nacional','chardonnay','tempranillo','grenache'] },
+];
+
+const GIFT_TIPS = [
+  { icon:'🎁', heading:'The card matters as much as the bottle', body:'Write a short note explaining your choice — "I picked this because it\'s from the same region we visited" or "this is meant to open on your birthday next year" turns a bottle into a story.' },
+  { icon:'🌡️', heading:'Don\'t arrive with a warm bottle', body:'If you\'re bringing white, sparkling, or rosé, put it in the fridge the night before or use an insulated bag. A warm Champagne is a minor but noticeable misstep.' },
+  { icon:'💬', heading:'Say something about the bottle', body:'You don\'t need to lecture — a single sentence is enough: "This is a Portuguese red I\'ve been obsessed with" or "Heard this producer is brilliant." It shows intention.' },
+  { icon:'📦', heading:'Presentation matters', body:'A tissue-wrapped bottle in a simple bag is fine. A bottle in a wooden box, or with a pair of wine glasses, feels significantly more considered. The packaging signals the occasion.' },
+  { icon:'🔓', heading:'Don\'t expect the host to open it', body:'At a dinner party, your host may already have the evening planned with specific wines. Don\'t hint that they should open your bottle — let them decide. Some of the best gifts are saved and savoured later.' },
+  { icon:'🍾', heading:'When in doubt, go sparkling', body:'If you genuinely don\'t know the person\'s taste, a good Champagne, Crémant, or quality Cava is the safe harbour. Sparkling wine is universally understood as a gesture of celebration.' },
+  { icon:'🎂', heading:'Match the vintage to the year', body:'For milestone birthdays, find a bottle from the year they were born (or the decade, at least). Port and Bordeaux are the best bets — they\'re the most likely to have aged well from the 1960s–90s.' },
+  { icon:'💰', heading:'The right budget by occasion', body:'Dinner party: €20–35 is generous without being awkward. Birthday/Anniversary: €35–70 signals real intent. Business gift: €40–80. For a truly significant occasion, don\'t hold back.' },
+];
+
 // ── Curated Wine Menus ───────────────────────────────────────────────────────
 const WINE_MENUS = [
   {
@@ -10699,6 +10952,160 @@ function renderPairings(dishId, dishName) {
   });
 
   container.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+// ── Gift a Bottle ─────────────────────────────────────────────────────────────
+const giftState = { occasion: null, recipient: null, budget: null };
+
+function updateGiftStepDots(active) {
+  document.querySelectorAll('.gift-step-dot').forEach(dot => {
+    const step = parseInt(dot.dataset.step);
+    dot.classList.toggle('active', step === active);
+    dot.classList.toggle('done', step < active);
+  });
+}
+
+function renderGiftQuiz() {
+  const occGrid = document.getElementById('gift-occasions-grid');
+  occGrid.innerHTML = '';
+  GIFT_OCCASIONS.forEach(occ => {
+    const btn = document.createElement('button');
+    btn.className = 'gift-option-btn';
+    btn.innerHTML = `<span class="gift-option-icon">${occ.icon}</span><span class="gift-option-label">${escapeHtml(occ.label)}</span><span class="gift-option-desc">${escapeHtml(occ.desc)}</span>`;
+    btn.addEventListener('click', () => {
+      giftState.occasion = occ.id;
+      document.getElementById('gift-step-1').hidden = true;
+      document.getElementById('gift-step-2').hidden = false;
+      updateGiftStepDots(2);
+    });
+    occGrid.appendChild(btn);
+  });
+
+  const recGrid = document.getElementById('gift-recipients-grid');
+  recGrid.innerHTML = '';
+  GIFT_RECIPIENTS.forEach(rec => {
+    const btn = document.createElement('button');
+    btn.className = 'gift-option-btn';
+    btn.innerHTML = `<span class="gift-option-icon">${rec.icon}</span><span class="gift-option-label">${escapeHtml(rec.label)}</span><span class="gift-option-desc">${escapeHtml(rec.desc)}</span>`;
+    btn.addEventListener('click', () => {
+      giftState.recipient = rec.id;
+      document.getElementById('gift-step-2').hidden = true;
+      document.getElementById('gift-step-3').hidden = false;
+      updateGiftStepDots(3);
+    });
+    recGrid.appendChild(btn);
+  });
+
+  const budGrid = document.getElementById('gift-budgets-grid');
+  budGrid.innerHTML = '';
+  GIFT_BUDGETS.forEach(bud => {
+    const btn = document.createElement('button');
+    btn.className = 'gift-option-btn';
+    btn.innerHTML = `<span class="gift-option-icon">${bud.icon}</span><span class="gift-option-label">${escapeHtml(bud.label)}</span><span class="gift-option-price">${escapeHtml(bud.price)}</span><span class="gift-option-desc">${escapeHtml(bud.desc)}</span>`;
+    btn.addEventListener('click', () => {
+      giftState.budget = bud.id;
+      showGiftResults();
+    });
+    budGrid.appendChild(btn);
+  });
+}
+
+function scoreGiftGrapes() {
+  const { occasion, recipient, budget } = giftState;
+  return GIFT_GRAPES
+    .filter(g => g.budgets.includes(budget))
+    .map(g => ({ ...g, score: (g.occasions[occasion] || 0) * 2 + (g.recipients[recipient] || 0) }))
+    .filter(g => g.score > 0)
+    .sort((a, b) => b.score - a.score)
+    .slice(0, 4);
+}
+
+function showGiftResults() {
+  document.getElementById('gift-quiz').hidden = true;
+  document.getElementById('gift-results').hidden = false;
+  const occ = GIFT_OCCASIONS.find(o => o.id === giftState.occasion);
+  const rec = GIFT_RECIPIENTS.find(r => r.id === giftState.recipient);
+  const bud = GIFT_BUDGETS.find(b => b.id === giftState.budget);
+  document.getElementById('gift-results-context').textContent =
+    [occ && occ.label, rec && rec.label, bud && bud.price].filter(Boolean).join(' · ');
+  const grid = document.getElementById('gift-results-grid');
+  grid.innerHTML = '';
+  const picks = scoreGiftGrapes();
+  if (!picks.length) {
+    grid.innerHTML = '<p class="gift-no-results">No perfect match found — try a different budget or occasion.</p>';
+    return;
+  }
+  picks.forEach((pick, i) => {
+    const grape = GRAPES.find(g => g.id === pick.grapeId);
+    const card = document.createElement('div');
+    card.className = 'gift-result-card' + (i === 0 ? ' top-pick' : '');
+    card.innerHTML =
+      (i === 0 ? '<div class="gift-top-badge">Top Pick</div>' : '') +
+      `<div class="gift-result-style gift-style-${escapeHtml(pick.style)}">${escapeHtml(pick.style)}</div>` +
+      `<h4 class="gift-result-name">${escapeHtml(pick.giftName)}</h4>` +
+      (grape ? `<p class="gift-result-grape">${escapeHtml(grape.name)}</p>` : '') +
+      `<p class="gift-result-note">${escapeHtml(pick.giftNote)}</p>` +
+      `<p class="gift-result-suggest"><strong>What to buy:</strong> ${escapeHtml(pick.suggest)}</p>`;
+    grid.appendChild(card);
+  });
+  document.getElementById('gift-results').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+document.getElementById('gift-restart-btn').addEventListener('click', () => {
+  giftState.occasion = null; giftState.recipient = null; giftState.budget = null;
+  document.getElementById('gift-results').hidden = true;
+  document.getElementById('gift-quiz').hidden = false;
+  document.getElementById('gift-step-1').hidden = false;
+  document.getElementById('gift-step-2').hidden = true;
+  document.getElementById('gift-step-3').hidden = true;
+  updateGiftStepDots(1);
+});
+
+function renderGiftGuides() {
+  const grid = document.getElementById('gift-guides-grid');
+  if (!grid || grid.children.length) return;
+  GIFT_GUIDES.forEach(guide => {
+    const card = document.createElement('button');
+    card.className = 'gift-guide-card';
+    card.innerHTML = `<span class="gift-guide-icon">${guide.icon}</span><span class="gift-guide-title">${escapeHtml(guide.title)}</span>`;
+    card.addEventListener('click', () => renderGiftGuideDetail(guide.id));
+    grid.appendChild(card);
+  });
+}
+
+function renderGiftGuideDetail(id) {
+  const guide = GIFT_GUIDES.find(g => g.id === id);
+  if (!guide) return;
+  const detail = document.getElementById('gift-guide-detail');
+  detail.hidden = false;
+  detail.innerHTML =
+    '<button class="gift-guide-back" id="gift-guide-back">← Back to guides</button>' +
+    `<h3 class="gift-guide-detail-title">${guide.icon} ${escapeHtml(guide.title)}</h3>` +
+    `<p class="gift-guide-intro">${escapeHtml(guide.intro)}</p>` +
+    '<ul class="gift-guide-tips">' +
+    guide.tips.map(t => `<li class="gift-guide-tip ${t.icon === '✓' ? 'tip-do' : 'tip-dont'}"><span class="tip-icon">${escapeHtml(t.icon)}</span><span>${escapeHtml(t.text)}</span></li>`).join('') +
+    '</ul>' +
+    '<div class="gift-best-picks"><h4 class="gift-best-picks-title">Best Picks for This Occasion</h4><div class="gift-best-picks-list">' +
+    guide.bestPicks.map(gid => { const gg = GIFT_GRAPES.find(g => g.grapeId === gid); return gg ? `<div class="gift-best-pick-chip">${escapeHtml(gg.giftName)}</div>` : ''; }).join('') +
+    '</div></div>';
+  document.getElementById('gift-guide-back').addEventListener('click', () => {
+    detail.hidden = true;
+    document.getElementById('gift-guides-grid').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  });
+  detail.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function renderGiftTips() {
+  const list = document.getElementById('gift-tips-list');
+  if (!list || list.children.length) return;
+  GIFT_TIPS.forEach(tip => {
+    const item = document.createElement('div');
+    item.className = 'gift-tip-item';
+    item.innerHTML =
+      `<span class="gift-tip-icon">${tip.icon}</span>` +
+      `<div class="gift-tip-body"><strong class="gift-tip-heading">${escapeHtml(tip.heading)}</strong><p class="gift-tip-text">${escapeHtml(tip.body)}</p></div>`;
+    list.appendChild(item);
+  });
 }
 
 // ── Five S's accordion ───────────────────────────────────────────────────
